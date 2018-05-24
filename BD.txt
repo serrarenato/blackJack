@@ -1,0 +1,20 @@
+Email,Nome,Senha
+a@a.com,teste,123
+adalberto@teste.com,adalberto,123
+aula1@teste.com,aula 1,123
+dani@teste.com,dani,123
+fulano@fulano.com,fulano,123
+jaj@teste.com,jajaja,1234
+lalal@teste.com,lalal,123
+lalal@teste.com.br,lalal,123
+lalal@to1.com,lalall,123
+lipemanzoli@gmail.com,felipe,f1f2f3
+ll@teste.com,lll,123
+melinmiguel@gmail.com,leonardo,a1a2a3
+ru@teste.com,rulian,123
+teste@lala.com,lalalalalala,123
+teste@teste.com,teste,123
+teste2@teste2.com,teste2,1234
+teste3@teste3.com,teste,1234
+tst@teste.com,ttt,123
+xxx@gmail.com,123oliveira4,Lipe
