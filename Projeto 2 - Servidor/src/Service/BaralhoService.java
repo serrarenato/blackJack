@@ -4,10 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import Entity.Baralho;
-import Entity.Carta;
-import Entity.Naipe;
-import Entity.Numero;
+import entity.Baralho;
+import entity.Carta;
+import entity.Naipe;
+import entity.Numero;
 
 public class BaralhoService {
 

@@ -1,11 +1,12 @@
 package cliente;
 
-import bd.daos.UsuarioDAO;
-import bd.dbos.Usuario;
-import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+
+import Service.UsuarioService;
+import bd.daos.UsuarioDAO;
+import bd.dbos.Usuario;
 
 /**
  * Classe para tratar os threads dos clientes.
@@ -18,11 +19,12 @@ public class Cliente implements Runnable {
 	private Socket socket = null;
 	private ObjectInputStream receptor = null; // Receptor
 	private ObjectOutputStream transmissor = null; // Transmissor
+	private UsuarioService usuarioService = new UsuarioService();;
 
 	public Cliente(Socket socket) throws Exception {
 
 		if (socket == null)
-			throw new Exception("Erro! Insira um parâmetro válido no construtor do cliente!");
+			throw new Exception("Erro! Insira um parï¿½metro vï¿½lido no construtor do cliente!");
 
 		this.socket = socket;
 
@@ -74,6 +76,9 @@ public class Cliente implements Runnable {
 				} catch (Exception erro2) {
 				}
 			}
+		} else if (usuario.getMsg().equals("LIST")) {
+			usuarioService.enviaListaPartidas(transmissor);
+			
 		} else {
 
 			try {

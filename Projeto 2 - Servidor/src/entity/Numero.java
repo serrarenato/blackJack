@@ -1,4 +1,4 @@
-package Entity;
+package entity;
 
 public enum Numero {
 	AS(1),
