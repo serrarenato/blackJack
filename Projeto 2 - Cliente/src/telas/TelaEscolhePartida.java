@@ -5,12 +5,25 @@
  */
 package telas;
 
+import javax.swing.JFrame;
+
 /**
  *
  * @author melin
  */
 public class TelaEscolhePartida extends javax.swing.JFrame {
 
+	
+    
+    // ATRIBUTOS DE JANELA CADASTRO
+    private JFrame escolherPartida; // ou 'fecha'
+    
+    // CONSTRUTOR
+    public TelaEscolhePartida(JFrame escolherPartida) {
+        this.escolherPartida = escolherPartida;
+        initComponents();
+    }
+    
     /**
      * Creates new form TelaEscolhePartida
      */

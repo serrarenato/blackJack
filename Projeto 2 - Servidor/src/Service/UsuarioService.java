@@ -21,6 +21,7 @@ public class UsuarioService {
 				transmissor.writeObject(key);
 				transmissor.writeObject(partidas.get(key).getStatus());				
 			}
+			transmissor.writeObject(new String("EOF"));
 			
 		} catch (IOException e) {
 			e.printStackTrace();

@@ -3,7 +3,7 @@ package bd;
 import bd.core.*;
 import bd.daos.*;
 /**
- * Esta classe realiza a conexão com o servidor, utilizando o login fornecido pelo professor.
+ * Esta classe realiza a conexï¿½o com o servidor, utilizando o login fornecido pelo professor.
  * @author Felipe
  */
 public class BD
@@ -18,11 +18,17 @@ public class BD
 
     	try
         {
-            comando =
-            new MeuPreparedStatement (
-            "com.microsoft.sqlserver.jdbc.SQLServerDriver",
-            "jdbc:sqlserver://fs5:1433;databasename=poo201845",
-            "poo201845", "Jnhzi7");
+//            comando =
+//            new MeuPreparedStatement (
+//            "com.microsoft.sqlserver.jdbc.SQLServerDriver",
+//            "jdbc:sqlserver://fs5:1433;databasename=poo201845",
+//            "poo201845", "Jnhzi7");
+            
+    	    comando =
+    	            new MeuPreparedStatement (
+    	            "com.microsoft.sqlserver.jdbc.SQLServerDriver",
+    	            "jdbc:sqlserver://localhost:1433;databasename=poo201845",
+    	            "sa", "12345ppP_");
 
             usuarios = new UsuarioDAO ();
         }

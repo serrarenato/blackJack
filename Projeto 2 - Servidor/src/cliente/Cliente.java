@@ -44,6 +44,8 @@ public class Cliente implements Runnable {
 		try {
 			usuario = (Usuario) receptor.readObject();
 		} catch (Exception e) {
+			System.out.println("Erro ao converter receptor");
+			return;
 		}
 
 		if (usuario.getMsg().equals("CAD")) {
@@ -63,7 +65,7 @@ public class Cliente implements Runnable {
 		} else if (usuario.getMsg().equals("LOG")) {
 
 			try {
-				boolean existe = dao.getUsuarioESenha(usuario.getEmail(), usuario.getSenha());
+				boolean existe = true;//dao.getUsuarioESenha(usuario.getEmail(), usuario.getSenha());
 
 				if (existe)
 					transmissor.writeObject(new String("SUC"));

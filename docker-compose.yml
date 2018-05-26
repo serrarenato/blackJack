@@ -1,0 +1,17 @@
+version: '2'
+services:
+  sqlserver:
+    image: microsoft/mssql-server-linux:2017-latest
+    hostname: 'sqlserver'
+    environment:
+      ACCEPT_EULA: Y
+      MSSQL_SA_PASSWORD: 12345ppP_
+      MSSQL_PID: Developer
+    ports:
+      - '1433:1433'
+    volumes:
+      - ms-sqlserver-data:/var/opt/mssql
+  
+volumes:
+  ms-sqlserver-data:
+    driver: local

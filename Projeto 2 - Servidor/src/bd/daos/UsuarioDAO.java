@@ -13,7 +13,7 @@ import bd.dbos.*;
 public class UsuarioDAO
 {
     /**
-     * Manipula o cadastro, atualização de dados, exclusão de dados atraves de dados recolhidos.
+     * Manipula o cadastro, atualizaï¿½ï¿½o de dados, exclusï¿½o de dados atraves de dados recolhidos.
      * @param email
      * @author Felipe
      * @throws Exception 
@@ -72,6 +72,7 @@ public class UsuarioDAO
         }
         catch (SQLException erro)
         {
+        	System.out.println(erro);
             throw new Exception ("Erro ao inserir usuario.");
         }
     }

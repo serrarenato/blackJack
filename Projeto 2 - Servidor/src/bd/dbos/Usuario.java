@@ -1,7 +1,9 @@
 package bd.dbos;
 
 import java.io.Serializable;
-import java.util.Date;
+
+import javax.swing.JPasswordField;
+import javax.swing.JTextField;
 
 
 /**
@@ -16,37 +18,19 @@ public class Usuario implements Serializable
     private String nome;
     private String senha;
     private String msg;
-    private Double dinheiro;
-    private Date dataQuePerdeu;
 
-    public Date getDataQuePerdeu() {
-		return dataQuePerdeu;
-	}
-
-	public void setDataQuePerdeu(Date dataQuePerdeu) {
-		this.dataQuePerdeu = dataQuePerdeu;
-	}
-
-	public Double getDinheiro() {
-		return dinheiro;
-	}
-
-	public void setDinheiro(Double dinheiro) {
-		this.dinheiro = dinheiro;
-	}
-
-	/**
+    /**
      * Construtor da entidade Usuario para LOGIN.
      * @param email
      * @param senha
-     * @param msg para dizer o protocolo de solicitaï¿½ï¿½o
+     * @param msg para dizer o protocolo de solicitação
      * @throws Exception
      */
     
     public Usuario(String email, String senha, String msg) throws Exception {
     	
     	if (email.isEmpty() || senha.isEmpty() || msg.isEmpty())
-    		throw new Exception("Erro! Construtor com parï¿½metro(s) nulo(s)!");
+    		throw new Exception("Erro! Construtor com parâmetro(s) nulo(s)!");
     	
         this.email = email;
         this.senha = senha;
@@ -59,13 +43,13 @@ public class Usuario implements Serializable
      * @param nome
      * @param email
      * @param senha
-     * @param msg para dizer o protocolo de solicitaï¿½ï¿½o
+     * @param msg para dizer o protocolo de solicitação
      * @throws Exception
      */
     public Usuario(String nome, String email, String senha, String msg) throws Exception {
         
     	if (nome.isEmpty() || email.isEmpty() || senha.isEmpty() || msg.isEmpty())
-    		throw new Exception("Erro! Construtor com parï¿½metro(s) nulo(s)!");
+    		throw new Exception("Erro! Construtor com parâmetro(s) nulo(s)!");
     	
     	this.nome = nome;
         this.email = email;
