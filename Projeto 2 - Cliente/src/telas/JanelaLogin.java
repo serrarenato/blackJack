@@ -149,6 +149,19 @@ public class JanelaLogin extends javax.swing.JPanel {
 					janelaEscolherPartida.pack();
 					janelaEscolherPartida.setLocationRelativeTo(escolherPartida);
 					janelaEscolherPartida.setVisible(true);
+					
+					JFrame janelacadastro = new JFrame("Cadastro");
+					JanelaCadastro cadastro = new JanelaCadastro(janelacadastro);
+
+					janelacadastro.add(cadastro);
+					janelacadastro.pack();
+					janelacadastro.setLocationRelativeTo(cadastro);
+					janelacadastro.setVisible(true);
+					this.fecha.dispose(); // Fechando a view antiga (janela de Login)
+					
+					
+					
+					
 					this.fecha.dispose(); // Fechando a view antiga (janela de Login)
 				} else {
 					JOptionPane.showMessageDialog(null, "Erro! E-mail ou senha incorreto(s)!");
@@ -157,6 +170,7 @@ public class JanelaLogin extends javax.swing.JPanel {
 
 		} catch (Exception erro) {
 			System.err.println(erro);
+			erro.printStackTrace();
 		}
 	}// GEN-LAST:event_btnEntrarActionPerformed
 

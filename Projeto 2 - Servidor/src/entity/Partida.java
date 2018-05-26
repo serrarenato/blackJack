@@ -4,7 +4,10 @@ import java.util.List;
 
 import bd.dbos.Usuario;
 
+
 public class Partida {
+	final String INICIADA =  "iniciada";
+	final String NAO_INICIADA =  "jogando";
 
 	private int numeroBaralhos;
 	private List<Usuario> listUsuarios;
@@ -26,6 +29,8 @@ public class Partida {
 		this.nome = nome;
 		this.numeroJogada=1;
 		this.numeroBaralhos=1;
+		this.status=NAO_INICIADA;
+		this.numeroJogada=1;
 	}
 
 	public int getNumeroJogada() {
