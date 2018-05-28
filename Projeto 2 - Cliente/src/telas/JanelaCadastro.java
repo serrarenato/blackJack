@@ -174,7 +174,7 @@ public class JanelaCadastro extends javax.swing.JPanel {
 					//Usuario usuario = new Usuario(txtNome.getText(), txtEmail.getText(), txtSenha.getText(), "CAD");
 					//Solicitacao solicitacao = new Solicitacao(usuario);
 					Mensagem mensagem = new Mensagem("CAD",txtNome.getText()+DIVISOR+txtEmail.getText()+DIVISOR+txtSenha.getText());
-					clienteSocket.enviarMensagem(mensagem);
+					clienteSocket.enviaDados(mensagem);
 				
 					clienteSocket.waitMessagem();
 					Mensagem retorno = clienteSocket.getMessagem();

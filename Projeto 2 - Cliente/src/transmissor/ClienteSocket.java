@@ -1,11 +1,8 @@
 package transmissor;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.io.PrintWriter;
 import java.net.Socket;
 
 import bd.dbos.Mensagem;
@@ -15,6 +12,8 @@ public class ClienteSocket {
 	Socket cliente;
 	static ClienteSocket clienteSocket;
 	Mensagem mensagem;
+	private ObjectOutputStream output;
+	private ObjectInputStream input;
 	
 	
 	public static ClienteSocket getClienteSocket() {
@@ -34,24 +33,14 @@ public class ClienteSocket {
 				@Override
 				public void run() {
 					try {
-						BufferedReader leitor = new BufferedReader(new InputStreamReader(cliente.getInputStream()));
-						//ObjectInputStream leitor = new ObjectInputStream(cliente.getInputStream());
-						while(true) {
-							//Mensagem mensagem;
-							String mensagem;
-							try {
-								//mensagem = (Mensagem) leitor.readObject();
-								mensagem =  leitor.readLine();
-								if (mensagem !=null)
-									System.out.println("Servidor disse:"+mensagem);
-							} catch (Exception e) {
-								e.printStackTrace();
-								mensagem = "";
-							}
-							System.out.println(mensagem);
-							//TODO: chama função com mensagem do servidor
-							
+						output = new ObjectOutputStream(cliente.getOutputStream());
+						output.flush();
+						input = new ObjectInputStream(cliente.getInputStream());
+
+						while (true) {
+							processaConexao();	
 						}
+
 					} catch (IOException e) {
 						e.printStackTrace();
 					}
@@ -62,18 +51,35 @@ public class ClienteSocket {
 			e2.printStackTrace();
 		}
 	}
-	public void enviarMensagem(Mensagem mensagem) {
+	
+	private void processaConexao() {
 		
-		PrintWriter transmissor;
+		Mensagem mensagem = new Mensagem();
+		try 
+		{			
+			mensagem = ( Mensagem ) input.readObject(); 
+			System.out.println(mensagem);
+			//TODO metodo para verificar mensagem
+
+		}
+		catch ( ClassNotFoundException|IOException e ) 
+		{
+			e.printStackTrace();
+		} 
+
+		
+
+	}
+
+	public void enviaDados(Mensagem message) {
+
 		try {
-			transmissor = new PrintWriter(cliente.getOutputStream(), true);
-			transmissor.println(mensagem.toString());
-			//transmissor.flush();
-			this.mensagem=null;
+			output.writeObject(message);
+			output.flush();
+
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-
 	}
 	public Mensagem getMessagem() {
 		return mensagem;

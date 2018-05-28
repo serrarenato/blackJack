@@ -80,11 +80,11 @@ public class Cliente implements Runnable {
 			}
 		} else if (usuario.getMsg().equals("LST")) {
 			// listar partidas
-			usuarioService.enviaListaPartidas(transmissor);
+			//usuarioService.enviaListaPartidas(transmissor);
 			
 		} else if (usuario.getMsg().equals("CRI")) {
 			// criar partida
-			usuarioService.criarPartida(transmissor, usuario.getNome());			
+			//usuarioService.criarPartida(transmissor, usuario.getNome());			
 		} else {
 
 			try {

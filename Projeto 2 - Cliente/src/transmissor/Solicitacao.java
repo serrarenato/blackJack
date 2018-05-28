@@ -52,7 +52,7 @@ public class Solicitacao implements Serializable {
 //    		receptor.close();
 //    		conexao.close();
 			ClienteSocket cliente = ClienteSocket.getClienteSocket();
-			cliente.enviarMensagem(mensagem);
+			cliente.enviaDados(mensagem);
 		} catch (Exception e2) {
 			
 			throw new Exception(e2);

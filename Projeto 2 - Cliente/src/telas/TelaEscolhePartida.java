@@ -216,7 +216,7 @@ public class TelaEscolhePartida extends javax.swing.JPanel {
 			// verifica se o campo senha eh igual ao campo de confirmacao
 			ClienteSocket clienteSocket = ClienteSocket.getClienteSocket();
 			Mensagem mensagem = new Mensagem("LST", "");
-			clienteSocket.enviarMensagem(mensagem);
+			clienteSocket.enviaDados(mensagem);
 
 			clienteSocket.waitMessagem();
 			Mensagem retorno = clienteSocket.getMessagem();
@@ -254,7 +254,7 @@ public class TelaEscolhePartida extends javax.swing.JPanel {
 
 			ClienteSocket clienteSocket = ClienteSocket.getClienteSocket();
 			Mensagem mensagem = new Mensagem("CRI", "");
-			clienteSocket.enviarMensagem(mensagem);
+			clienteSocket.enviaDados(mensagem);
 
 			clienteSocket.waitMessagem();
 			Mensagem retorno = clienteSocket.getMessagem();
@@ -284,7 +284,7 @@ public class TelaEscolhePartida extends javax.swing.JPanel {
 
 			ClienteSocket clienteSocket = ClienteSocket.getClienteSocket();
 			Mensagem mensagem = new Mensagem("ENT", ListaSalas.getSelectedItem());
-			clienteSocket.enviarMensagem(mensagem);
+			clienteSocket.enviaDados(mensagem);
 
 			clienteSocket.waitMessagem();
 			Mensagem retorno = clienteSocket.getMessagem();

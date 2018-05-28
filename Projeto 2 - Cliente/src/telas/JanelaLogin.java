@@ -141,7 +141,7 @@ public class JanelaLogin extends javax.swing.JPanel {
 			} else {
 				ClienteSocket clienteSocket = ClienteSocket.getClienteSocket();
 				Mensagem mensagem = new Mensagem("LOG", txtEmail.getText() + DIVISOR + txtSenha.getText());
-				clienteSocket.enviarMensagem(mensagem);
+				clienteSocket.enviaDados(mensagem);
 
 				clienteSocket.waitMessagem();
 				Mensagem retorno = clienteSocket.getMessagem();
