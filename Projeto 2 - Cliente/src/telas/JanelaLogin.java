@@ -8,7 +8,9 @@ package telas;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
+import bd.dbos.Mensagem;
 import bd.dbos.Usuario;
+import transmissor.ClienteSocket;
 import transmissor.Solicitacao;
 
 /**
@@ -23,6 +25,7 @@ public class JanelaLogin extends javax.swing.JPanel {
 	 * Creates new form JanelaLogin
 	 */
 	JFrame fecha;
+	private final String DIVISOR = ":";
 
 	public JanelaLogin(JFrame fecha) {
 		this.fecha = fecha;
@@ -136,12 +139,16 @@ public class JanelaLogin extends javax.swing.JPanel {
 			if (txtEmail.getText().isEmpty() || txtSenha.getText().isEmpty()) {
 				JOptionPane.showMessageDialog(null, "Erro! Espacos em branco, digite em todos os campos!");
 			} else {
-				Usuario usuario = new Usuario(txtEmail.getText(), txtSenha.getText(), "LOG");
-				Solicitacao solicitacao = new Solicitacao(usuario);
+				ClienteSocket clienteSocket = ClienteSocket.getClienteSocket();
+				Mensagem mensagem = new Mensagem("LOG", txtEmail.getText() + DIVISOR + txtSenha.getText());
+				clienteSocket.enviarMensagem(mensagem);
 
-				if (solicitacao.Enviar(usuario).equals("SUC")) {
+				clienteSocket.waitMessagem();
+				Mensagem retorno = clienteSocket.getMessagem();
+
+				if (retorno.getProtocolo().equals("SUC")) {
 					JOptionPane.showMessageDialog(null, "Login com sucesso!");
-					
+
 					JFrame janelaEscolherPartida = new JFrame("EscolherPartida");
 					TelaEscolhePartida escolherPartida = new TelaEscolhePartida(janelaEscolherPartida);
 
@@ -149,7 +156,7 @@ public class JanelaLogin extends javax.swing.JPanel {
 					janelaEscolherPartida.pack();
 					janelaEscolherPartida.setLocationRelativeTo(escolherPartida);
 					janelaEscolherPartida.setVisible(true);
-					
+
 					JFrame janelacadastro = new JFrame("Cadastro");
 					JanelaCadastro cadastro = new JanelaCadastro(janelacadastro);
 
@@ -158,10 +165,7 @@ public class JanelaLogin extends javax.swing.JPanel {
 					janelacadastro.setLocationRelativeTo(cadastro);
 					janelacadastro.setVisible(true);
 					this.fecha.dispose(); // Fechando a view antiga (janela de Login)
-					
-					
-					
-					
+
 					this.fecha.dispose(); // Fechando a view antiga (janela de Login)
 				} else {
 					JOptionPane.showMessageDialog(null, "Erro! E-mail ou senha incorreto(s)!");

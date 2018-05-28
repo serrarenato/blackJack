@@ -1,17 +1,16 @@
 package transmissor;
 
+import java.io.Serializable;
+import java.net.Socket;
+
+import bd.dbos.Mensagem;
+
 /**
  * realiza a implementaÃ§Ã£o da conexÃ£o com o servidor, por meio da utilizaÃ§Ã£o d Scokets e coloca o endereÃ§o para a realizaÃ§Ã£o da conexÃ£o.
  * @author melin
  */
 
 import bd.dbos.Usuario;
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.io.Serializable;
-import java.net.Socket;
 
 public class Solicitacao implements Serializable {
 
@@ -20,18 +19,18 @@ public class Solicitacao implements Serializable {
     public Solicitacao(Usuario usuario) throws Exception {
 
     	if (usuario == null)
-    		throw new Exception("Erro! Parâmetro Usuario não foi adicionado no construtor!");
+    		throw new Exception("Erro! Parï¿½metro Usuario nï¿½o foi adicionado no construtor!");
     
     	this.usuario = usuario;
     }
     
     /**
-     * Método para enviar solicitação / request para o servidor.
-     * @param param tipo de solicitação
-     * @param usuario objeto de usuário
-     * @return retorna SUC caso a solicitação foi efetuada com sucesso ou ERR para erros!
+     * Mï¿½todo para enviar solicitaï¿½ï¿½o / request para o servidor.
+     * @param param tipo de solicitaï¿½ï¿½o
+     * @param usuario objeto de usuï¿½rio
+     * @return retorna SUC caso a solicitaï¿½ï¿½o foi efetuada com sucesso ou ERR para erros!
      */
-    public String Enviar(Usuario usuario) throws Exception {
+    public String Enviar(Mensagem mensagem) throws Exception {
     	
     	String ret = "";
     	
@@ -39,19 +38,21 @@ public class Solicitacao implements Serializable {
 		Socket conexao = null;
 		
 		try {
-			//conexao = new Socket("172.16.13.127", 11111);
-			conexao = new Socket("localhost", 11111);
-			ObjectOutputStream transmissor = new ObjectOutputStream(conexao.getOutputStream());;
-    		ObjectInputStream receptor = new ObjectInputStream(conexao.getInputStream());
-    		
-    		transmissor.writeObject(usuario);
-    		transmissor.flush();
-    		
-    		ret = (String)receptor.readObject();
-    		
-    		transmissor.close();
-    		receptor.close();
-    		conexao.close();
+//			//conexao = new Socket("172.16.13.127", 11111);
+//			conexao = new Socket("localhost", 11111);
+//			ObjectOutputStream transmissor = new ObjectOutputStream(conexao.getOutputStream());;
+//    		ObjectInputStream receptor = new ObjectInputStream(conexao.getInputStream());
+//    		
+//    		transmissor.writeObject(usuario);
+//    		transmissor.flush();
+//    		
+//    		ret = (String)receptor.readObject();
+//    		
+//    		transmissor.close();
+//    		receptor.close();
+//    		conexao.close();
+			ClienteSocket cliente = ClienteSocket.getClienteSocket();
+			cliente.enviarMensagem(mensagem);
 		} catch (Exception e2) {
 			
 			throw new Exception(e2);

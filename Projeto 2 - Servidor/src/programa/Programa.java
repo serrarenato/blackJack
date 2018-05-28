@@ -11,6 +11,7 @@ import cliente.Cliente;
 import java.io.ObjectOutputStream;
 import java.util.Scanner;
 
+import Service.GerenciadorClientes;
 import auxiliares.*;
 
 public class Programa
@@ -18,25 +19,27 @@ public class Programa
     
     public static void main(String[] args)
     {
+    	 ServerSocket servidor = null;
         try {
-            ServerSocket socket = new ServerSocket(11111);
+            servidor = new ServerSocket(11111);
             String mensagem = null;
             
-            System.out.println("Iniciando servidor!");
+            System.out.println("Iniciado servidor!");
             
-            MatadorDeServidor matador = new MatadorDeServidor();
-            Thread threadMatador = new Thread(matador);
-            threadMatador.start();
+           // MatadorDeServidor matador = new MatadorDeServidor();
+            //Thread threadMatador = new Thread(matador);
+            //threadMatador.start();
             
             while (true) {
                 
-                Socket conexao = socket.accept();
+                Socket conexao = servidor.accept();
+                GerenciadorClientes gerenciadorClientes = new GerenciadorClientes(conexao);
                 System.out.println("Aceitando novo cliente na porta " + conexao.getPort());
                 
                 try {
-                    Cliente cliente = new Cliente(conexao);
-                    Thread thread = new Thread(cliente);
-                    thread.start();
+                   // Cliente cliente = new Cliente(conexao);
+                  //  Thread thread = new Thread(cliente);
+                  //  thread.start();
                 } catch (Exception erro2) { } // Sei que nunca vai dar erro...
                 
             }
