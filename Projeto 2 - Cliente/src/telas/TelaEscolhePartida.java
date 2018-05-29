@@ -275,7 +275,12 @@ public class TelaEscolhePartida extends javax.swing.JPanel {
 		try {
 
 			// verifica se o campo senha eh igual ao campo de confirmacao
-			if (ListaSalas.getSelectedItem().isEmpty()) {
+			try {
+				if (ListaSalas.getSelectedItem().isEmpty()) {
+					JOptionPane.showMessageDialog(null, "Selecione uma partida");
+					return;
+				}
+			} catch (Exception e) {
 				JOptionPane.showMessageDialog(null, "Selecione uma partida");
 				return;
 			}
@@ -289,17 +294,16 @@ public class TelaEscolhePartida extends javax.swing.JPanel {
 
 			System.out.println(retorno);
 			if (retorno.getProtocolo().equals("SUC")) {
-				/*JFrame janelaPrePartida = new JFrame("TelaPrePartida");
-				TelaPrePartida escolherPartida = new TelaPrePartida(janelaPrePartida);
-
-				janelaPrePartida.add(escolherPartida);
-				janelaPrePartida.pack();
-				janelaPrePartida.setLocationRelativeTo(escolherPartida);
-				janelaPrePartida.setVisible(true);
-				this.escolherPartida.dispose();*/
+				/*
+				 * JFrame janelaPrePartida = new JFrame("TelaPrePartida"); TelaPrePartida
+				 * escolherPartida = new TelaPrePartida(janelaPrePartida);
+				 * 
+				 * janelaPrePartida.add(escolherPartida); janelaPrePartida.pack();
+				 * janelaPrePartida.setLocationRelativeTo(escolherPartida);
+				 * janelaPrePartida.setVisible(true); this.escolherPartida.dispose();
+				 */
 				JFrame newFrame = new TelaPrePartida(retorno.getMensagem());
 				newFrame.setVisible(true);
-				
 
 				this.escolherPartida.dispose(); // Fechando a view antiga (janela de Login)
 

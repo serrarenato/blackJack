@@ -88,6 +88,7 @@ public class GerenciadorClientes extends Thread {
 				try {
 					String[] strings = mensagem.getMensagem().split(":");
 					Usuario usuario = new Usuario(strings[0],strings[1],strings[2], "");
+					usuario.setSaldo(1000d);
 					dao.incluir(usuario);
 					enviaMensagem.setProtocolo("SUC");
 					enviaDados(enviaMensagem);

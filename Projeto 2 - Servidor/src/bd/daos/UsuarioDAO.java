@@ -58,15 +58,16 @@ public class UsuarioDAO
             String sql;
 
             sql = "INSERT INTO USUARIOS " +
-                  "(EMAIL,NOME,SENHA) " +
+                  "(EMAIL,NOME,SENHA, SALDO) " +
                   "VALUES " +
-                  "(?,?,?)";
+                  "(?,?,?,?)";
 
             BD.COMANDO.prepareStatement (sql);
 
             BD.COMANDO.setString    (1, usuario.getEmail ());
             BD.COMANDO.setString (2, usuario.getNome ());
             BD.COMANDO.setString  (3, usuario.getSenha ());
+            BD.COMANDO.setDouble  (4, usuario.getSaldo());
 
             BD.COMANDO.executeUpdate ();
             BD.COMANDO.commit        ();
