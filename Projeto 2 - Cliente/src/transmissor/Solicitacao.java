@@ -37,19 +37,6 @@ public class Solicitacao implements Serializable {
 		Socket conexao = null;
 		
 		try {
-//			//conexao = new Socket("172.16.13.127", 11111);
-//			conexao = new Socket("localhost", 11111);
-//			ObjectOutputStream transmissor = new ObjectOutputStream(conexao.getOutputStream());;
-//    		ObjectInputStream receptor = new ObjectInputStream(conexao.getInputStream());
-//    		
-//    		transmissor.writeObject(usuario);
-//    		transmissor.flush();
-//    		
-//    		ret = (String)receptor.readObject();
-//    		
-//    		transmissor.close();
-//    		receptor.close();
-//    		conexao.close();
 			ClienteSocket cliente = ClienteSocket.getClienteSocket();
 			cliente.enviaDados(mensagem);
 		} catch (Exception e2) {

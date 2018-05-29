@@ -23,11 +23,6 @@ public class Programa
         
         try
         {
-           //Usuario usuario = new Usuario ("xxx@gmail.com", "Lipe", "123oliveira4");
-           // usuario.setNome("Jonnas Brothers");
-           //BD.USUARIOS.incluir (usuario);
-            //BD.USUARIOS.excluir(usuario);
-            //BD.USUARIOS.alterar(usuario);
             telalogin.add(janela);
             telalogin.pack();
             telalogin.setLocationRelativeTo(janela);
