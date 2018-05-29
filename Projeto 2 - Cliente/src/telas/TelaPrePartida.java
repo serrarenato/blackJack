@@ -4,6 +4,10 @@
  * and open the template in the editor.
  */
 package telas;
+import javax.swing.JLabel;
+import javax.swing.GroupLayout.Alignment;
+import javax.swing.GroupLayout;
+import javax.swing.LayoutStyle.ComponentPlacement;
 
 /**
  *
@@ -14,8 +18,13 @@ public class TelaPrePartida extends javax.swing.JFrame {
     /**
      * Creates new form TelaPartida
      */
-    public TelaPrePartida() {
-        initComponents();
+	private String saldo;
+    public TelaPrePartida(String saldo) {
+        this.saldo=saldo;
+    	initComponents();        
+    }
+    public TelaPrePartida() {       
+    	initComponents();        
     }
 
     /**
@@ -46,9 +55,14 @@ public class TelaPrePartida extends javax.swing.JFrame {
         lblJogador7 = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
         lblJogador8 = new javax.swing.JLabel();
+        lblSaldo = new javax.swing.JLabel();
+        lblDinheiro = new javax.swing.JLabel();
+        
         btnIniciarPartida = new javax.swing.JButton();
 
         jButton3.setText("jButton1");
+        
+        lblDinheiro.setText(this.saldo);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -93,86 +107,98 @@ public class TelaPrePartida extends javax.swing.JFrame {
         btnIniciarPartida.setText("Iniciar Partida");
         btnIniciarPartida.setActionCommand("btnIniciaPartida");
         btnIniciarPartida.setName("btnIniciarPartida"); // NOI18N
+        
+        JLabel lblSaldo = new JLabel();
+        lblSaldo.setText("Saldo");
+
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(214, 214, 214)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(btnIniciarPartida, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(lblJogador2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(lblJogador1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(lblJogador3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(lblJogador4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(lblJogador5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(lblJogador6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(lblJogador7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(lblJogador8, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jLabel17))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(lblStatusjogador2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(lblStatusjogador1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(lblStatusjogador3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(lblStatusjogador4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(lblStatusjogador5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(lblStatusjogador6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(lblStatusjogador7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(lblStatusjogador8, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jLabel18))))
-                .addContainerGap(254, Short.MAX_VALUE))
+        	layout.createParallelGroup(Alignment.LEADING)
+        		.addGroup(layout.createSequentialGroup()
+        			.addGap(214)
+        			.addGroup(layout.createParallelGroup(Alignment.TRAILING, false)
+        				.addComponent(btnIniciarPartida, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        				.addGroup(layout.createSequentialGroup()
+        					.addGroup(layout.createParallelGroup(Alignment.LEADING)
+        						.addGroup(layout.createParallelGroup(Alignment.LEADING, false)
+        							.addComponent(lblJogador2, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        							.addComponent(lblJogador1, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        							.addComponent(lblJogador3, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        							.addComponent(lblJogador4, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        							.addComponent(lblJogador5, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        							.addComponent(lblJogador6, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        							.addComponent(lblJogador7, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        							.addComponent(lblJogador8, GroupLayout.PREFERRED_SIZE, 75, GroupLayout.PREFERRED_SIZE))
+        						.addComponent(jLabel17))
+        					.addPreferredGap(ComponentPlacement.RELATED)
+        					.addGroup(layout.createParallelGroup(Alignment.LEADING)
+        						.addGroup(layout.createParallelGroup(Alignment.LEADING, false)
+        							.addComponent(lblStatusjogador2, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        							.addComponent(lblStatusjogador1, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        							.addComponent(lblStatusjogador3, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        							.addComponent(lblStatusjogador4, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        							.addComponent(lblStatusjogador5, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        							.addComponent(lblStatusjogador6, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        							.addComponent(lblStatusjogador7, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        							.addComponent(lblStatusjogador8, GroupLayout.PREFERRED_SIZE, 75, GroupLayout.PREFERRED_SIZE))
+        						.addComponent(jLabel18))))
+        			.addPreferredGap(ComponentPlacement.RELATED, 104, Short.MAX_VALUE)
+        			.addGroup(layout.createParallelGroup(Alignment.LEADING)
+        				.addComponent(lblSaldo, GroupLayout.PREFERRED_SIZE, 75, GroupLayout.PREFERRED_SIZE)
+        				.addComponent(lblDinheiro, GroupLayout.PREFERRED_SIZE, 75, GroupLayout.PREFERRED_SIZE))
+        			.addGap(75))
         );
         layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel17)
-                    .addComponent(jLabel18))
-                .addGap(14, 14, 14)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(lblJogador1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblJogador2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblJogador3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblJogador4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblJogador5)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblJogador6)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblJogador7)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblJogador8))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(lblStatusjogador1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblStatusjogador2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblStatusjogador3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblStatusjogador4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblStatusjogador5)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblStatusjogador6)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblStatusjogador7)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblStatusjogador8)))
-                .addGap(36, 36, 36)
-                .addComponent(btnIniciarPartida, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(80, Short.MAX_VALUE))
+        	layout.createParallelGroup(Alignment.LEADING)
+        		.addGroup(layout.createSequentialGroup()
+        			.addContainerGap()
+        			.addGroup(layout.createParallelGroup(Alignment.BASELINE)
+        				.addComponent(jLabel17)
+        				.addComponent(jLabel18))
+        			.addGap(14)
+        			.addGroup(layout.createParallelGroup(Alignment.LEADING)
+        				.addGroup(layout.createSequentialGroup()
+        					.addComponent(lblJogador1)
+        					.addPreferredGap(ComponentPlacement.RELATED)
+        					.addComponent(lblJogador2)
+        					.addPreferredGap(ComponentPlacement.RELATED)
+        					.addComponent(lblJogador3)
+        					.addPreferredGap(ComponentPlacement.RELATED)
+        					.addComponent(lblJogador4)
+        					.addPreferredGap(ComponentPlacement.RELATED)
+        					.addComponent(lblJogador5)
+        					.addPreferredGap(ComponentPlacement.RELATED)
+        					.addComponent(lblJogador6)
+        					.addPreferredGap(ComponentPlacement.RELATED)
+        					.addComponent(lblJogador7)
+        					.addPreferredGap(ComponentPlacement.RELATED)
+        					.addComponent(lblJogador8))
+        				.addGroup(layout.createSequentialGroup()
+        					.addComponent(lblStatusjogador1)
+        					.addPreferredGap(ComponentPlacement.RELATED)
+        					.addComponent(lblStatusjogador2)
+        					.addPreferredGap(ComponentPlacement.RELATED)
+        					.addComponent(lblStatusjogador3)
+        					.addPreferredGap(ComponentPlacement.RELATED)
+        					.addGroup(layout.createParallelGroup(Alignment.BASELINE)
+        						.addComponent(lblStatusjogador4)
+        						.addComponent(lblSaldo))
+        					.addPreferredGap(ComponentPlacement.RELATED)
+        					.addGroup(layout.createParallelGroup(Alignment.BASELINE)
+        						.addComponent(lblStatusjogador5)
+        						.addComponent(lblDinheiro))
+        					.addPreferredGap(ComponentPlacement.RELATED)
+        					.addComponent(lblStatusjogador6)
+        					.addPreferredGap(ComponentPlacement.RELATED)
+        					.addComponent(lblStatusjogador7)
+        					.addPreferredGap(ComponentPlacement.RELATED)
+        					.addComponent(lblStatusjogador8)))
+        			.addGap(36)
+        			.addComponent(btnIniciarPartida, GroupLayout.PREFERRED_SIZE, 66, GroupLayout.PREFERRED_SIZE)
+        			.addContainerGap(80, Short.MAX_VALUE))
         );
+        getContentPane().setLayout(layout);
 
         lblStatusjogador1.getAccessibleContext().setAccessibleName("lblJogador1Status");
         lblStatusjogador3.getAccessibleContext().setAccessibleName("lblJogador3Status");
@@ -246,6 +272,8 @@ public class TelaPrePartida extends javax.swing.JFrame {
     private javax.swing.JLabel lblJogador6;
     private javax.swing.JLabel lblJogador7;
     private javax.swing.JLabel lblJogador8;
+    private javax.swing.JLabel lblSaldo;
+    private javax.swing.JLabel lblDinheiro;    
     private javax.swing.JLabel lblStatusjogador1;
     private javax.swing.JLabel lblStatusjogador2;
     private javax.swing.JLabel lblStatusjogador3;
@@ -254,5 +282,4 @@ public class TelaPrePartida extends javax.swing.JFrame {
     private javax.swing.JLabel lblStatusjogador6;
     private javax.swing.JLabel lblStatusjogador7;
     private javax.swing.JLabel lblStatusjogador8;
-    // End of variables declaration//GEN-END:variables
 }

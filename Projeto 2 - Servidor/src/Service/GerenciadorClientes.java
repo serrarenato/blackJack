@@ -14,7 +14,7 @@ import entity.Mensagem;
 
 public class GerenciadorClientes extends Thread {
 	private Socket cliente;
-	private String Usuario;
+	private Usuario usuario;
 	private ObjectOutputStream output;
 	private ObjectInputStream input;
 	private UsuarioService usuarioService;
@@ -34,7 +34,7 @@ public class GerenciadorClientes extends Thread {
 			input = new ObjectInputStream(cliente.getInputStream());
 			usuarioService = new UsuarioService();
 			System.out.println("Cliente Conectado");
-			enviaDados(new Mensagem("SUC", "Servidor conectado, favor se logar"));
+			//enviaDados(new Mensagem("SUC", "Servidor conectado, favor se logar"));
 			while (true) {
 				processaConexao();	
 			}
@@ -54,21 +54,24 @@ public class GerenciadorClientes extends Thread {
 
 	private void processaConexao() {
 	
-		Mensagem mensagem = new Mensagem();
+		Mensagem mensagem;
 		try 
 		{	
 			mensagem = ( Mensagem ) input.readObject(); 
-			System.out.println(mensagem);
+			System.out.println(mensagem);			
 			if (!mensagem.getProtocolo().isEmpty())
 				comandos(mensagem);
 			
 			System.out.println(mensagem);
 
 		}
-		catch ( ClassNotFoundException|IOException e ) 
+		catch ( ClassNotFoundException e ) 
 		{
 			e.printStackTrace();
-		} 
+		} 		catch ( IOException e ) {
+			closeConnection();
+			stop();
+		}
 
 		
 
@@ -84,7 +87,7 @@ public class GerenciadorClientes extends Thread {
 
 				try {
 					String[] strings = mensagem.getMensagem().split(":");
-					Usuario usuario = new Usuario(strings[0],strings[1],strings[2]);
+					Usuario usuario = new Usuario(strings[0],strings[1],strings[2], "");
 					dao.incluir(usuario);
 					enviaMensagem.setProtocolo("SUC");
 					enviaDados(enviaMensagem);
@@ -100,14 +103,15 @@ public class GerenciadorClientes extends Thread {
 			} else if (mensagem.getProtocolo().equals("LOG")) {
 
 				try {
-		
+					
 					String[] strings = mensagem.getMensagem().split(":");
 
 				
-					boolean existe = dao.getUsuarioESenha(strings[0], strings[1]);
-
-					if (existe) {
+					this.usuario =  dao.getUsuarioESenha(strings[0], strings[1]);
+					
+					if (this.usuario!=null) {
 						enviaMensagem.setProtocolo("SUC");
+						enviaMensagem.setMensagem("");
 						enviaDados(enviaMensagem);
 					}else {
 						enviaMensagem.setProtocolo("ERR");
@@ -130,6 +134,11 @@ public class GerenciadorClientes extends Thread {
 				// criar partida
 				String[] strings = mensagem.getMensagem().split(":");
 				enviaMensagem = usuarioService.criarPartida(strings[0]);
+				enviaDados(enviaMensagem);
+				
+			} else if (mensagem.getProtocolo().equals("ENT")) {
+				// criar partida
+				enviaMensagem = usuarioService.entrarPartida(usuario, mensagem.getMensagem());
 				enviaDados(enviaMensagem);
 			} else {
 
@@ -169,4 +178,13 @@ public class GerenciadorClientes extends Thread {
 			e.printStackTrace();
 		}
 	}
+
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
+	
 }

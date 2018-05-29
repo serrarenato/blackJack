@@ -3,14 +3,13 @@ package transmissor;
 import java.io.Serializable;
 import java.net.Socket;
 
-import bd.dbos.Mensagem;
-
 /**
  * realiza a implementação da conexão com o servidor, por meio da utilização d Scokets e coloca o endereço para a realização da conexão.
  * @author melin
  */
 
 import bd.dbos.Usuario;
+import entity.Mensagem;
 
 public class Solicitacao implements Serializable {
 

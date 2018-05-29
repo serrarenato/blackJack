@@ -1,5 +1,6 @@
 package entity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import bd.dbos.Usuario;
@@ -31,6 +32,7 @@ public class Partida {
 		this.numeroBaralhos=1;
 		this.status=NAO_INICIADA;
 		this.numeroJogada=1;
+		this.listUsuarios = new ArrayList<>();
 	}
 
 	public int getNumeroJogada() {

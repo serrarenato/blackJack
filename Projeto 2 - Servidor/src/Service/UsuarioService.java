@@ -38,21 +38,26 @@ public class UsuarioService {
 		} catch (Exception e) {
 			return new Mensagem("ERR", "");
 		}
-		return new Mensagem("SUC", "");
+		return new Mensagem("SUC", " ");
 
 	}
 
-	public Mensagem entrarPartida(String nome, String partida) {
+	public Mensagem entrarPartida(Usuario usuario, String partida) {
 		String resposta;
 		try {
-			// TODO: buscar no banco usuario para criar o user
-			Usuario usuario = new Usuario(nome, "a", "a","a");
+			
+			Map<String, Partida> partidas = partidaService.listarPartidas();
+			
+			if (partidas.get(partida).getStatus()!="jogando"){
+				return new Mensagem("ERR","");
+			}
 			partidaService.setarUsuarioNaPartida(partida, usuario);
 			
-			resposta = usuario.getEmail();
+			resposta = usuario.getSaldo().toString();
 			
 			
 		} catch (Exception e) {
+			e.printStackTrace();
 			return new Mensagem("ERR","");
 		}
 		return new Mensagem("SUC",resposta);

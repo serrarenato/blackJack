@@ -12,8 +12,8 @@ import javax.swing.GroupLayout.Alignment;
 import javax.swing.GroupLayout;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
-import bd.dbos.Mensagem;
 import bd.dbos.Usuario;
+import entity.Mensagem;
 import transmissor.ClienteSocket;
 import transmissor.Solicitacao;
 
@@ -218,8 +218,7 @@ public class TelaEscolhePartida extends javax.swing.JPanel {
 			Mensagem mensagem = new Mensagem("LST", "");
 			clienteSocket.enviaDados(mensagem);
 
-			clienteSocket.waitMessagem();
-			Mensagem retorno = clienteSocket.getMessagem();
+			Mensagem retorno = clienteSocket.getInput();
 
 			System.out.println(retorno);
 			String[] retornos = retorno.getMensagem().split(":");
@@ -253,14 +252,13 @@ public class TelaEscolhePartida extends javax.swing.JPanel {
 			}
 
 			ClienteSocket clienteSocket = ClienteSocket.getClienteSocket();
-			Mensagem mensagem = new Mensagem("CRI", "");
+			Mensagem mensagem = new Mensagem("CRI", txtPartida.getText());
 			clienteSocket.enviaDados(mensagem);
 
-			clienteSocket.waitMessagem();
-			Mensagem retorno = clienteSocket.getMessagem();
+			Mensagem retorno = clienteSocket.getInput();
 
 			System.out.println(retorno);
-			if (!retorno.getProtocolo().equals("SUC")) {
+			if (retorno.getProtocolo().equals("SUC")) {
 				JOptionPane.showMessageDialog(null, "Partidas Criada");
 			} else {
 				JOptionPane.showMessageDialog(null, "Erro ao criar partida");
@@ -283,15 +281,28 @@ public class TelaEscolhePartida extends javax.swing.JPanel {
 			}
 
 			ClienteSocket clienteSocket = ClienteSocket.getClienteSocket();
-			Mensagem mensagem = new Mensagem("ENT", ListaSalas.getSelectedItem());
+			String[] nome = ListaSalas.getSelectedItem().split(" ");
+			Mensagem mensagem = new Mensagem("ENT", nome[0]);
 			clienteSocket.enviaDados(mensagem);
 
-			clienteSocket.waitMessagem();
-			Mensagem retorno = clienteSocket.getMessagem();
+			Mensagem retorno = clienteSocket.getInput();
 
 			System.out.println(retorno);
 			if (retorno.getProtocolo().equals("SUC")) {
-				JOptionPane.showMessageDialog(null, "Entrou na partida");
+				/*JFrame janelaPrePartida = new JFrame("TelaPrePartida");
+				TelaPrePartida escolherPartida = new TelaPrePartida(janelaPrePartida);
+
+				janelaPrePartida.add(escolherPartida);
+				janelaPrePartida.pack();
+				janelaPrePartida.setLocationRelativeTo(escolherPartida);
+				janelaPrePartida.setVisible(true);
+				this.escolherPartida.dispose();*/
+				JFrame newFrame = new TelaPrePartida(retorno.getMensagem());
+				newFrame.setVisible(true);
+				
+
+				this.escolherPartida.dispose(); // Fechando a view antiga (janela de Login)
+
 			} else {
 				JOptionPane.showMessageDialog(null, "Erro nao foi possivel entrar na partida");
 			}

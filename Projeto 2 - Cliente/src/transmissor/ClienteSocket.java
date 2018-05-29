@@ -5,7 +5,9 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 
-import bd.dbos.Mensagem;
+import com.mysql.jdbc.SingleByteCharsetConverter;
+
+import entity.Mensagem;
 
 public class ClienteSocket {
 	
@@ -28,7 +30,7 @@ public class ClienteSocket {
 		try {
 
 			this.cliente = new Socket("localhost", 11111);
-			// lendo mensagens do Servidor
+			// lendo mensagens do Servidor leitor
 			new Thread() {
 				@Override
 				public void run() {
@@ -37,9 +39,9 @@ public class ClienteSocket {
 						output.flush();
 						input = new ObjectInputStream(cliente.getInputStream());
 
-						while (true) {
-							processaConexao();	
-						}
+//						while (true) {
+//							processaConexao();	
+//						}
 
 					} catch (IOException e) {
 						e.printStackTrace();
@@ -52,9 +54,9 @@ public class ClienteSocket {
 		}
 	}
 	
-	private void processaConexao() {
+	synchronized public void processaConexao() {
 		
-		Mensagem mensagem = new Mensagem();
+		
 		try 
 		{			
 			mensagem = ( Mensagem ) input.readObject(); 
@@ -70,7 +72,14 @@ public class ClienteSocket {
 		
 
 	}
-
+	public Mensagem getInput() {
+		try {
+			mensagem = ( Mensagem ) input.readObject();
+		} catch (ClassNotFoundException | IOException e) {
+			e.printStackTrace();
+		} 
+		return mensagem;
+	}
 	public void enviaDados(Mensagem message) {
 
 		try {
@@ -83,6 +92,10 @@ public class ClienteSocket {
 	}
 	public Mensagem getMessagem() {
 		return mensagem;
+		
+	}
+	public void setMessagem(Mensagem mensagem) {
+		this.mensagem=mensagem;
 		
 	}
 	public void waitMessagem() {

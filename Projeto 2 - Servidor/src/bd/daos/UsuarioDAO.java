@@ -1,9 +1,10 @@
 package bd.daos;
 
-import java.sql.*;
-import bd.*;
-import bd.core.*;
-import bd.dbos.*;
+import java.sql.SQLException;
+
+import bd.BD;
+import bd.core.MeuResultSet;
+import bd.dbos.Usuario;
 
 /**
  * Classe para acessar o banco de dados.
@@ -166,15 +167,16 @@ public class UsuarioDAO
         return usuario;
     }
 
-    public boolean getUsuarioESenha(String email, String senha) throws Exception
+    public Usuario getUsuarioESenha(String email, String senha) throws Exception
     {
         boolean retorno = false;
+        Usuario usuario = new Usuario();
 
         try
         {
             String sql;
 
-            sql = "SELECT * " +
+            sql = "SELECT email, nome, senha, saldo, data " +
                   "FROM USUARIOS " +
                   "WHERE EMAIL = ? AND SENHA = ?";
 
@@ -186,13 +188,23 @@ public class UsuarioDAO
             MeuResultSet resultado = (MeuResultSet)BD.COMANDO.executeQuery ();
 
             retorno = resultado.first(); 
+            if (retorno) {            	
+            	usuario.setEmail(resultado.getString(1));
+            	usuario.setNome(resultado.getString(2));
+            	usuario.setSenha(resultado.getString(3));    
+            	usuario.setData(resultado.getDate(5));  
+            	usuario.setSaldo(resultado.getDouble(4));
+            }else
+            	return null;
+            return usuario;
 
         }
         catch (SQLException erro)
         {
+        	erro.printStackTrace();
             throw new Exception ("Erro ao procurar usuario.");
         }
 
-        return retorno;
+       
     }
 }

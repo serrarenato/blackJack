@@ -1,4 +1,4 @@
-package bd.dbos;
+package entity;
 
 import java.io.Serializable;
 

@@ -8,10 +8,8 @@ package telas;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
-import bd.dbos.Mensagem;
-import bd.dbos.Usuario;
+import entity.Mensagem;
 import transmissor.ClienteSocket;
-import transmissor.Solicitacao;
 
 /**
  * Janela de Login, onde reliza a validação com o banco de dados dos itens nele
@@ -143,8 +141,11 @@ public class JanelaLogin extends javax.swing.JPanel {
 				Mensagem mensagem = new Mensagem("LOG", txtEmail.getText() + DIVISOR + txtSenha.getText());
 				clienteSocket.enviaDados(mensagem);
 
-				clienteSocket.waitMessagem();
-				Mensagem retorno = clienteSocket.getMessagem();
+			
+				
+				//clienteSocket.waitMessagem();
+				Mensagem retorno = clienteSocket.getInput();
+				
 
 				if (retorno.getProtocolo().equals("SUC")) {
 					JOptionPane.showMessageDialog(null, "Login com sucesso!");
@@ -157,16 +158,9 @@ public class JanelaLogin extends javax.swing.JPanel {
 					janelaEscolherPartida.setLocationRelativeTo(escolherPartida);
 					janelaEscolherPartida.setVisible(true);
 
-					JFrame janelacadastro = new JFrame("Cadastro");
-					JanelaCadastro cadastro = new JanelaCadastro(janelacadastro);
-
-					janelacadastro.add(cadastro);
-					janelacadastro.pack();
-					janelacadastro.setLocationRelativeTo(cadastro);
-					janelacadastro.setVisible(true);
 					this.fecha.dispose(); // Fechando a view antiga (janela de Login)
 
-					this.fecha.dispose(); // Fechando a view antiga (janela de Login)
+				
 				} else {
 					JOptionPane.showMessageDialog(null, "Erro! E-mail ou senha incorreto(s)!");
 				}
