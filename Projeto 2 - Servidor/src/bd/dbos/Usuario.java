@@ -22,9 +22,17 @@ public class Usuario implements Serializable
     private Double saldo;
     private Date data;
     
+    private String PartidaAtual;
     
+    public String getPartidaAtual() {
+		return PartidaAtual;
+	}
 
-    public Double getSaldo() {
+	public void setPartidaAtual(String partidaAtual) {
+		PartidaAtual = partidaAtual;
+	}
+
+	public Double getSaldo() {
 		return saldo;
 	}
 

@@ -1,6 +1,7 @@
 package Service;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -32,6 +33,13 @@ public class PartidaService {
 		if (!partidas.containsKey(nome)) 
 			throw new PartidaException("Partida nao Existe");
 		partidas.get(nome).getListUsuarios().add(usuario);
+		usuario.setPartidaAtual(nome);
+	}
+	
+	public List<Usuario> getUsuariosNaPartida(String nome) throws PartidaException {
+		if (!partidas.containsKey(nome)) 
+			throw new PartidaException("Partida nao Existe");
+		return partidas.get(nome).getListUsuarios();
 	}
 
 }

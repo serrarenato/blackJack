@@ -294,14 +294,6 @@ public class TelaEscolhePartida extends javax.swing.JPanel {
 
 			System.out.println(retorno);
 			if (retorno.getProtocolo().equals("SUC")) {
-				/*
-				 * JFrame janelaPrePartida = new JFrame("TelaPrePartida"); TelaPrePartida
-				 * escolherPartida = new TelaPrePartida(janelaPrePartida);
-				 * 
-				 * janelaPrePartida.add(escolherPartida); janelaPrePartida.pack();
-				 * janelaPrePartida.setLocationRelativeTo(escolherPartida);
-				 * janelaPrePartida.setVisible(true); this.escolherPartida.dispose();
-				 */
 				JFrame newFrame = new TelaPrePartida(retorno.getMensagem());
 				newFrame.setVisible(true);
 
