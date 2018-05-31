@@ -139,8 +139,7 @@ public class GerenciadorClientes extends Thread {
 			// criar partida
 			enviaMensagem = usuarioService.entrarPartida(usuario, mensagem.getMensagem());
 			enviaDados(enviaMensagem);
-		} else if (mensagem.getProtocolo().equals("PAR")) {
-			boolean continuarThreadPartidas = true;
+		} else if (mensagem.getProtocolo().equals("PAR")) {			
 			threadPartidas = new Thread() {
 				@Override
 				public void run() {
@@ -178,7 +177,8 @@ public class GerenciadorClientes extends Thread {
 	public void enviaDados(Mensagem message) {
 
 		try {
-			System.out.println("Enviando mensagem:" + message);
+		
+			System.out.println("Enviando mensagem:" + message + " para "+ 	this.usuario.getNome());
 			output.writeObject(message);
 			output.flush();
 

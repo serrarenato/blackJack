@@ -10,6 +10,7 @@ import exception.PartidaException;
 
 public class UsuarioService {
 
+	private static final int NUMEROMAXIMOJOGADORPORBARALHO = 4;
 	PartidaService partidaService = new PartidaService();
 
 	public Mensagem enviaListaPartidas() {
@@ -97,7 +98,7 @@ public class UsuarioService {
 			}
 			
 			Map<String, Partida> partidas = partidaService.listarPartidas();
-			if (usuarios.size() > 4)
+			if (usuarios.size() > NUMEROMAXIMOJOGADORPORBARALHO)
 				partidas.get(partida).setNumeroBaralhos(2);
 			else
 				partidas.get(partida).setNumeroBaralhos(1);
