@@ -14,6 +14,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Label;
 import java.awt.Font;
+import javax.swing.JList;
 
 /**
  *
@@ -38,8 +39,6 @@ public class TelaPartida extends javax.swing.JFrame {
     private void initComponents() {
         btnParar = new javax.swing.JButton();
         btnComprarCarta = new javax.swing.JButton();
-        lblCartaUsuario = new java.awt.Label();
-        lblTotalCartas = new java.awt.Label();
         lblJogador4 = new javax.swing.JLabel();
         lblApostaJogador8 = new javax.swing.JLabel();
         lblJogador5 = new javax.swing.JLabel();
@@ -70,11 +69,6 @@ public class TelaPartida extends javax.swing.JFrame {
         btnParar.setText("Parar");
 
         btnComprarCarta.setText("Comprar Carta!");
-
-        lblCartaUsuario.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        lblCartaUsuario.setText("Cartas");
-
-        lblTotalCartas.setText("Total das Cartas:");
 
         lblJogador4.setText("Vazio");
 
@@ -107,6 +101,7 @@ public class TelaPartida extends javax.swing.JFrame {
         lblApostaJogador5.setText("000");
 
         lblJogador2.setText("Vazio");
+        lblJogador1.setText("Vazio");
 
         lblApostaJogador6.setText("000");
 
@@ -131,15 +126,19 @@ public class TelaPartida extends javax.swing.JFrame {
         
         JLabel lblQtdMoedas = new JLabel("teste");
         
-        JLabel lblCartas = new JLabel("Cartas");
+        JLabel lblQtdCartasBaralho = new JLabel("Cartas");
         
-        JLabel lblMinhasCartas = new JLabel("cartas");
+        JLabel lbTotalCartas = new JLabel("cartas");
         
-        JLabel lbTotalCartas1 = new JLabel("cartas");
+        lblSomatorioDasCartas = new JLabel("Somatorio das Cartas");
+        
+        listCartas = new JList();
+        
+        lblCartas = new JLabel("Cartas");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         layout.setHorizontalGroup(
-        	layout.createParallelGroup(Alignment.TRAILING)
+        	layout.createParallelGroup(Alignment.LEADING)
         		.addGroup(layout.createSequentialGroup()
         			.addContainerGap()
         			.addGroup(layout.createParallelGroup(Alignment.LEADING)
@@ -171,129 +170,131 @@ public class TelaPartida extends javax.swing.JFrame {
         									.addComponent(lblApostaJogador8, GroupLayout.PREFERRED_SIZE, 75, GroupLayout.PREFERRED_SIZE))
         								.addComponent(jLabel18)))
         						.addComponent(btnSair))
+        					.addGap(23)
         					.addGroup(layout.createParallelGroup(Alignment.LEADING)
         						.addGroup(layout.createSequentialGroup()
-        							.addGap(83)
+        							.addPreferredGap(ComponentPlacement.RELATED)
         							.addGroup(layout.createParallelGroup(Alignment.LEADING)
-        								.addGroup(layout.createParallelGroup(Alignment.TRAILING)
-        									.addGroup(layout.createSequentialGroup()
-        										.addGap(51)
-        										.addGroup(layout.createParallelGroup(Alignment.LEADING)
-        											.addGroup(layout.createSequentialGroup()
-        												.addGap(83)
-        												.addGroup(layout.createParallelGroup(Alignment.TRAILING)
-        													.addGroup(layout.createSequentialGroup()
-        														.addComponent(lblCartaUsuario, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-        														.addGap(76))
-        													.addGroup(layout.createParallelGroup(Alignment.LEADING)
-        														.addComponent(lblMinhasCartas)
-        														.addComponent(lblTotalCartas, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
-        												.addContainerGap(404, Short.MAX_VALUE))
-        											.addGroup(layout.createSequentialGroup()
-        												.addGroup(layout.createParallelGroup(Alignment.TRAILING)
-        													.addComponent(lbTotalCartas1)
-        													.addComponent(btnComprarCarta, GroupLayout.PREFERRED_SIZE, 193, GroupLayout.PREFERRED_SIZE))
-        												.addGap(18)
-        												.addComponent(btnParar, GroupLayout.PREFERRED_SIZE, 124, GroupLayout.PREFERRED_SIZE))))
-        									.addGroup(layout.createSequentialGroup()
-        										.addPreferredGap(ComponentPlacement.RELATED)
-        										.addComponent(lblMoedas)
-        										.addGap(41)))
-        								.addGroup(Alignment.TRAILING, layout.createSequentialGroup()
-        									.addPreferredGap(ComponentPlacement.RELATED)
-        									.addComponent(lblQtdMoedas)
-        									.addGap(79))))
+        								.addGroup(layout.createSequentialGroup()
+        									.addGap(83)
+        									.addGroup(layout.createParallelGroup(Alignment.TRAILING)
+        										.addGroup(layout.createSequentialGroup()
+        											.addGap(51)
+        											.addComponent(btnComprarCarta, GroupLayout.PREFERRED_SIZE, 193, GroupLayout.PREFERRED_SIZE)
+        											.addGap(18)
+        											.addComponent(btnParar, GroupLayout.PREFERRED_SIZE, 124, GroupLayout.PREFERRED_SIZE)
+        											.addPreferredGap(ComponentPlacement.RELATED)
+        											.addGroup(layout.createParallelGroup(Alignment.LEADING)
+        												.addGroup(layout.createSequentialGroup()
+        													.addGap(61)
+        													.addComponent(lblSomatorioDasCartas))
+        												.addGroup(layout.createSequentialGroup()
+        													.addGap(119)
+        													.addComponent(lbTotalCartas)))
+        											.addContainerGap(218, Short.MAX_VALUE))
+        										.addGroup(layout.createSequentialGroup()
+        											.addGap(200)
+        											.addComponent(listCartas, GroupLayout.PREFERRED_SIZE, 222, GroupLayout.PREFERRED_SIZE)
+        											.addGroup(layout.createParallelGroup(Alignment.LEADING)
+        												.addGroup(layout.createSequentialGroup()
+        													.addGap(133)
+        													.addComponent(lblMoedas))
+        												.addGroup(layout.createSequentialGroup()
+        													.addGap(166)
+        													.addComponent(lblQtdMoedas)))
+        											.addGap(164))))
+        								.addGroup(layout.createSequentialGroup()
+        									.addGap(229)
+        									.addComponent(btnApostar, GroupLayout.PREFERRED_SIZE, 121, GroupLayout.PREFERRED_SIZE)
+        									.addGap(65)
+        									.addComponent(txtValorApostar, GroupLayout.PREFERRED_SIZE, 66, GroupLayout.PREFERRED_SIZE)
+        									.addGap(271))))
         						.addGroup(layout.createSequentialGroup()
-        							.addGap(229)
-        							.addComponent(btnApostar, GroupLayout.PREFERRED_SIZE, 121, GroupLayout.PREFERRED_SIZE)
-        							.addGap(65)
-        							.addComponent(txtValorApostar, GroupLayout.PREFERRED_SIZE, 66, GroupLayout.PREFERRED_SIZE)
-        							.addGap(271))))))
-        		.addGroup(Alignment.LEADING, layout.createSequentialGroup()
+        							.addGap(365)
+        							.addComponent(lblCartas)
+        							.addContainerGap())))))
+        		.addGroup(layout.createSequentialGroup()
         			.addGap(42)
-        			.addComponent(lblCartas)
-        			.addContainerGap(831, Short.MAX_VALUE))
+        			.addComponent(lblQtdCartasBaralho)
+        			.addContainerGap(981, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
-        	layout.createParallelGroup(Alignment.LEADING)
+        	layout.createParallelGroup(Alignment.TRAILING)
         		.addGroup(layout.createSequentialGroup()
-        			.addGroup(layout.createParallelGroup(Alignment.LEADING)
+        			.addGap(23)
+        			.addGroup(layout.createParallelGroup(Alignment.TRAILING)
         				.addGroup(layout.createSequentialGroup()
-        					.addContainerGap()
-        					.addComponent(lblCartaUsuario, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-        					.addGap(12)
-        					.addComponent(lblMoedas)
-        					.addGap(18)
-        					.addComponent(lblQtdMoedas, GroupLayout.PREFERRED_SIZE, 15, GroupLayout.PREFERRED_SIZE)
-        					.addGap(128)
-        					.addComponent(lblTotalCartas, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-        				.addGroup(layout.createSequentialGroup()
-        					.addGap(23)
         					.addGroup(layout.createParallelGroup(Alignment.BASELINE)
         						.addComponent(lblJogador)
         						.addComponent(jLabel18))
-        					.addGap(14)
-        					.addGroup(layout.createParallelGroup(Alignment.LEADING)
-        						.addGroup(layout.createSequentialGroup()
-        							.addComponent(lblJogador1)
-        							.addPreferredGap(ComponentPlacement.RELATED)
-        							.addComponent(lblJogador2)
-        							.addPreferredGap(ComponentPlacement.RELATED)
-        							.addComponent(lblJogador3)
-        							.addPreferredGap(ComponentPlacement.RELATED)
-        							.addComponent(lblJogador4)
-        							.addPreferredGap(ComponentPlacement.RELATED)
-        							.addComponent(lblJogador5)
-        							.addPreferredGap(ComponentPlacement.RELATED)
-        							.addComponent(lblJogador6)
-        							.addPreferredGap(ComponentPlacement.RELATED)
-        							.addComponent(lblJogador7)
-        							.addPreferredGap(ComponentPlacement.RELATED)
-        							.addComponent(lblJogador8))
-        						.addGroup(layout.createSequentialGroup()
-        							.addGroup(layout.createParallelGroup(Alignment.BASELINE)
-        								.addComponent(lblApostaJogador1)
-        								.addComponent(lblMinhasCartas))
-        							.addPreferredGap(ComponentPlacement.RELATED)
-        							.addComponent(lblApostaJogador2)
-        							.addPreferredGap(ComponentPlacement.RELATED)
-        							.addComponent(lblApostaJogador3)
-        							.addPreferredGap(ComponentPlacement.RELATED)
-        							.addComponent(lblApostaJogador4)
-        							.addPreferredGap(ComponentPlacement.RELATED)
-        							.addComponent(lblApostaJogador5)
-        							.addPreferredGap(ComponentPlacement.RELATED)
-        							.addComponent(lblApostaJogador6)
-        							.addPreferredGap(ComponentPlacement.RELATED)
-        							.addComponent(lblApostaJogador7)
-        							.addPreferredGap(ComponentPlacement.RELATED)
-        							.addComponent(lblApostaJogador8)))))
+        					.addGap(14))
+        				.addGroup(layout.createSequentialGroup()
+        					.addComponent(lblCartas)
+        					.addPreferredGap(ComponentPlacement.UNRELATED)))
         			.addGroup(layout.createParallelGroup(Alignment.LEADING)
         				.addGroup(layout.createSequentialGroup()
-        					.addGap(10)
-        					.addComponent(lblCartasNoBaralho)
-        					.addGap(18)
-        					.addComponent(lblCartas))
+        					.addComponent(lblJogador1)
+        					.addPreferredGap(ComponentPlacement.RELATED)
+        					.addComponent(lblJogador2)
+        					.addPreferredGap(ComponentPlacement.RELATED)
+        					.addComponent(lblJogador3)
+        					.addPreferredGap(ComponentPlacement.RELATED)
+        					.addComponent(lblJogador4)
+        					.addPreferredGap(ComponentPlacement.RELATED)
+        					.addComponent(lblJogador5)
+        					.addPreferredGap(ComponentPlacement.RELATED)
+        					.addComponent(lblJogador6)
+        					.addPreferredGap(ComponentPlacement.RELATED)
+        					.addComponent(lblJogador7)
+        					.addPreferredGap(ComponentPlacement.RELATED)
+        					.addComponent(lblJogador8))
+        				.addComponent(listCartas, GroupLayout.PREFERRED_SIZE, 164, GroupLayout.PREFERRED_SIZE)
         				.addGroup(layout.createSequentialGroup()
-        					.addPreferredGap(ComponentPlacement.UNRELATED)
-        					.addComponent(lbTotalCartas1)))
+        					.addGroup(layout.createSequentialGroup()
+        						.addComponent(lblApostaJogador1)
+        						.addPreferredGap(ComponentPlacement.RELATED)
+        						.addComponent(lblApostaJogador2)
+        						.addPreferredGap(ComponentPlacement.RELATED)
+        						.addComponent(lblApostaJogador3)
+        						.addPreferredGap(ComponentPlacement.RELATED)
+        						.addComponent(lblApostaJogador4)
+        						.addPreferredGap(ComponentPlacement.RELATED)
+        						.addComponent(lblApostaJogador5)
+        						.addPreferredGap(ComponentPlacement.RELATED)
+        						.addComponent(lblApostaJogador6)
+        						.addPreferredGap(ComponentPlacement.RELATED)
+        						.addComponent(lblApostaJogador7))
+        					.addPreferredGap(ComponentPlacement.RELATED)
+        					.addComponent(lblApostaJogador8)))
+        			.addGap(34)
+        			.addComponent(lblCartasNoBaralho)
+        			.addGap(18)
+        			.addComponent(lblQtdCartasBaralho)
         			.addGap(28)
         			.addGroup(layout.createParallelGroup(Alignment.BASELINE)
-        				.addComponent(btnParar, GroupLayout.PREFERRED_SIZE, 66, GroupLayout.PREFERRED_SIZE)
-        				.addComponent(btnComprarCarta, GroupLayout.PREFERRED_SIZE, 66, GroupLayout.PREFERRED_SIZE))
+        				.addComponent(btnParar, GroupLayout.PREFERRED_SIZE, 47, GroupLayout.PREFERRED_SIZE)
+        				.addComponent(btnComprarCarta, GroupLayout.PREFERRED_SIZE, 49, GroupLayout.PREFERRED_SIZE))
         			.addPreferredGap(ComponentPlacement.RELATED)
         			.addGroup(layout.createParallelGroup(Alignment.BASELINE)
         				.addComponent(btnSair)
         				.addComponent(btnApostar, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         				.addComponent(txtValorApostar, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE))
         			.addContainerGap())
+        		.addGroup(layout.createSequentialGroup()
+        			.addGap(85)
+        			.addComponent(lblMoedas)
+        			.addGap(18)
+        			.addComponent(lblQtdMoedas, GroupLayout.PREFERRED_SIZE, 15, GroupLayout.PREFERRED_SIZE)
+        			.addPreferredGap(ComponentPlacement.RELATED, 206, Short.MAX_VALUE)
+        			.addComponent(lblSomatorioDasCartas)
+        			.addPreferredGap(ComponentPlacement.UNRELATED)
+        			.addComponent(lbTotalCartas)
+        			.addGap(67))
         );
         getContentPane().setLayout(layout);
         btnParar.getAccessibleContext().setAccessibleName("btnPararJogada");
         btnParar.getAccessibleContext().setAccessibleDescription("");
         btnComprarCarta.getAccessibleContext().setAccessibleName("btnComprarCarta");
-        lblCartaUsuario.getAccessibleContext().setAccessibleName("lblCartas");
-        lblTotalCartas.getAccessibleContext().setAccessibleName("lblValorTotalCartajogador");
         lblJogador4.getAccessibleContext().setAccessibleName("lblJogador4");
         lblApostaJogador8.getAccessibleContext().setAccessibleName("lblApostaJogador8");
         lblJogador5.getAccessibleContext().setAccessibleName("lblJogador5");
@@ -369,7 +370,6 @@ public class TelaPartida extends javax.swing.JFrame {
     private javax.swing.JLabel lblApostaJogador6;
     private javax.swing.JLabel lblApostaJogador7;
     private javax.swing.JLabel lblApostaJogador8;
-    private java.awt.Label lblCartaUsuario;
     private javax.swing.JLabel lblCartasNoBaralho;
     private javax.swing.JLabel lblJogador;
     private javax.swing.JLabel lblListJogador[] = new JLabel[8];
@@ -382,7 +382,9 @@ public class TelaPartida extends javax.swing.JFrame {
     private javax.swing.JLabel lblJogador7;
     private javax.swing.JLabel lblJogador8;
     private javax.swing.JLabel lblMoedas;
-    private java.awt.Label lblTotalCartas;
     private javax.swing.JTextField txtValorApostar;
     private JButton btnApostar;
+    private JLabel lblSomatorioDasCartas;
+    private JList listCartas;
+    private JLabel lblCartas;
 }
