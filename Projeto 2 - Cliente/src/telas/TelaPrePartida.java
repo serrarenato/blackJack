@@ -9,6 +9,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.GroupLayout;
+import javax.swing.JFrame;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -29,15 +30,18 @@ public class TelaPrePartida extends javax.swing.JFrame {
 	 */
 	private String saldo;
 	Thread thread;
+	JFrame prePartida;
 
 	public TelaPrePartida(String saldo) {
 		this.saldo = saldo;
 		initComponents();
 		lerParticipantes(thread);
+		prePartida = this;
 	}
 
 	public TelaPrePartida() {
 		initComponents();
+		prePartida = this;
 	}
 
 	/**
@@ -51,19 +55,20 @@ public class TelaPrePartida extends javax.swing.JFrame {
 	private void initComponents() {
 
 		jButton3 = new javax.swing.JButton();
-		lblStatusjogador1 = new javax.swing.JLabel();
-		lblStatusjogador3 = new javax.swing.JLabel();
+		lblStatusjogador[0] = new javax.swing.JLabel();
+		lblStatusjogador[1] = new javax.swing.JLabel();
+		lblStatusjogador[2] = new javax.swing.JLabel();
 		lblJogador[0] = new javax.swing.JLabel();
-		lblStatusjogador4 = new javax.swing.JLabel();
-		lblStatusjogador5 = new javax.swing.JLabel();
+		lblStatusjogador[3] = new javax.swing.JLabel();
+		lblStatusjogador[4] = new javax.swing.JLabel();
 		lblJogador[1] = new javax.swing.JLabel();
-		lblStatusjogador6 = new javax.swing.JLabel();
+		lblStatusjogador[5] = new javax.swing.JLabel();
 		lblJogador[2] = new javax.swing.JLabel();
-		lblStatusjogador7 = new javax.swing.JLabel();
+		lblStatusjogador[6] = new javax.swing.JLabel();
 		lblJogador[3] = new javax.swing.JLabel();
-		lblStatusjogador8 = new javax.swing.JLabel();
+		lblStatusjogador[7] = new javax.swing.JLabel();
 		lblJogador[4] = new javax.swing.JLabel();
-		lblStatusjogador2 = new javax.swing.JLabel();
+
 		lblJogador[5] = new javax.swing.JLabel();
 		jLabel17 = new javax.swing.JLabel();
 		lblJogador[6] = new javax.swing.JLabel();
@@ -85,31 +90,31 @@ public class TelaPrePartida extends javax.swing.JFrame {
 
 		setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-		lblStatusjogador1.setText("Offline");
+		lblStatusjogador[0].setText("Offline");
 
-		lblStatusjogador3.setText("Offline");
+		lblStatusjogador[2].setText("Offline");
 
 		lblJogador[0].setText("Vazio");
 
-		lblStatusjogador4.setText("Offline");
+		lblStatusjogador[3].setText("Offline");
 
-		lblStatusjogador5.setText("Offline");
+		lblStatusjogador[4].setText("Offline");
 
 		lblJogador[1].setText("Vazio");
 
-		lblStatusjogador6.setText("Offline");
+		lblStatusjogador[5].setText("Offline");
 
 		lblJogador[2].setText("Vazio");
 
-		lblStatusjogador7.setText("Offline");
+		lblStatusjogador[6].setText("Offline");
 
 		lblJogador[3].setText("Vazio");
 
-		lblStatusjogador8.setText("Offline");
+		lblStatusjogador[7].setText("Offline");
 
 		lblJogador[4].setText("Vazio");
 
-		lblStatusjogador2.setText("Offline");
+		lblStatusjogador[1].setText("Offline");
 
 		lblJogador[5].setText("Vazio");
 
@@ -165,21 +170,21 @@ public class TelaPrePartida extends javax.swing.JFrame {
 						.addGroup(layout.createSequentialGroup().addPreferredGap(ComponentPlacement.RELATED)
 								.addGroup(layout.createParallelGroup(Alignment.LEADING)
 										.addGroup(layout.createParallelGroup(Alignment.LEADING, false)
-												.addComponent(lblStatusjogador2, GroupLayout.DEFAULT_SIZE,
+												.addComponent(lblStatusjogador[1], GroupLayout.DEFAULT_SIZE,
 														GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-												.addComponent(lblStatusjogador1, GroupLayout.DEFAULT_SIZE,
+												.addComponent(lblStatusjogador[0], GroupLayout.DEFAULT_SIZE,
 														GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-												.addComponent(lblStatusjogador3, GroupLayout.DEFAULT_SIZE,
+												.addComponent(lblStatusjogador[2], GroupLayout.DEFAULT_SIZE,
 														GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-												.addComponent(lblStatusjogador4, GroupLayout.DEFAULT_SIZE,
+												.addComponent(lblStatusjogador[3], GroupLayout.DEFAULT_SIZE,
 														GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-												.addComponent(lblStatusjogador5, GroupLayout.DEFAULT_SIZE,
+												.addComponent(lblStatusjogador[4], GroupLayout.DEFAULT_SIZE,
 														GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-												.addComponent(lblStatusjogador6, GroupLayout.DEFAULT_SIZE,
+												.addComponent(lblStatusjogador[5], GroupLayout.DEFAULT_SIZE,
 														GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-												.addComponent(lblStatusjogador7, GroupLayout.DEFAULT_SIZE,
+												.addComponent(lblStatusjogador[6], GroupLayout.DEFAULT_SIZE,
 														GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-												.addComponent(lblStatusjogador8, GroupLayout.PREFERRED_SIZE, 75,
+												.addComponent(lblStatusjogador[7], GroupLayout.PREFERRED_SIZE, 75,
 														GroupLayout.PREFERRED_SIZE))
 										.addComponent(jLabel18))
 								.addPreferredGap(ComponentPlacement.RELATED, 104, Short.MAX_VALUE)
@@ -197,28 +202,27 @@ public class TelaPrePartida extends javax.swing.JFrame {
 				.addContainerGap()
 				.addGroup(layout.createParallelGroup(Alignment.BASELINE).addComponent(jLabel17).addComponent(jLabel18))
 				.addGap(14)
-				.addGroup(
-						layout.createParallelGroup(Alignment.LEADING)
-								.addGroup(layout.createSequentialGroup().addComponent(lblJogador[0])
-										.addPreferredGap(ComponentPlacement.RELATED).addComponent(lblJogador[1])
-										.addPreferredGap(ComponentPlacement.RELATED).addComponent(lblJogador[2])
-										.addPreferredGap(ComponentPlacement.RELATED).addComponent(lblJogador[3])
-										.addPreferredGap(ComponentPlacement.RELATED).addComponent(lblJogador[4])
-										.addPreferredGap(ComponentPlacement.RELATED).addComponent(lblJogador[5])
-										.addPreferredGap(ComponentPlacement.RELATED).addComponent(lblJogador[6])
-										.addPreferredGap(ComponentPlacement.RELATED).addComponent(lblJogador[7]))
-								.addGroup(layout.createSequentialGroup().addComponent(lblStatusjogador1)
-										.addPreferredGap(ComponentPlacement.RELATED).addComponent(lblStatusjogador2)
-										.addPreferredGap(ComponentPlacement.RELATED).addComponent(lblStatusjogador3)
-										.addPreferredGap(ComponentPlacement.RELATED)
-										.addGroup(layout.createParallelGroup(Alignment.BASELINE)
-												.addComponent(lblStatusjogador4).addComponent(lblSaldo))
-										.addPreferredGap(ComponentPlacement.RELATED)
-										.addGroup(layout.createParallelGroup(Alignment.BASELINE)
-												.addComponent(lblStatusjogador5).addComponent(lblDinheiro))
-										.addPreferredGap(ComponentPlacement.RELATED).addComponent(lblStatusjogador6)
-										.addPreferredGap(ComponentPlacement.RELATED).addComponent(lblStatusjogador7)
-										.addPreferredGap(ComponentPlacement.RELATED).addComponent(lblStatusjogador8)))
+				.addGroup(layout.createParallelGroup(Alignment.LEADING)
+						.addGroup(layout.createSequentialGroup().addComponent(lblJogador[0])
+								.addPreferredGap(ComponentPlacement.RELATED).addComponent(lblJogador[1])
+								.addPreferredGap(ComponentPlacement.RELATED).addComponent(lblJogador[2])
+								.addPreferredGap(ComponentPlacement.RELATED).addComponent(lblJogador[3])
+								.addPreferredGap(ComponentPlacement.RELATED).addComponent(lblJogador[4])
+								.addPreferredGap(ComponentPlacement.RELATED).addComponent(lblJogador[5])
+								.addPreferredGap(ComponentPlacement.RELATED).addComponent(lblJogador[6])
+								.addPreferredGap(ComponentPlacement.RELATED).addComponent(lblJogador[7]))
+						.addGroup(layout.createSequentialGroup().addComponent(lblStatusjogador[0])
+								.addPreferredGap(ComponentPlacement.RELATED).addComponent(lblStatusjogador[1])
+								.addPreferredGap(ComponentPlacement.RELATED).addComponent(lblStatusjogador[2])
+								.addPreferredGap(ComponentPlacement.RELATED)
+								.addGroup(layout.createParallelGroup(Alignment.BASELINE)
+										.addComponent(lblStatusjogador[3]).addComponent(lblSaldo))
+								.addPreferredGap(ComponentPlacement.RELATED)
+								.addGroup(layout.createParallelGroup(Alignment.BASELINE)
+										.addComponent(lblStatusjogador[4]).addComponent(lblDinheiro))
+								.addPreferredGap(ComponentPlacement.RELATED).addComponent(lblStatusjogador[5])
+								.addPreferredGap(ComponentPlacement.RELATED).addComponent(lblStatusjogador[6])
+								.addPreferredGap(ComponentPlacement.RELATED).addComponent(lblStatusjogador[7])))
 				.addGap(36)
 				.addGroup(layout.createParallelGroup(Alignment.BASELINE).addComponent(btnIniciarPartida,
 						GroupLayout.PREFERRED_SIZE, 66, GroupLayout.PREFERRED_SIZE))
@@ -227,20 +231,20 @@ public class TelaPrePartida extends javax.swing.JFrame {
 				.addContainerGap(80, Short.MAX_VALUE)));
 		getContentPane().setLayout(layout);
 
-		lblStatusjogador1.getAccessibleContext().setAccessibleName("lblJogador1Status");
-		lblStatusjogador3.getAccessibleContext().setAccessibleName("lblJogador3Status");
+		lblStatusjogador[0].getAccessibleContext().setAccessibleName("lblJogador1Status");
+		lblStatusjogador[2].getAccessibleContext().setAccessibleName("lblJogador3Status");
 		lblJogador[0].getAccessibleContext().setAccessibleName("lblJogador1");
-		lblStatusjogador4.getAccessibleContext().setAccessibleName("lblJogador4Status");
-		lblStatusjogador5.getAccessibleContext().setAccessibleName("lblJogador5Status");
+		lblStatusjogador[3].getAccessibleContext().setAccessibleName("lblJogador4Status");
+		lblStatusjogador[4].getAccessibleContext().setAccessibleName("lblJogador5Status");
 		lblJogador[1].getAccessibleContext().setAccessibleName("lblJogador2");
-		lblStatusjogador6.getAccessibleContext().setAccessibleName("lblJogador6Status");
+		lblStatusjogador[5].getAccessibleContext().setAccessibleName("lblJogador6Status");
 		lblJogador[2].getAccessibleContext().setAccessibleName("lblJogador3");
-		lblStatusjogador7.getAccessibleContext().setAccessibleName("lblJogador5Status");
+		lblStatusjogador[6].getAccessibleContext().setAccessibleName("lblJogador5Status");
 		lblJogador[3].getAccessibleContext().setAccessibleName("lblJogador4");
-		lblStatusjogador8.getAccessibleContext().setAccessibleName("lblJogador8Status");
+		lblStatusjogador[7].getAccessibleContext().setAccessibleName("lblJogador8Status");
 		lblJogador[4].getAccessibleContext().setAccessibleName("lblJogador5");
-		lblStatusjogador2.getAccessibleContext().setAccessibleName("lblJogador2Status");
-		lblStatusjogador2.getAccessibleContext().setAccessibleDescription("");
+		lblStatusjogador[1].getAccessibleContext().setAccessibleName("lblJogador2Status");
+		lblStatusjogador[1].getAccessibleContext().setAccessibleDescription("");
 		lblJogador[5].getAccessibleContext().setAccessibleName("lblJogador6");
 		jLabel17.getAccessibleContext().setAccessibleName("lblJogadores");
 		lblJogador[6].getAccessibleContext().setAccessibleName("lblJogador7");
@@ -300,12 +304,24 @@ public class TelaPrePartida extends javax.swing.JFrame {
 
 		ClienteSocket clienteSocket = ClienteSocket.getClienteSocket();
 		Mensagem mensagem = new Mensagem("INI", " ");
-		clienteSocket.enviaDados(mensagem);		
+		clienteSocket.enviaDados(mensagem);
 
 	}
-	private void telarIniciarPartida() {
+
+	private void telarIniciarPartida(String mensagem) {
 		btnIniciarPartida.setEnabled(false);
-		JOptionPane.showMessageDialog(null, "Partida Iniciada");
+		//JOptionPane.showMessageDialog(null, "Partida Iniciada");
+		String[] strings = mensagem.split(":");
+		double money = new Double(strings[0]);
+		String[] nomes = new String[strings.length - 1];
+
+		for (int x = 1; x < strings.length; x++) {
+			nomes[x - 1] = strings[x];			
+		}
+		JFrame newFrame = new TelaPartida(money, nomes);
+		newFrame.setVisible(true);
+
+		this.prePartida.dispose();
 	}
 
 	private void lerParticipantes(Thread thread) {
@@ -328,12 +344,13 @@ public class TelaPrePartida extends javax.swing.JFrame {
 								btnIniciarPartida.setEnabled(true);
 							for (String string : strings) {
 								lblJogador[x].setText(string);
+								lblStatusjogador[x].setText("Online");
 								x++;
 							}
 
 						} else if (retorno.getProtocolo().equals("INI")) {
 							continuar = false;
-							telarIniciarPartida();
+							telarIniciarPartida(retorno.getMensagem());
 						} else {
 							JOptionPane.showMessageDialog(null, "Erro nao foi listar jogadores na partida");
 						}
@@ -360,12 +377,6 @@ public class TelaPrePartida extends javax.swing.JFrame {
 	private javax.swing.JLabel lblJogador[] = new javax.swing.JLabel[10];
 	private javax.swing.JLabel lblSaldo;
 	private javax.swing.JLabel lblDinheiro;
-	private javax.swing.JLabel lblStatusjogador1;
-	private javax.swing.JLabel lblStatusjogador2;
-	private javax.swing.JLabel lblStatusjogador3;
-	private javax.swing.JLabel lblStatusjogador4;
-	private javax.swing.JLabel lblStatusjogador5;
-	private javax.swing.JLabel lblStatusjogador6;
-	private javax.swing.JLabel lblStatusjogador7;
-	private javax.swing.JLabel lblStatusjogador8;
+	private javax.swing.JLabel lblStatusjogador[] = new javax.swing.JLabel[10];
+
 }

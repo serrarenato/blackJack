@@ -8,6 +8,8 @@ import javax.swing.GroupLayout.Alignment;
 import javax.swing.GroupLayout;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JButton;
+import javax.swing.JLabel;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Label;
@@ -23,9 +25,6 @@ public class TelaPartida extends javax.swing.JFrame {
      * Creates new form TelaPrePartida
      */
     public TelaPartida() {
-    	lblValorTotal.setText("Total das Cartas:");
-    	lblCartasNaMao.setText("Cartas");
-    	lblCartasNaMao.setFont(new Font("Dialog", Font.BOLD, 12));
         initComponents();
     }
 
@@ -50,9 +49,11 @@ public class TelaPartida extends javax.swing.JFrame {
         lblJogador7 = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
         lblJogador8 = new javax.swing.JLabel();
+        lblJogador8.setName("");
         lblApostaJogador1 = new javax.swing.JLabel();
         lblApostaJogador3 = new javax.swing.JLabel();
         lblJogador1 = new javax.swing.JLabel();
+        lblListJogador[0] = new javax.swing.JLabel();
         lblApostaJogador4 = new javax.swing.JLabel();
         lblApostaJogador5 = new javax.swing.JLabel();
         lblJogador2 = new javax.swing.JLabel();
@@ -60,7 +61,6 @@ public class TelaPartida extends javax.swing.JFrame {
         lblJogador3 = new javax.swing.JLabel();
         lblApostaJogador7 = new javax.swing.JLabel();
         lblCartasNoBaralho = new javax.swing.JLabel();
-        txtQntBaralho = new javax.swing.JTextField();
         btnSair = new javax.swing.JButton();
         lblMoedas = new javax.swing.JLabel();
         txtValorApostar = new javax.swing.JTextField();
@@ -100,7 +100,7 @@ public class TelaPartida extends javax.swing.JFrame {
 
         lblApostaJogador3.setText("000");
 
-        lblJogador1.setText("Vazio");
+        lblListJogador[0].setText("Vazio");
 
         lblApostaJogador4.setText("000");
 
@@ -116,8 +116,6 @@ public class TelaPartida extends javax.swing.JFrame {
 
         lblCartasNoBaralho.setText("Cartas no Baralho");
 
-        txtQntBaralho.setText("0");
-
         btnSair.setText("Sair");
 
         lblMoedas.setText("Suas Moedas:");
@@ -130,6 +128,14 @@ public class TelaPartida extends javax.swing.JFrame {
         	}
         });
         btnApostar.setText("Apostar");
+        
+        JLabel lblQtdMoedas = new JLabel("teste");
+        
+        JLabel lblCartas = new JLabel("Cartas");
+        
+        JLabel lblMinhasCartas = new JLabel("cartas");
+        
+        JLabel lbTotalCartas1 = new JLabel("cartas");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         layout.setHorizontalGroup(
@@ -137,63 +143,76 @@ public class TelaPartida extends javax.swing.JFrame {
         		.addGroup(layout.createSequentialGroup()
         			.addContainerGap()
         			.addGroup(layout.createParallelGroup(Alignment.LEADING)
+        				.addComponent(lblCartasNoBaralho)
         				.addGroup(layout.createSequentialGroup()
-        					.addComponent(btnSair)
-        					.addGap(23))
-        				.addGroup(layout.createParallelGroup(Alignment.LEADING)
-        					.addGroup(layout.createSequentialGroup()
-        						.addGroup(layout.createParallelGroup(Alignment.LEADING)
-        							.addGroup(layout.createParallelGroup(Alignment.LEADING, false)
-        								.addComponent(lblJogador2, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        								.addComponent(lblJogador1, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        								.addComponent(lblJogador3, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        								.addComponent(lblJogador4, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        								.addComponent(lblJogador5, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        								.addComponent(lblJogador6, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        								.addComponent(lblJogador7, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        								.addComponent(lblJogador8, GroupLayout.PREFERRED_SIZE, 75, GroupLayout.PREFERRED_SIZE))
-        							.addComponent(lblJogador))
-        						.addPreferredGap(ComponentPlacement.RELATED)
-        						.addGroup(layout.createParallelGroup(Alignment.LEADING)
-        							.addGroup(layout.createParallelGroup(Alignment.LEADING, false)
-        								.addComponent(lblApostaJogador2, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        								.addComponent(lblApostaJogador1, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        								.addComponent(lblApostaJogador3, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        								.addComponent(lblApostaJogador4, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        								.addComponent(lblApostaJogador5, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        								.addComponent(lblApostaJogador6, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        								.addComponent(lblApostaJogador7, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        								.addComponent(lblApostaJogador8, GroupLayout.PREFERRED_SIZE, 75, GroupLayout.PREFERRED_SIZE))
-        							.addComponent(jLabel18))
-        						.addGroup(layout.createParallelGroup(Alignment.LEADING)
-        							.addGroup(layout.createSequentialGroup()
-        								.addGap(51)
-        								.addGroup(layout.createParallelGroup(Alignment.LEADING)
+        					.addGroup(layout.createParallelGroup(Alignment.LEADING)
+        						.addGroup(layout.createSequentialGroup()
+        							.addGroup(layout.createParallelGroup(Alignment.LEADING)
+        								.addGroup(layout.createParallelGroup(Alignment.LEADING, false)
+        									.addComponent(lblJogador2, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        									.addComponent(lblJogador1, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        									.addComponent(lblJogador3, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        									.addComponent(lblJogador4, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        									.addComponent(lblJogador5, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        									.addComponent(lblJogador6, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        									.addComponent(lblJogador7, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        									.addComponent(lblJogador8, GroupLayout.PREFERRED_SIZE, 75, GroupLayout.PREFERRED_SIZE))
+        								.addComponent(lblJogador))
+        							.addPreferredGap(ComponentPlacement.RELATED)
+        							.addGroup(layout.createParallelGroup(Alignment.LEADING)
+        								.addGroup(layout.createParallelGroup(Alignment.LEADING, false)
+        									.addComponent(lblApostaJogador2, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        									.addComponent(lblApostaJogador1, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        									.addComponent(lblApostaJogador3, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        									.addComponent(lblApostaJogador4, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        									.addComponent(lblApostaJogador5, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        									.addComponent(lblApostaJogador6, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        									.addComponent(lblApostaJogador7, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        									.addComponent(lblApostaJogador8, GroupLayout.PREFERRED_SIZE, 75, GroupLayout.PREFERRED_SIZE))
+        								.addComponent(jLabel18)))
+        						.addComponent(btnSair))
+        					.addGroup(layout.createParallelGroup(Alignment.LEADING)
+        						.addGroup(layout.createSequentialGroup()
+        							.addGap(83)
+        							.addGroup(layout.createParallelGroup(Alignment.LEADING)
+        								.addGroup(layout.createParallelGroup(Alignment.TRAILING)
+        									.addGroup(layout.createSequentialGroup()
+        										.addGap(51)
+        										.addGroup(layout.createParallelGroup(Alignment.LEADING)
+        											.addGroup(layout.createSequentialGroup()
+        												.addGap(83)
+        												.addGroup(layout.createParallelGroup(Alignment.TRAILING)
+        													.addGroup(layout.createSequentialGroup()
+        														.addComponent(lblCartaUsuario, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+        														.addGap(76))
+        													.addGroup(layout.createParallelGroup(Alignment.LEADING)
+        														.addComponent(lblMinhasCartas)
+        														.addComponent(lblTotalCartas, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
+        												.addContainerGap(404, Short.MAX_VALUE))
+        											.addGroup(layout.createSequentialGroup()
+        												.addGroup(layout.createParallelGroup(Alignment.TRAILING)
+        													.addComponent(lbTotalCartas1)
+        													.addComponent(btnComprarCarta, GroupLayout.PREFERRED_SIZE, 193, GroupLayout.PREFERRED_SIZE))
+        												.addGap(18)
+        												.addComponent(btnParar, GroupLayout.PREFERRED_SIZE, 124, GroupLayout.PREFERRED_SIZE))))
         									.addGroup(layout.createSequentialGroup()
         										.addPreferredGap(ComponentPlacement.RELATED)
-        										.addComponent(btnComprarCarta, GroupLayout.PREFERRED_SIZE, 193, GroupLayout.PREFERRED_SIZE)
-        										.addGap(18)
-        										.addComponent(btnParar, GroupLayout.PREFERRED_SIZE, 124, GroupLayout.PREFERRED_SIZE)
-        										.addGap(30)
-        										.addComponent(btnApostar, GroupLayout.PREFERRED_SIZE, 124, GroupLayout.PREFERRED_SIZE)
-        										.addPreferredGap(ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
-        										.addComponent(txtValorApostar, GroupLayout.PREFERRED_SIZE, 66, GroupLayout.PREFERRED_SIZE)
-        										.addGap(28))
-        									.addGroup(layout.createSequentialGroup()
-        										.addGap(83)
-        										.addGroup(layout.createParallelGroup(Alignment.TRAILING)
-        											.addGroup(layout.createSequentialGroup()
-        												.addComponent(lblCartaUsuario, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-        												.addGap(76))
-        											.addComponent(lblTotalCartas, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-        										.addContainerGap(404, Short.MAX_VALUE))))
-        							.addGroup(Alignment.TRAILING, layout.createSequentialGroup()
-        								.addPreferredGap(ComponentPlacement.RELATED)
-        								.addComponent(lblMoedas)
-        								.addGap(41))))
-        					.addGroup(layout.createParallelGroup(Alignment.TRAILING, false)
-        						.addComponent(txtQntBaralho, Alignment.LEADING)
-        						.addComponent(lblCartasNoBaralho, Alignment.LEADING)))))
+        										.addComponent(lblMoedas)
+        										.addGap(41)))
+        								.addGroup(Alignment.TRAILING, layout.createSequentialGroup()
+        									.addPreferredGap(ComponentPlacement.RELATED)
+        									.addComponent(lblQtdMoedas)
+        									.addGap(79))))
+        						.addGroup(layout.createSequentialGroup()
+        							.addGap(229)
+        							.addComponent(btnApostar, GroupLayout.PREFERRED_SIZE, 121, GroupLayout.PREFERRED_SIZE)
+        							.addGap(65)
+        							.addComponent(txtValorApostar, GroupLayout.PREFERRED_SIZE, 66, GroupLayout.PREFERRED_SIZE)
+        							.addGap(271))))))
+        		.addGroup(Alignment.LEADING, layout.createSequentialGroup()
+        			.addGap(42)
+        			.addComponent(lblCartas)
+        			.addContainerGap(831, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
         	layout.createParallelGroup(Alignment.LEADING)
@@ -204,7 +223,9 @@ public class TelaPartida extends javax.swing.JFrame {
         					.addComponent(lblCartaUsuario, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
         					.addGap(12)
         					.addComponent(lblMoedas)
-        					.addGap(161)
+        					.addGap(18)
+        					.addComponent(lblQtdMoedas, GroupLayout.PREFERRED_SIZE, 15, GroupLayout.PREFERRED_SIZE)
+        					.addGap(128)
         					.addComponent(lblTotalCartas, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
         				.addGroup(layout.createSequentialGroup()
         					.addGap(23)
@@ -230,7 +251,9 @@ public class TelaPartida extends javax.swing.JFrame {
         							.addPreferredGap(ComponentPlacement.RELATED)
         							.addComponent(lblJogador8))
         						.addGroup(layout.createSequentialGroup()
-        							.addComponent(lblApostaJogador1)
+        							.addGroup(layout.createParallelGroup(Alignment.BASELINE)
+        								.addComponent(lblApostaJogador1)
+        								.addComponent(lblMinhasCartas))
         							.addPreferredGap(ComponentPlacement.RELATED)
         							.addComponent(lblApostaJogador2)
         							.addPreferredGap(ComponentPlacement.RELATED)
@@ -245,18 +268,24 @@ public class TelaPartida extends javax.swing.JFrame {
         							.addComponent(lblApostaJogador7)
         							.addPreferredGap(ComponentPlacement.RELATED)
         							.addComponent(lblApostaJogador8)))))
-        			.addGap(10)
-        			.addComponent(lblCartasNoBaralho)
-        			.addPreferredGap(ComponentPlacement.RELATED)
-        			.addComponent(txtQntBaralho, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)
-        			.addGap(23)
+        			.addGroup(layout.createParallelGroup(Alignment.LEADING)
+        				.addGroup(layout.createSequentialGroup()
+        					.addGap(10)
+        					.addComponent(lblCartasNoBaralho)
+        					.addGap(18)
+        					.addComponent(lblCartas))
+        				.addGroup(layout.createSequentialGroup()
+        					.addPreferredGap(ComponentPlacement.UNRELATED)
+        					.addComponent(lbTotalCartas1)))
+        			.addGap(28)
         			.addGroup(layout.createParallelGroup(Alignment.BASELINE)
         				.addComponent(btnParar, GroupLayout.PREFERRED_SIZE, 66, GroupLayout.PREFERRED_SIZE)
-        				.addComponent(btnComprarCarta, GroupLayout.PREFERRED_SIZE, 66, GroupLayout.PREFERRED_SIZE)
-        				.addComponent(btnApostar, GroupLayout.PREFERRED_SIZE, 66, GroupLayout.PREFERRED_SIZE)
+        				.addComponent(btnComprarCarta, GroupLayout.PREFERRED_SIZE, 66, GroupLayout.PREFERRED_SIZE))
+        			.addPreferredGap(ComponentPlacement.RELATED)
+        			.addGroup(layout.createParallelGroup(Alignment.BASELINE)
+        				.addComponent(btnSair)
+        				.addComponent(btnApostar, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         				.addComponent(txtValorApostar, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE))
-        			.addPreferredGap(ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
-        			.addComponent(btnSair)
         			.addContainerGap())
         );
         getContentPane().setLayout(layout);
@@ -284,7 +313,6 @@ public class TelaPartida extends javax.swing.JFrame {
         lblJogador3.getAccessibleContext().setAccessibleName("lblJogador3");
         lblApostaJogador7.getAccessibleContext().setAccessibleName("lblApostaJogador7");
         lblCartasNoBaralho.getAccessibleContext().setAccessibleName("lblCartasBaralho");
-        txtQntBaralho.getAccessibleContext().setAccessibleName("txtQuantidadeBaralho");
         btnSair.getAccessibleContext().setAccessibleName("btnSairPartida");
 
         pack();
@@ -344,6 +372,7 @@ public class TelaPartida extends javax.swing.JFrame {
     private java.awt.Label lblCartaUsuario;
     private javax.swing.JLabel lblCartasNoBaralho;
     private javax.swing.JLabel lblJogador;
+    private javax.swing.JLabel lblListJogador[] = new JLabel[8];
     private javax.swing.JLabel lblJogador1;
     private javax.swing.JLabel lblJogador2;
     private javax.swing.JLabel lblJogador3;
@@ -354,19 +383,6 @@ public class TelaPartida extends javax.swing.JFrame {
     private javax.swing.JLabel lblJogador8;
     private javax.swing.JLabel lblMoedas;
     private java.awt.Label lblTotalCartas;
-    private javax.swing.JTextField txtQntBaralho;
     private javax.swing.JTextField txtValorApostar;
     private JButton btnApostar;
-    /**
-     * @wbp.nonvisual location=264,107
-     */
-    private final Label lblCartasNaMao = new Label();
-    /**
-     * @wbp.nonvisual location=334,287
-     */
-    private final Label lblValorTotal = new Label();
-    /**
-     * @wbp.nonvisual location=695,117
-     */
-    private final Label qtdMoedas = new Label("New label");
 }

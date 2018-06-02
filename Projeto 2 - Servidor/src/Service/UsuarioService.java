@@ -12,6 +12,7 @@ public class UsuarioService {
 
 	private static final int NUMEROMAXIMOJOGADORPORBARALHO = 4;
 	PartidaService partidaService = new PartidaService();
+	private final String DIVISOR = ":";
 
 	public Mensagem enviaListaPartidas() {
 		String resposta = new String();
@@ -91,12 +92,18 @@ public class UsuarioService {
 			String partida = usuario.getPartidaAtual();
 			List<Usuario> usuarios = partidaService.getUsuariosNaPartida(partida);
 			mensagem.setProtocolo("INI");
+			String nomes = "";
 			for (Usuario usuarioPartida : usuarios) {
-				GerenciadorClientes gerenciadorClientes= listUsuarioGerenciador.get(usuarioPartida.getNome());
+				nomes += usuarioPartida.getNome() + DIVISOR;
+			}
+			nomes = nomes.substring(0, nomes.length() - 1);
+			for (Usuario usuarioPartida : usuarios) {
+				GerenciadorClientes gerenciadorClientes = listUsuarioGerenciador.get(usuarioPartida.getNome());
 				gerenciadorClientes.pararThreadListarPartida();
+				mensagem.setMensagem(usuarioPartida.getSaldo() + DIVISOR + nomes);
 				gerenciadorClientes.enviaDados(mensagem);
 			}
-			
+
 			Map<String, Partida> partidas = partidaService.listarPartidas();
 			if (usuarios.size() > NUMEROMAXIMOJOGADORPORBARALHO)
 				partidas.get(partida).setNumeroBaralhos(2);
@@ -106,12 +113,12 @@ public class UsuarioService {
 		} catch (PartidaException e) {
 
 			e.printStackTrace();
-		//	mensagem.setProtocolo("ERR");
-		//	return mensagem;
+			// mensagem.setProtocolo("ERR");
+			// return mensagem;
 		}
-		//mensagem.setProtocolo("SUC");
+		// mensagem.setProtocolo("SUC");
 
-		//return mensagem;
+		// return mensagem;
 	}
 
 }

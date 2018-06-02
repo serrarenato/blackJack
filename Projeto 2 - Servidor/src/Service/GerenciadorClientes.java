@@ -20,6 +20,7 @@ public class GerenciadorClientes extends Thread {
 	private Thread threadPartidas;
 	private static Map<String, GerenciadorClientes> listUsuarioGerenciador = new HashMap<>();
 	private boolean continuarThreadPartidas = true;
+	private final String DIVISOR = ":";
 
 	public GerenciadorClientes(Socket cliente) {
 
@@ -139,7 +140,7 @@ public class GerenciadorClientes extends Thread {
 			// criar partida
 			enviaMensagem = usuarioService.entrarPartida(usuario, mensagem.getMensagem());
 			enviaDados(enviaMensagem);
-		} else if (mensagem.getProtocolo().equals("PAR")) {			
+		} else if (mensagem.getProtocolo().equals("PAR")) {
 			threadPartidas = new Thread() {
 				@Override
 				public void run() {
@@ -177,8 +178,8 @@ public class GerenciadorClientes extends Thread {
 	public void enviaDados(Mensagem message) {
 
 		try {
-		
-			System.out.println("Enviando mensagem:" + message + " para "+ 	this.usuario.getNome());
+
+			System.out.println("Enviando mensagem:" + message + " para " + this.usuario.getNome());
 			output.writeObject(message);
 			output.flush();
 
@@ -208,6 +209,6 @@ public class GerenciadorClientes extends Thread {
 	}
 
 	public void pararThreadListarPartida() {
-		continuarThreadPartidas=false;
+		continuarThreadPartidas = false;
 	}
 }
