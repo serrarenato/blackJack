@@ -273,8 +273,9 @@ public class UsuarioService {
 					else if (totalMaior == usuarioPartida.getTotal()) {
 						mensagem.setProtocolo("WIN");
 						Partida pp = partidas.get(partida);
-						mensagem.setMensagem(pp.getJogada().getTotal().toString());
 						usuarioPartida.setSaldo(usuarioPartida.getSaldo() + pp.getJogada().getTotal());
+						mensagem.setMensagem(usuarioPartida.getSaldo().toString());
+						
 					} else {
 						mensagem.setProtocolo("EOW");
 					}

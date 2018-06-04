@@ -414,13 +414,15 @@ public class TelaPartida extends javax.swing.JFrame {
 			btnApostar.setEnabled(true);
 			btnComprarCarta.setEnabled(false);
 			setMensagemListaELimpa("Faça sua aposta.");
+			btnParar.setEnabled(true);
+			thread.interrupt();
+			thread = null;
 		}
 		
 	}
 	private void aposta() {
 		try {
 			btnApostar.setEnabled(false);
-
 			ClienteSocket clienteSocket = ClienteSocket.getClienteSocket();
 			if (txtValorApostar.getText().isEmpty()) {
 				JOptionPane.showMessageDialog(null, "Valor digitar um valor de aposta valido!");

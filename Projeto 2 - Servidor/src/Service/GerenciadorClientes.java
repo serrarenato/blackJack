@@ -169,6 +169,7 @@ public class GerenciadorClientes extends Thread {
 			} else if (mensagem.getProtocolo().equals("APO")) {
 				enviaMensagem = usuarioService.setAposta(usuario, mensagem.getMensagem());
 				enviaDados(enviaMensagem);
+				continuarThreadAposta = true;
 				threadPartidas = new Thread() {
 					@Override
 					public void run() {
@@ -248,6 +249,5 @@ public class GerenciadorClientes extends Thread {
 	public void pararThreadAposta() {
 		continuarThreadAposta = false;
 	}
-
 
 }
