@@ -1,5 +1,10 @@
 package entity;
 
+/**
+ * Numero das Cartas
+ * @author renato
+ *
+ */
 public enum Numero {
 	AS(1),
 	DOIS(2),
@@ -20,7 +25,11 @@ public enum Numero {
 	private Numero(int value) {
 		this.value= value;
 	}
-
+/**
+ * Obtem numero real das Cartas.
+ * 
+ * @return int 
+ */
     public int getValue() {
         return value;
     }

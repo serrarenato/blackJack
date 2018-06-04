@@ -414,10 +414,10 @@ public class TelaPartida extends javax.swing.JFrame {
 			btnApostar.setEnabled(true);
 			btnComprarCarta.setEnabled(false);
 			setMensagemListaELimpa("Faça sua aposta.");
-			btnParar.setEnabled(true);
+			btnParar.setEnabled(true);			
+			numerosCartas = new ArrayList<>();;
 			thread.interrupt();
 			thread = null;
-			List<Numero> numerosCartas = new ArrayList<>();;
 		}
 		
 	}

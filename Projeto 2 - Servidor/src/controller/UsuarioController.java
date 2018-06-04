@@ -1,22 +1,36 @@
-package Service;
+package controller;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import Service.GerenciadorClientes;
+import Service.PartidaService;
 import bd.dbos.Usuario;
 import entity.Carta;
 import entity.Mensagem;
 import entity.Partida;
 import exception.PartidaException;
 
-public class UsuarioService {
+/**
+ * Classe utilizada para gerenciar todos os serviços que o Cliente precisa
+ * quando chama via Socket
+ * 
+ * @author renato
+ *
+ */
+public class UsuarioController {
 
 	private static final int NUMEROMAXIMOJOGADORPORBARALHO = 4;
 	PartidaService partidaService;
 	private final String DIVISOR = ":";
 	private static Map<String, PartidaService> listaPartidas = new HashMap<>();
 
+	/**
+	 * Enviar Lista de Partidas
+	 * 
+	 * @return Mensagem
+	 */
 	public Mensagem enviaListaPartidas() {
 		String resposta = new String();
 		try {
@@ -35,6 +49,12 @@ public class UsuarioService {
 
 	}
 
+	/**
+	 * Cria uma nova Partida
+	 * 
+	 * @param nome
+	 * @return Mensagem
+	 */
 	public Mensagem criarPartida(String nome) {
 		try {
 			partidaService = new PartidaService();
@@ -47,6 +67,13 @@ public class UsuarioService {
 
 	}
 
+	/**
+	 * Entrar em uma partida
+	 * 
+	 * @param usuario
+	 * @param partida
+	 * @return Mensagem
+	 */
 	public Mensagem entrarPartida(Usuario usuario, String partida) {
 		String resposta;
 		try {
@@ -67,6 +94,12 @@ public class UsuarioService {
 		return new Mensagem("SUC", resposta);
 	}
 
+	/**
+	 * Listar usuarios na Partida
+	 * 
+	 * @param usuario
+	 * @return Mensagem
+	 */
 	public Mensagem listarUsuarioNaPartida(Usuario usuario) {
 		Mensagem mensagem;
 		try {
@@ -89,6 +122,12 @@ public class UsuarioService {
 
 	}
 
+	/**
+	 * Iniciar uma partida nova.
+	 * 
+	 * @param usuario
+	 * @param listUsuarioGerenciador
+	 */
 	public void iniciarPartida(Usuario usuario, Map<String, GerenciadorClientes> listUsuarioGerenciador) {
 		Mensagem mensagem = new Mensagem();
 		try {
@@ -123,6 +162,13 @@ public class UsuarioService {
 		}
 	}
 
+	/**
+	 * Apostar em uma partida
+	 * 
+	 * @param usuario
+	 * @param mensagem
+	 * @return Mensagem
+	 */
 	public Mensagem setAposta(Usuario usuario, String mensagem) {
 		Double aposta = new Double(mensagem);
 		if (usuario.getSaldo() >= aposta) {
@@ -134,6 +180,12 @@ public class UsuarioService {
 
 	}
 
+	/**
+	 * Envia aos usuarios as apostas feitas na partida.
+	 * 
+	 * @param usuario
+	 * @param listUsuarioGerenciador
+	 */
 	public void apostasNaPartida(Usuario usuario, Map<String, GerenciadorClientes> listUsuarioGerenciador) {
 		Mensagem mensagem = new Mensagem();
 		try {
@@ -220,16 +272,29 @@ public class UsuarioService {
 
 	}
 
-	public Mensagem comprarCarta(Usuario usuario,  Map<String, GerenciadorClientes> listUsuarioGerenciador) {
+	/**
+	 * Comprar uma carta do Baralho
+	 * 
+	 * @param usuario
+	 * @param listUsuarioGerenciador
+	 * @return Mensagem
+	 */
+	public Mensagem comprarCarta(Usuario usuario, Map<String, GerenciadorClientes> listUsuarioGerenciador) {
 		Mensagem mensagem = new Mensagem();
 		mensagem.setProtocolo("CAR");
 		Carta carta = partidaService.getUmaCarta(usuario);
 		verificaVencedor(usuario, listUsuarioGerenciador);
 		mensagem.setMensagem(carta.getNumero() + DIVISOR + carta.getNaipe());
-		
+
 		return mensagem;
 	}
 
+	/**
+	 * Parar de comprar cartas
+	 * 
+	 * @param usuario
+	 * @return Mensagem
+	 */
 	public Mensagem parar(Usuario usuario) {
 		usuario.setParar(true);
 		Mensagem mensagem = new Mensagem();
@@ -237,6 +302,12 @@ public class UsuarioService {
 		return mensagem;
 	}
 
+	/**
+	 * Verificar Vencedor na partida
+	 * 
+	 * @param usuario
+	 * @param listUsuarioGerenciador
+	 */
 	public void verificaVencedor(Usuario usuario, Map<String, GerenciadorClientes> listUsuarioGerenciador) {
 		try {
 			try {
@@ -265,17 +336,36 @@ public class UsuarioService {
 			}
 
 			////// verifica quem ganhou
+
 			if (jogoAcabou) {
+
+				// Verifica Empate
+				int qtdUsuariosEmpataram = 0;
+				for (Usuario usuarioPartida : usuarios) {
+
+					if (usuarioPartida.getTotal() == totalMaior)
+						qtdUsuariosEmpataram++;
+
+				}
+				Partida pp = partidas.get(partida);
+				if (qtdUsuariosEmpataram > 1)
+					pp.getJogada().setTotal(pp.getJogada().getTotal() / qtdUsuariosEmpataram);
+
 				for (Usuario usuarioPartida : usuarios) {
 					Mensagem mensagem = new Mensagem();
-					if (usuarioPartida.getEstourou())
+					if (usuarioPartida.getEstourou()) {
 						mensagem.setProtocolo("EOW");
+						//todos Perderam?
+						if (totalMaior==0) {
+							usuarioPartida.setSaldo(usuarioPartida.getSaldo() + usuarioPartida.getAposta() );
+							mensagem.setMensagem(usuarioPartida.getSaldo().toString());
+						}
+					}
 					else if (totalMaior == usuarioPartida.getTotal()) {
 						mensagem.setProtocolo("WIN");
-						Partida pp = partidas.get(partida);
 						usuarioPartida.setSaldo(usuarioPartida.getSaldo() + pp.getJogada().getTotal());
 						mensagem.setMensagem(usuarioPartida.getSaldo().toString());
-						
+
 					} else {
 						mensagem.setProtocolo("EOW");
 					}
@@ -283,7 +373,7 @@ public class UsuarioService {
 					gerenciadorClientes.enviaDados(mensagem);
 				}
 			}
-			if (jogoAcabou) 
+			if (jogoAcabou)
 				reiniciarPartida(usuarios, partida);
 
 		} catch (PartidaException e) {
@@ -292,14 +382,21 @@ public class UsuarioService {
 		}
 
 	}
-	public void reiniciarPartida(List<Usuario> usuarios, String partidaAtual ) {
+
+	/**
+	 * Metodo para iniciar uma nova jogada na partida ja ativa
+	 * 
+	 * @param usuarios
+	 * @param partidaAtual
+	 */
+	public void reiniciarPartida(List<Usuario> usuarios, String partidaAtual) {
 		for (Usuario usuarioPartida : usuarios) {
 			usuarioPartida.setAposta(0d);
 			usuarioPartida.getCartasMao().clear();
 			usuarioPartida.setEstourou(false);
 			usuarioPartida.setParar(false);
 			partidaService.inicioPartida(partidaAtual);
-			
+
 		}
 	}
 

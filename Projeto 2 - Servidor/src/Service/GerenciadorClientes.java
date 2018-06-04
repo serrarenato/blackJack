@@ -9,6 +9,7 @@ import java.util.Map;
 
 import bd.daos.UsuarioDAO;
 import bd.dbos.Usuario;
+import controller.UsuarioController;
 import entity.Mensagem;
 /**
  * Classe responsável pelo Gerenciamento de Clientes(envio e recebimento de mensagens.
@@ -21,7 +22,7 @@ public class GerenciadorClientes extends Thread {
 	private Usuario usuario;
 	private ObjectOutputStream output;
 	private ObjectInputStream input;
-	private UsuarioService usuarioService;
+	private UsuarioController usuarioService;
 	private Thread threadPartidas;
 	private static Map<String, GerenciadorClientes> listUsuarioGerenciador = new HashMap<>();
 	private boolean continuarThreadPartidas = true, continuarThreadAposta = true;
@@ -40,7 +41,7 @@ public class GerenciadorClientes extends Thread {
 			output = new ObjectOutputStream(cliente.getOutputStream());
 			output.flush();
 			input = new ObjectInputStream(cliente.getInputStream());
-			usuarioService = new UsuarioService();
+			usuarioService = new UsuarioController();
 			System.out.println("Cliente Conectado");
 			// enviaDados(new Mensagem("SUC", "Servidor conectado, favor se logar"));
 			while (true) {
@@ -48,6 +49,7 @@ public class GerenciadorClientes extends Thread {
 			}
 
 		} catch (IOException e1) {
+			e1.printStackTrace();
 			System.out.println("Cliente Fechou a conexao");
 			e1.printStackTrace();
 		} finally {
@@ -74,6 +76,7 @@ public class GerenciadorClientes extends Thread {
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
+			e.printStackTrace();
 			closeConnection();
 			stop();
 		}
