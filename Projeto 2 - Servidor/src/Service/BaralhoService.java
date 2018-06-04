@@ -8,9 +8,18 @@ import entity.Baralho;
 import entity.Carta;
 import entity.Naipe;
 import entity.Numero;
-
+/**
+ * Classe responsável por gerenciar o Baralho do Jogo.
+ * 
+ * @author renato
+ *
+ */
 public class BaralhoService {
-
+/**
+ * Criar um Baralho para uma partida
+ * 
+ * @return Baralho
+ */
 	public Baralho criaUmBaralho() {
 		List<Carta> cartas = new ArrayList<>();
 		for (Naipe cartaNaipe : Naipe.values())
@@ -20,7 +29,11 @@ public class BaralhoService {
 		baralho.setCartas(cartas);
 		return baralho;
 	}
-
+/**
+ * Criar dois Baralhos para uma partida
+ * 
+ * @return Baralho
+ */
 	public Baralho criaDoisBaralhos() {
 		List<Carta> cartas = new ArrayList<>();
 		for (int x = 0; x < 2; x++)
@@ -31,7 +44,11 @@ public class BaralhoService {
 		baralho.setCartas(cartas);
 		return baralho;
 	}
-	
+/**
+ * Metodo responsavel por Embaralhar um Baralho.	
+ * @param baralho
+ * @return Baralho
+ */
 	public Baralho embaralhar(Baralho baralho) {
 		Random random = new Random();
 		List<Carta> temp = new ArrayList<Carta>();
@@ -54,7 +71,12 @@ public class BaralhoService {
 		newBaralho.setCartas(temp);
 		return newBaralho;
 	}
-	
+/**
+ * Metodo responsavel por pegar a primeira carta do baralho e retirar a mesma.
+ * 
+ * @param baralho
+ * @return Carta
+ */
 	public Carta getPrimeiraCarta(Baralho baralho) {
 		Carta carta = baralho.getCartas().get(0);
 		baralho.getCartas().remove(0);

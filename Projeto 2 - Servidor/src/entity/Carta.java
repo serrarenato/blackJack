@@ -1,5 +1,11 @@
 package entity;
 
+/**
+ * Esta classe é a carta propriamente dita no jogo com Naipe e Numero.
+ * 
+ * @author renato
+ *
+ */
 public class Carta {
 	private Naipe naipe;
 	private Numero numero;
@@ -14,10 +20,20 @@ public class Carta {
 		return numero.toString() + " DE " + naipe.toString();
 	}
 
+	/**
+	 * Obtem o Naipe
+	 * 
+	 * @return Naipe
+	 */
 	public Naipe getNaipe() {
 		return naipe;
 	}
 
+	/**
+	 * Obtem o Numero
+	 * 
+	 * @return Numero
+	 */
 	public Numero getNumero() {
 		return numero;
 	}
@@ -46,5 +62,5 @@ public class Carta {
 			return false;
 		return true;
 	}
-	
+
 }

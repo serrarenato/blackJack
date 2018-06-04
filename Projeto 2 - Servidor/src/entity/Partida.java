@@ -4,7 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import bd.dbos.Usuario;
-
+/**
+ * Classe que contem cada Partida do jogo
+ * 
+ * @author renato
+ *
+ */
 
 public class Partida {
 	final String INICIADA =  "iniciada";
@@ -124,6 +129,14 @@ public class Partida {
 			return false;
 		return true;
 	}
+
+	@Override
+	public String toString() {
+		return "Partida [INICIADA=" + INICIADA + ", NAO_INICIADA=" + NAO_INICIADA + ", numeroBaralhos=" + numeroBaralhos
+				+ ", listUsuarios=" + listUsuarios + ", jogada=" + jogada + ", numeroJogada=" + numeroJogada + ", nome="
+				+ nome + ", status=" + status + "]";
+	}
+	
 
 
 

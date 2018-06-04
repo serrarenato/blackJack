@@ -7,7 +7,7 @@ import bd.core.MeuResultSet;
 import bd.dbos.Usuario;
 
 /**
- * Classe para acessar o banco de dados.
+ * Classe para acessar a tabela Usuarios do  banco de dados.
  * @author Felipe
  *
  */
@@ -17,6 +17,7 @@ public class UsuarioDAO
      * Manipula o cadastro, atualiza��o de dados, exclus�o de dados atraves de dados recolhidos.
      * @param email
      * @author Felipe
+     * @return true/false
      * @throws Exception 
      */
     public boolean cadastrado (String email) throws Exception
@@ -47,7 +48,12 @@ public class UsuarioDAO
 
         return retorno;
     }
-
+/**
+ * Incluir novo Usuario
+ * 
+ * @param usuario
+ * @throws Exception
+ */
     public void incluir (Usuario usuario) throws Exception
     {
         if (usuario==null)
@@ -78,7 +84,12 @@ public class UsuarioDAO
             throw new Exception ("Erro ao inserir usuario.");
         }
     }
-
+/**
+ * Excluir usuario por email
+ * 
+ * @param email
+ * @throws Exception
+ */
     public void excluir (String email) throws Exception
     {
         if (!cadastrado (email))
@@ -102,7 +113,12 @@ public class UsuarioDAO
             throw new Exception ("Erro ao excluir usuario.");
         }
     }
-
+/**
+ * Alterar um usuario
+ * 
+ * @param usuario
+ * @throws Exception
+ */
     public void alterar (Usuario usuario) throws Exception
     {
         if (usuario==null)
@@ -134,7 +150,13 @@ public class UsuarioDAO
             throw new Exception ("Erro ao atualizar dados de usuario.");
         }
     }
-
+/**
+ * Obtem um usuario do Banco pelo email
+ * 
+ * @param email
+ * @return Usuario
+ * @throws Exception
+ */
     public Usuario getUsuario (String email) throws Exception
     {
         Usuario usuario = null;
@@ -167,7 +189,14 @@ public class UsuarioDAO
 
         return usuario;
     }
-
+/**
+ * Obter usuario com email e senha fornecidos.
+ * 
+ * @param email
+ * @param senha
+ * @return Usuario
+ * @throws Exception
+ */
     public Usuario getUsuarioESenha(String email, String senha) throws Exception
     {
         boolean retorno = false;

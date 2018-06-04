@@ -7,7 +7,11 @@ import Service.GerenciadorClientes;
 
 public class Programa
 {
-    
+    /**
+     * Metodo Principal que recebe a conexão do cliente e o direciona ao Gerenciador de Cliente.
+     * 
+     * @param args
+     */
     public static void main(String[] args)
     {
     	 ServerSocket servidor = null;
