@@ -162,7 +162,7 @@ public class JanelaLogin extends javax.swing.JPanel {
 
 				
 				} else {
-					JOptionPane.showMessageDialog(null, "Erro! E-mail ou senha incorreto(s)!");
+					JOptionPane.showMessageDialog(null, retorno.getMensagem());
 				}
 			}
 

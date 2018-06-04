@@ -1,10 +1,12 @@
 package bd.dbos;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
-import javax.swing.JPasswordField;
-import javax.swing.JTextField;
+import entity.Carta;
+import entity.Numero;
 
 
 /**
@@ -21,8 +23,45 @@ public class Usuario implements Serializable
     private String msg;
     private Double saldo;
     private Date data;
+    private Double aposta = 0d;
+    private List<Carta> cartasMao = new ArrayList<>();
+    private Boolean parar = false;
+    private Boolean estourou = false;
     
-    private String PartidaAtual;
+   
+    public Boolean getEstourou() {
+		return estourou;
+	}
+
+	public void setEstourou(Boolean estourou) {
+		this.estourou = estourou;
+	}
+
+	public Boolean getParar() {
+		return parar;
+	}
+
+	public void setParar(Boolean parar) {
+		this.parar = parar;
+	}
+
+	public List<Carta> getCartasMao() {
+		return cartasMao;
+	}
+
+	public void setCartasMao(List<Carta> cartasMao) {
+		this.cartasMao = cartasMao;
+	}
+
+	public Double getAposta() {
+		return aposta;
+	}
+
+	public void setAposta(Double aposta) {
+		this.aposta = aposta;
+	}
+
+	private String PartidaAtual;
     
     public String getPartidaAtual() {
 		return PartidaAtual;
@@ -170,6 +209,30 @@ public class Usuario implements Serializable
 	
 	public void setSenha(String senha) {
 		this.senha = senha;
+	}
+	
+
+	public Integer getTotal() {
+		Integer total = 0;
+		boolean temCartaEspecial=false;
+		
+		for (Carta carta : cartasMao) {	
+			Numero numero = carta.getNumero();
+			if (numero.equals(Numero.REI)||numero.equals(Numero.DAMA)||numero.equals(Numero.VALETE)) {
+				total+=10;
+				temCartaEspecial=true;
+			} else  if (numero.equals(Numero.AS)) {
+				if (temCartaEspecial)
+					total+=11;
+				else
+					total+=1;
+			} else {
+				
+				total+=numero.getValue();				
+			}
+			
+		}
+		return total;
 	}
 
 	

@@ -19,7 +19,7 @@ public class GerenciadorClientes extends Thread {
 	private UsuarioService usuarioService;
 	private Thread threadPartidas;
 	private static Map<String, GerenciadorClientes> listUsuarioGerenciador = new HashMap<>();
-	private boolean continuarThreadPartidas = true;
+	private boolean continuarThreadPartidas = true, continuarThreadAposta = true;
 	private final String DIVISOR = ":";
 
 	public GerenciadorClientes(Socket cliente) {
@@ -78,99 +78,130 @@ public class GerenciadorClientes extends Thread {
 		UsuarioDAO dao = new UsuarioDAO();
 
 		Mensagem enviaMensagem = new Mensagem();
+		try {
 
-		if (mensagem.getProtocolo().equals("CAD")) {
+			if (mensagem.getProtocolo().equals("CAD")) {
 
-			try {
-				String[] strings = mensagem.getMensagem().split(":");
-				Usuario usuario = new Usuario(strings[0], strings[1], strings[2], "");
-				usuario.setSaldo(1000d);
-				dao.incluir(usuario);
-				enviaMensagem.setProtocolo("SUC");
+				try {
+					String[] strings = mensagem.getMensagem().split(":");
+					Usuario usuario = new Usuario(strings[0], strings[1], strings[2], "");
+					usuario.setSaldo(1000d);
+					dao.incluir(usuario);
+					enviaMensagem.setProtocolo("SUC");
+					enviaDados(enviaMensagem);
+
+				} catch (Exception erro) {
+					try {
+						enviaMensagem.setProtocolo("ERR");
+						enviaDados(enviaMensagem);
+					} catch (Exception erro2) {
+					}
+				}
+
+			} else if (mensagem.getProtocolo().equals("LOG")) {
+
+				try {
+
+					String[] strings = mensagem.getMensagem().split(":");
+
+					this.usuario = dao.getUsuarioESenha(strings[0], strings[1]);
+					if (this.usuario == null)
+						enviaMensagem.setMensagem("Usuario ou senha incorretos");
+					if (this.listUsuarioGerenciador.containsKey(this.usuario.getNome())) {
+						this.usuario = null;
+						enviaMensagem.setMensagem("Usuario ja esta logado");
+					} else
+						this.listUsuarioGerenciador.put(this.usuario.getNome(), this);
+
+					if (this.usuario != null) {
+						enviaMensagem.setProtocolo("SUC");
+						enviaMensagem.setMensagem("");
+						enviaDados(enviaMensagem);
+					} else {
+						enviaMensagem.setProtocolo("ERR");
+						enviaDados(enviaMensagem);
+					}
+
+				} catch (Exception erro) {
+					try {
+						enviaMensagem.setProtocolo("ERR");
+						enviaDados(enviaMensagem);
+					} catch (Exception erro2) {
+					}
+				}
+			} else if (mensagem.getProtocolo().equals("LST")) {
+				// listar partidas
+				enviaMensagem = usuarioService.enviaListaPartidas();
 				enviaDados(enviaMensagem);
 
-			} catch (Exception erro) {
-				try {
-					enviaMensagem.setProtocolo("ERR");
-					enviaDados(enviaMensagem);
-				} catch (Exception erro2) {
-				}
-			}
-
-		} else if (mensagem.getProtocolo().equals("LOG")) {
-
-			try {
-
+			} else if (mensagem.getProtocolo().equals("CRI")) {
+				// criar partida
 				String[] strings = mensagem.getMensagem().split(":");
+				enviaMensagem = usuarioService.criarPartida(strings[0]);
+				enviaDados(enviaMensagem);
 
-				this.usuario = dao.getUsuarioESenha(strings[0], strings[1]);
-				if (this.listUsuarioGerenciador.containsKey(this.usuario.getNome()))
-					this.usuario = null;
-				else
-					this.listUsuarioGerenciador.put(this.usuario.getNome(), this);
+			} else if (mensagem.getProtocolo().equals("ENT")) {
+				// criar partida
+				enviaMensagem = usuarioService.entrarPartida(usuario, mensagem.getMensagem());
+				enviaDados(enviaMensagem);
+			} else if (mensagem.getProtocolo().equals("PAR")) {
+				threadPartidas = new Thread() {
+					@Override
+					public void run() {
+						while (continuarThreadPartidas) {
+							// listar integrantes na partida
+							enviaDados(usuarioService.listarUsuarioNaPartida(usuario));
+							try {
+								Thread.sleep(2000);
+							} catch (InterruptedException e) {
+								e.printStackTrace();
+							}
+						}
+					}
+				};
+				threadPartidas.start();
+			} else if (mensagem.getProtocolo().equals("INI")) {
+				// iniciar Partida
+				continuarThreadPartidas = false;
+				usuarioService.iniciarPartida(usuario, this.listUsuarioGerenciador);
+				// enviaDados(enviaMensagem);
 
-				if (this.usuario != null) {
-					enviaMensagem.setProtocolo("SUC");
-					enviaMensagem.setMensagem("");
-					enviaDados(enviaMensagem);
-				} else {
-					enviaMensagem.setProtocolo("ERR");
-					enviaDados(enviaMensagem);
-				}
-
-			} catch (Exception erro) {
-				try {
-					enviaMensagem.setProtocolo("ERR");
-					enviaDados(enviaMensagem);
-				} catch (Exception erro2) {
-				}
-			}
-		} else if (mensagem.getProtocolo().equals("LST")) {
-			// listar partidas
-			enviaMensagem = usuarioService.enviaListaPartidas();
-			enviaDados(enviaMensagem);
-
-		} else if (mensagem.getProtocolo().equals("CRI")) {
-			// criar partida
-			String[] strings = mensagem.getMensagem().split(":");
-			enviaMensagem = usuarioService.criarPartida(strings[0]);
-			enviaDados(enviaMensagem);
-
-		} else if (mensagem.getProtocolo().equals("ENT")) {
-			// criar partida
-			enviaMensagem = usuarioService.entrarPartida(usuario, mensagem.getMensagem());
-			enviaDados(enviaMensagem);
-		} else if (mensagem.getProtocolo().equals("PAR")) {
-			threadPartidas = new Thread() {
-				@Override
-				public void run() {
-					while (continuarThreadPartidas) {
-						// listar integrantes na partida
-						enviaDados(usuarioService.listarUsuarioNaPartida(usuario));
+			} else if (mensagem.getProtocolo().equals("APO")) {
+				enviaMensagem = usuarioService.setAposta(usuario, mensagem.getMensagem());
+				enviaDados(enviaMensagem);
+				threadPartidas = new Thread() {
+					@Override
+					public void run() {
+						while (continuarThreadAposta) {
+							// listar integrantes na partida
+							usuarioService.apostasNaPartida(usuario, listUsuarioGerenciador);
+							try {
+								Thread.sleep(2000);
+							} catch (InterruptedException e) {
+								e.printStackTrace();
+							}
+						}
 						try {
 							Thread.sleep(2000);
 						} catch (InterruptedException e) {
 							e.printStackTrace();
 						}
+
 					}
-				}
-			};
-			threadPartidas.start();
-		} else if (mensagem.getProtocolo().equals("INI")) {
-			// iniciar Partida
-			continuarThreadPartidas = false;
-			usuarioService.iniciarPartida(usuario, this.listUsuarioGerenciador);
-			// enviaDados(enviaMensagem);
+				};
+				threadPartidas.start();
 
-		} else {
-
-			try {
-				enviaMensagem.setProtocolo("ERR");
+			} else if (mensagem.getProtocolo().equals("COM")) {
+				enviaMensagem = usuarioService.comprarCarta(usuario, listUsuarioGerenciador);
 				enviaDados(enviaMensagem);
-			} catch (Exception erro) {
-				erro.printStackTrace();
+				usuarioService.verificaVencedor(usuario, listUsuarioGerenciador);
+			} else if (mensagem.getProtocolo().equals("EOC")) {
+				usuarioService.parar(usuario);
+				usuarioService.verificaVencedor(usuario, listUsuarioGerenciador);
 			}
-
+		} catch (Exception w) {
+			System.out.println("Erro no recebimento de comandos");
+			w.printStackTrace();
 		}
 
 	}
@@ -178,8 +209,10 @@ public class GerenciadorClientes extends Thread {
 	public void enviaDados(Mensagem message) {
 
 		try {
-
-			System.out.println("Enviando mensagem:" + message + " para " + this.usuario.getNome());
+			if (this.usuario == null)
+				System.out.println("Enviando mensagem:" + message);
+			else
+				System.out.println("Enviando mensagem:" + message + " para " + this.usuario.getNome());
 			output.writeObject(message);
 			output.flush();
 
@@ -211,4 +244,10 @@ public class GerenciadorClientes extends Thread {
 	public void pararThreadListarPartida() {
 		continuarThreadPartidas = false;
 	}
+
+	public void pararThreadAposta() {
+		continuarThreadAposta = false;
+	}
+
+
 }

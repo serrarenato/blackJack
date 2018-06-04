@@ -33,6 +33,7 @@ public class Partida {
 		this.status=NAO_INICIADA;
 		this.numeroJogada=1;
 		this.listUsuarios = new ArrayList<>();
+		this.jogada = new Jogada();
 	}
 
 	public int getNumeroJogada() {

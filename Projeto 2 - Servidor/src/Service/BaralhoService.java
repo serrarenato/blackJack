@@ -37,14 +37,28 @@ public class BaralhoService {
 		List<Carta> temp = new ArrayList<Carta>();
 		List<Carta> cartas = baralho.getCartas();
 		int j = 0;
-		int numeroCartas = baralho.getCartas().size();
-		for (int i = 0; i < numeroCartas; i++) {
-			j = random.nextInt(numeroCartas);
+		int numeroCartas = baralho.getCartas().size()-1;
+		int i=0;
+		try {
+		for ( i = 0; i <= numeroCartas; i++) {
+			j = random.nextInt( baralho.getCartas().size());
 			temp.add(cartas.get(j));
 			cartas.remove(j);
+		}
+		}catch(Exception e) {
+			e.printStackTrace();
+			System.out.println("i "+i);
+			System.out.println("baralho "+baralho.getCartas().size());
 		}
 		Baralho newBaralho = new Baralho();
 		newBaralho.setCartas(temp);
 		return newBaralho;
+	}
+	
+	public Carta getPrimeiraCarta(Baralho baralho) {
+		Carta carta = baralho.getCartas().get(0);
+		baralho.getCartas().remove(0);
+		return carta;
+		
 	}
 }

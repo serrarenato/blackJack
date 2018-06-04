@@ -13,5 +13,4 @@ public class Baralho {
 	public void setCartas(List<Carta> cartas) {
 		this.cartas = cartas;
 	}
-
 }
