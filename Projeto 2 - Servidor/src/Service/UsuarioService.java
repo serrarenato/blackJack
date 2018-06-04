@@ -294,7 +294,7 @@ public class UsuarioService {
 	}
 	public void reiniciarPartida(List<Usuario> usuarios, String partidaAtual ) {
 		for (Usuario usuarioPartida : usuarios) {
-			
+			usuarioPartida.setAposta(0d);
 			usuarioPartida.getCartasMao().clear();
 			usuarioPartida.setEstourou(false);
 			usuarioPartida.setParar(false);

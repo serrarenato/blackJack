@@ -417,6 +417,7 @@ public class TelaPartida extends javax.swing.JFrame {
 			btnParar.setEnabled(true);
 			thread.interrupt();
 			thread = null;
+			List<Numero> numerosCartas = new ArrayList<>();;
 		}
 		
 	}
