@@ -209,6 +209,11 @@ public class TelaEscolhePartida extends javax.swing.JPanel {
 	private java.awt.Button bntListarPartida;
 	private JTextField txtPartida;
 
+/**
+ * Metodo para listar as partidas disponiveis
+ * 
+ * @param evt
+ */
 	private void btnListarPartidas(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnOKActionPerformed
 		// TODO add your handling code here:
 
@@ -240,7 +245,11 @@ public class TelaEscolhePartida extends javax.swing.JPanel {
 			System.err.println(erro);
 		}
 	}
-
+/**
+ * Metodo para criar uma partida
+ * 
+ * @param evt
+ */
 	private void btnCriarPartida(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnOKActionPerformed
 		// TODO add your handling code here:
 
@@ -269,7 +278,11 @@ public class TelaEscolhePartida extends javax.swing.JPanel {
 			System.err.println(erro);
 		}
 	}
-
+/**
+ * Metodo para entrar em uma partida
+ * 
+ * @param evt
+ */
 	private void btnEntrarPartida(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnOKActionPerformed
 		// TODO add your handling code here:
 

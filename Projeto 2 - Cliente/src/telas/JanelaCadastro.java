@@ -75,7 +75,7 @@ public class JanelaCadastro extends javax.swing.JPanel {
 
         txtSenha.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtSenhaActionPerformed(evt);
+          
             }
         });
 
@@ -139,7 +139,11 @@ public class JanelaCadastro extends javax.swing.JPanel {
                 .addGap(19, 19, 19))
         );
     }// </editor-fold>//GEN-END:initComponents
-
+/**
+ * Metodo utilizado pelo botao cancelar cadastro
+ * 
+ * @param evt
+ */
     private void btnCancelaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelaActionPerformed
         txtConfirmaSenha.setText("");
         txtEmail.setText("");
@@ -156,9 +160,11 @@ public class JanelaCadastro extends javax.swing.JPanel {
         this.janelaNova.dispose();
     }//GEN-LAST:event_btnCancelaActionPerformed
 
-    private void txtSenhaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSenhaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtSenhaActionPerformed
+/**
+ * Metodo utilizado para cadastrar o cliente
+ * 
+ * @param evt
+ */
 
     private void btnOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOKActionPerformed
         // TODO add your handling code here:

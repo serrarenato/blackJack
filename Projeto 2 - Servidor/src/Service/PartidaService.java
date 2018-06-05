@@ -113,6 +113,7 @@ public class PartidaService {
 			jogada.setBaralho(baralhoService.criaDoisBaralhos());
 		jogada.setBaralho(baralhoService.embaralhar(jogada.getBaralho()));
 		jogada.setTotal(0d);
+		partida.setStatus("iniciada");
 		
 
 	}

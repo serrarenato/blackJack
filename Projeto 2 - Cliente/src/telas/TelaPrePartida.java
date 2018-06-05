@@ -300,7 +300,9 @@ public class TelaPrePartida extends javax.swing.JFrame {
 		});
 
 	}
-
+/**
+ * Inicia a partida
+ */
 	private void iniciaPartida() {
 
 		ClienteSocket clienteSocket = ClienteSocket.getClienteSocket();
@@ -308,7 +310,11 @@ public class TelaPrePartida extends javax.swing.JFrame {
 		clienteSocket.enviaDados(mensagem);
 
 	}
-
+/**
+ * Abre a tela de Partida 
+ * 
+ * @param mensagem
+ */
 	private void telarIniciarPartida(String mensagem) {
 		btnIniciarPartida.setEnabled(false);
 		//JOptionPane.showMessageDialog(null, "Partida Iniciada");
@@ -324,6 +330,12 @@ public class TelaPrePartida extends javax.swing.JFrame {
 
 		this.prePartida.dispose();
 	}
+/**
+ *
+ * Metodo responsavel por ler todas as mensagens recebidas pelo servidor e gerenciar com os protocolos o que deve ser realizado
+ * 
+ * @param thread
+ */
 
 	private void lerParticipantes(Thread thread) {
 		try {

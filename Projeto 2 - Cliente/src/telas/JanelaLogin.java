@@ -112,7 +112,11 @@ public class JanelaLogin extends javax.swing.JPanel {
 
 		btnCancelar.getAccessibleContext().setAccessibleName("btnCancelar");
 	}// </editor-fold>//GEN-END:initComponents
-
+/**
+ * Metodo que chama a tela de Cadastrar Usuario
+ * 
+ * @param evt
+ */
 	private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnCadastrarActionPerformed
 		JFrame janelacadastro = new JFrame("Cadastro");
 		JanelaCadastro cadastro = new JanelaCadastro(janelacadastro);
@@ -124,12 +128,20 @@ public class JanelaLogin extends javax.swing.JPanel {
 		this.fecha.dispose(); // Fechando a view antiga (janela de Login)
 
 	}// GEN-LAST:event_btnCadastrarActionPerformed
-
+/**
+ * Metodo utilizado para Cancelar o Login
+ * 
+ * @param evt
+ */
 	private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnCancelarActionPerformed
 		txtEmail.setText("");
 		txtSenha.setText("");
 	}// GEN-LAST:event_btnCancelarActionPerformed
-
+/**
+ * Metodo utilizado para realizar o login
+ * 
+ * @param evt
+ */
 	@SuppressWarnings("deprecation")
 	private void btnEntrarActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnEntrarActionPerformed
 		try {

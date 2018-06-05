@@ -411,6 +411,10 @@ public class TelaPartida extends javax.swing.JFrame {
 	private JLabel lblCartas;
 	private JLabel lbTotalCartas; 
 
+	/**
+	 * Reiniciar partida
+	 * 
+	 */
 	private void reininicar() {
 		if (new Double (lblQtdMoedas.getText())>0) {
 			btnApostar.setEnabled(true);
@@ -424,6 +428,10 @@ public class TelaPartida extends javax.swing.JFrame {
 		}
 		
 	}
+	/**
+	 * Apostar na partida
+	 * 
+	 */
 	private void aposta() {
 		try {
 			btnApostar.setEnabled(false);
@@ -452,7 +460,11 @@ public class TelaPartida extends javax.swing.JFrame {
 		}
 
 	}
-
+/**
+ * Metodo responsavel por ler todas as mensagens recebidas pelo servidor e gerenciar com os protocolos o que deve ser realizado
+ * 
+ * @param thread
+ */
 	private void lerParticipantes(Thread thread) {
 		try {
 
@@ -521,16 +533,27 @@ public class TelaPartida extends javax.swing.JFrame {
 			System.err.println(erro);
 		}
 	}
-
+/**
+ * 
+ * Limpa a lista e seta menagem
+ * @param mensagem
+ */
 	private void setMensagemListaELimpa(String mensagem) {
 		listCartas.clear();
 		listCartas.add(mensagem);
 	}
-
+/**
+ * Seta mensagem
+ * 
+ * @param mensagem
+ */
 	private void setMensagemLista(String mensagem) {
 		listCartas.add(mensagem);
 	}
-
+/**
+ * Exibe a soma de cartas
+ * 
+ */
 	private void exibeSoma() {
 		Integer total = 0;
 		boolean temCartaEspecial=false;
@@ -557,12 +580,19 @@ public class TelaPartida extends javax.swing.JFrame {
 			setMensagemLista("Voce Estorou os Pontos Máximos");
 		}
 	}
-
+/**
+ * Comprar cartas 
+ * 
+ */
 	private void comprarCarta() {
 		ClienteSocket clienteSocket = ClienteSocket.getClienteSocket();
 		Mensagem mensagem = new Mensagem("COM", "");
 		clienteSocket.enviaDados(mensagem);
 	}
+	/**
+	 * Parar de Comprar cartas
+	 * 
+	 */
 	private void parar() {
 		ClienteSocket clienteSocket = ClienteSocket.getClienteSocket();
 		Mensagem mensagem = new Mensagem("EOC", "");
@@ -570,6 +600,9 @@ public class TelaPartida extends javax.swing.JFrame {
 		btnComprarCarta.setEnabled(false);
 		btnParar.setEnabled(false);
 	}
+	/**
+	 * Botao abandonar jogo
+	 */
 	private void sair() {
 		ClienteSocket clienteSocket = ClienteSocket.getClienteSocket();
 		Mensagem mensagem = new Mensagem("SAI", "");
