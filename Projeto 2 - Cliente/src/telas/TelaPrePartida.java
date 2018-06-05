@@ -19,6 +19,7 @@ import entity.Mensagem;
 import transmissor.ClienteSocket;
 
 /**
+ *	Classe com todos os recursos necessários antes de iniciar a Partida
  *
  * @author melin
  */

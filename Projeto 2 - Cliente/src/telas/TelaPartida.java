@@ -22,6 +22,7 @@ import entity.Numero;
 import transmissor.ClienteSocket;
 
 /**
+ * Tela de Partida, principal do jogo.
  *
  * @author melin
  */
@@ -34,7 +35,8 @@ public class TelaPartida extends javax.swing.JFrame {
 	 * @param money
 	 */
 	Thread thread;
-	List<Numero> numerosCartas = new ArrayList<>();;
+	List<Numero> numerosCartas = new ArrayList<>();
+	boolean continuar = true;
 
 	public TelaPartida(Double money, String[] nomes) {
 		initComponents();
@@ -416,7 +418,8 @@ public class TelaPartida extends javax.swing.JFrame {
 			setMensagemListaELimpa("Faça sua aposta.");
 			btnParar.setEnabled(true);			
 			numerosCartas = new ArrayList<>();;
-			thread.interrupt();
+			//thread.interrupt();
+			continuar = false;
 			thread = null;
 		}
 		
@@ -436,6 +439,7 @@ public class TelaPartida extends javax.swing.JFrame {
 			if (retorno.getProtocolo().equals("SUC")) {
 				setMensagemListaELimpa("Aguarde os outros jogadores apostarem.");
 				lblQtdMoedas.setText(retorno.getMensagem());
+				continuar=true;
 				lerParticipantes(thread);
 				btnComprarCarta.setEnabled(true);
 			} else {
@@ -455,8 +459,7 @@ public class TelaPartida extends javax.swing.JFrame {
 			ClienteSocket clienteSocket = ClienteSocket.getClienteSocket();
 			thread = new Thread() {
 				@Override
-				public void run() {
-					boolean continuar = true;
+				public void run() {				
 					while (continuar) {
 						Mensagem retorno = clienteSocket.getInput();
 						System.out.println(retorno);
@@ -486,7 +489,12 @@ public class TelaPartida extends javax.swing.JFrame {
 							numerosCartas.add(Numero.valueOf(string[0]));
 							exibeSoma();
 						} else if (retorno.getProtocolo().equals("EOW")) {
-							JOptionPane.showMessageDialog(null, "Voce Perdeu");
+							if (retorno.getMensagem()!=null && !retorno.getMensagem().isEmpty()) {
+								lblQtdMoedas.setText(retorno.getMensagem());
+								JOptionPane.showMessageDialog(null, "Todos Perderam suas fichas foram devolvidas");
+								reininicar();
+							}else	
+								JOptionPane.showMessageDialog(null, "Voce Perdeu");
 							setMensagemLista("Voce Perdeu!");
 							reininicar();
 						} else if (retorno.getProtocolo().equals("WIN")) {

@@ -25,6 +25,7 @@ import javax.swing.JTextField;
 import javax.swing.JLabel;
 
 /**
+ * Classe que armazena a tela de Escolher Partida
  *
  * @author melin
  */

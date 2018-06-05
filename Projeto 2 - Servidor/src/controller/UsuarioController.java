@@ -282,10 +282,8 @@ public class UsuarioController {
 	public Mensagem comprarCarta(Usuario usuario, Map<String, GerenciadorClientes> listUsuarioGerenciador) {
 		Mensagem mensagem = new Mensagem();
 		mensagem.setProtocolo("CAR");
-		Carta carta = partidaService.getUmaCarta(usuario);
-		verificaVencedor(usuario, listUsuarioGerenciador);
+		Carta carta = partidaService.getUmaCarta(usuario);		
 		mensagem.setMensagem(carta.getNumero() + DIVISOR + carta.getNaipe());
-
 		return mensagem;
 	}
 
@@ -390,11 +388,13 @@ public class UsuarioController {
 	 * @param partidaAtual
 	 */
 	public void reiniciarPartida(List<Usuario> usuarios, String partidaAtual) {
+		Partida pp =  partidaService.listarPartidas().get(partidaAtual);
 		for (Usuario usuarioPartida : usuarios) {
 			usuarioPartida.setAposta(0d);
 			usuarioPartida.getCartasMao().clear();
 			usuarioPartida.setEstourou(false);
 			usuarioPartida.setParar(false);
+			pp.getJogada().setTotal(0d);
 			partidaService.inicioPartida(partidaAtual);
 
 		}
