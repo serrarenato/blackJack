@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import bd.daos.UsuarioDAO;
 import entity.Carta;
 import entity.Numero;
 
@@ -26,6 +27,7 @@ public class Usuario implements Serializable {
 	private List<Carta> cartasMao = new ArrayList<>();
 	private Boolean parar = false;
 	private Boolean estourou = false;
+	UsuarioDAO dao = new UsuarioDAO();
 
 	/**
 	 * Verifica se os pontos do Usuario estouraram
@@ -138,6 +140,13 @@ public class Usuario implements Serializable {
 	 */
 	public void setSaldo(Double saldo) {
 		this.saldo = saldo;
+		try {
+			dao.alterarDinheiro(this.nome, this.email, this.saldo);
+			System.out.println("Inserindo novo saldo para o cliente: "+ this.email + " " + this.saldo);
+		} catch (Exception e) {
+			System.out.println("problemas ao inserir saldo no banco");
+			e.printStackTrace();
+		}
 	}
 
 	public Date getData() {

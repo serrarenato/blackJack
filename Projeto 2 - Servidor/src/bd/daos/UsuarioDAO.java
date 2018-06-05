@@ -7,234 +7,234 @@ import bd.core.MeuResultSet;
 import bd.dbos.Usuario;
 
 /**
- * Classe para acessar a tabela Usuarios do  banco de dados.
+ * Classe para acessar a tabela Usuarios do banco de dados.
+ * 
  * @author Felipe
  *
  */
-public class UsuarioDAO
-{
-    /**
-     * Manipula o cadastro, atualiza��o de dados, exclus�o de dados atraves de dados recolhidos.
-     * @param email
-     * @author Felipe
-     * @return true/false
-     * @throws Exception 
-     */
-    public boolean cadastrado (String email) throws Exception
-    {
-        boolean retorno = false;
+public class UsuarioDAO {
+	/**
+	 * Manipula o cadastro, atualiza��o de dados, exclus�o de dados atraves de dados
+	 * recolhidos.
+	 * 
+	 * @param email
+	 * @author Felipe
+	 * @return true/false
+	 * @throws Exception
+	 */
+	public boolean cadastrado(String email) throws Exception {
+		boolean retorno = false;
 
-        try
-        {
-            String sql;
+		try {
+			String sql;
 
-            sql = "SELECT * " +
-                  "FROM USUARIOS " +
-                  "WHERE EMAIL = ?";
+			sql = "SELECT * " + "FROM USUARIOS " + "WHERE EMAIL = ?";
 
-            BD.COMANDO.prepareStatement (sql);
+			BD.COMANDO.prepareStatement(sql);
 
-            BD.COMANDO.setString (1, email);
+			BD.COMANDO.setString(1, email);
 
-            MeuResultSet resultado = (MeuResultSet)BD.COMANDO.executeQuery ();
+			MeuResultSet resultado = (MeuResultSet) BD.COMANDO.executeQuery();
 
-            retorno = resultado.first(); 
+			retorno = resultado.first();
 
-        }
-        catch (SQLException erro)
-        {
-            throw new Exception ("Erro ao procurar usuario.");
-        }
+		} catch (SQLException erro) {
+			throw new Exception("Erro ao procurar usuario.");
+		}
 
-        return retorno;
-    }
-/**
- * Incluir novo Usuario
- * 
- * @param usuario
- * @throws Exception
- */
-    public void incluir (Usuario usuario) throws Exception
-    {
-        if (usuario==null)
-            throw new Exception ("Usuario nao fornecido.");
+		return retorno;
+	}
 
-        try
-        {
-            String sql;
+	/**
+	 * Incluir novo Usuario
+	 * 
+	 * @param usuario
+	 * @throws Exception
+	 */
+	public void incluir(Usuario usuario) throws Exception {
+		if (usuario == null)
+			throw new Exception("Usuario nao fornecido.");
 
-            sql = "INSERT INTO USUARIOS " +
-                  "(EMAIL,NOME,SENHA, SALDO) " +
-                  "VALUES " +
-                  "(?,?,?,?)";
+		try {
+			String sql;
 
-            BD.COMANDO.prepareStatement (sql);
+			sql = "INSERT INTO USUARIOS " + "(EMAIL,NOME,SENHA, SALDO) " + "VALUES " + "(?,?,?,?)";
 
-            BD.COMANDO.setString    (1, usuario.getEmail ());
-            BD.COMANDO.setString (2, usuario.getNome ());
-            BD.COMANDO.setString  (3, usuario.getSenha ());
-            BD.COMANDO.setDouble  (4, usuario.getSaldo());
+			BD.COMANDO.prepareStatement(sql);
 
-            BD.COMANDO.executeUpdate ();
-            BD.COMANDO.commit        ();
-        }
-        catch (SQLException erro)
-        {
-        	System.out.println(erro);
-            throw new Exception ("Erro ao inserir usuario.");
-        }
-    }
-/**
- * Excluir usuario por email
- * 
- * @param email
- * @throws Exception
- */
-    public void excluir (String email) throws Exception
-    {
-        if (!cadastrado (email))
-            throw new Exception ("Nao cadastrado.");
+			BD.COMANDO.setString(1, usuario.getEmail());
+			BD.COMANDO.setString(2, usuario.getNome());
+			BD.COMANDO.setString(3, usuario.getSenha());
+			BD.COMANDO.setDouble(4, usuario.getSaldo());
 
-        try
-        {
-            String sql;
+			BD.COMANDO.executeUpdate();
+			BD.COMANDO.commit();
+		} catch (SQLException erro) {
+			System.out.println(erro);
+			throw new Exception("Erro ao inserir usuario.");
+		}
+	}
 
-            sql = "DELETE FROM USUARIOS " +
-                  "WHERE EMAIL=?";
+	/**
+	 * Excluir usuario por email
+	 * 
+	 * @param email
+	 * @throws Exception
+	 */
+	public void excluir(String email) throws Exception {
+		if (!cadastrado(email))
+			throw new Exception("Nao cadastrado.");
 
-            BD.COMANDO.prepareStatement (sql);
+		try {
+			String sql;
 
-            BD.COMANDO.setString (1, email);
+			sql = "DELETE FROM USUARIOS " + "WHERE EMAIL=?";
 
-            BD.COMANDO.executeUpdate ();
-            BD.COMANDO.commit        ();        }
-        catch (SQLException erro)
-        {
-            throw new Exception ("Erro ao excluir usuario.");
-        }
-    }
-/**
- * Alterar um usuario
- * 
- * @param usuario
- * @throws Exception
- */
-    public void alterar (Usuario usuario) throws Exception
-    {
-        if (usuario==null)
-            throw new Exception ("Usuario nao fornecido.");
+			BD.COMANDO.prepareStatement(sql);
 
-        if (!cadastrado (usuario.getEmail()))
-            throw new Exception ("Nao cadastrado.");
+			BD.COMANDO.setString(1, email);
 
-        try
-        {
-            String sql;
+			BD.COMANDO.executeUpdate();
+			BD.COMANDO.commit();
+		} catch (SQLException erro) {
+			throw new Exception("Erro ao excluir usuario.");
+		}
+	}
 
-            sql = "UPDATE USUARIOS " +
-                  "SET NOME=? " +
-                  "SET SENHA=? " +
-                  "WHERE EMAIL=?";
+	/**
+	 * Alterar um usuario
+	 * 
+	 * @param usuario
+	 * @throws Exception
+	 */
+	public void alterar(Usuario usuario) throws Exception {
+		if (usuario == null)
+			throw new Exception("Usuario nao fornecido.");
 
-            BD.COMANDO.prepareStatement (sql);
+		if (!cadastrado(usuario.getEmail()))
+			throw new Exception("Nao cadastrado.");
 
-            BD.COMANDO.setString (1, usuario.getNome ());
-            BD.COMANDO.setString  (2, usuario.getSenha ());
-            BD.COMANDO.setString    (3, usuario.getEmail ());
+		try {
+			String sql;
 
-            BD.COMANDO.executeUpdate ();
-            BD.COMANDO.commit        ();
-        }
-        catch (SQLException erro)
-        {
-            throw new Exception ("Erro ao atualizar dados de usuario.");
-        }
-    }
-/**
- * Obtem um usuario do Banco pelo email
- * 
- * @param email
- * @return Usuario
- * @throws Exception
- */
-    public Usuario getUsuario (String email) throws Exception
-    {
-        Usuario usuario = null;
+			sql = "UPDATE USUARIOS " + "SET NOME=? " + "SET SENHA=? " + "WHERE EMAIL=?";
 
-        try
-        {
-            String sql;
+			BD.COMANDO.prepareStatement(sql);
 
-            sql = "SELECT * " +
-                  "FROM USUARIOS " +
-                  "WHERE EMAIL = ?";
+			BD.COMANDO.setString(1, usuario.getNome());
+			BD.COMANDO.setString(2, usuario.getSenha());
+			BD.COMANDO.setString(3, usuario.getEmail());
 
-            BD.COMANDO.prepareStatement (sql);
+			BD.COMANDO.executeUpdate();
+			BD.COMANDO.commit();
+		} catch (SQLException erro) {
+			throw new Exception("Erro ao atualizar dados de usuario.");
+		}
+	}
 
-            BD.COMANDO.setString (1, email);
+	/*
+	 * Alterar dinheiro do usuario
+	 */
+	public void alterarDinheiro(String nome, String email, Double saldo) throws Exception {
+		if (email == null)
+			throw new Exception("Usuario nao fornecido.");
 
-            MeuResultSet resultado = (MeuResultSet)BD.COMANDO.executeQuery ();
+		if (!cadastrado(email))
+			throw new Exception("Nao cadastrado.");
 
-            if (!resultado.first())
-                throw new Exception ("Nao cadastrado.");
+		try {
+			String sql;
 
-            usuario = new Usuario (resultado.getString   ("EMAIL"),
-                               resultado.getString("NOME"),
-                               resultado.getString ("SENHA"));
-        }
-        catch (SQLException erro)
-        {
-            throw new Exception ("Erro ao procurar usuario.");
-        }
+			sql = "UPDATE USUARIOS " + "SET SALDO=? " + "WHERE EMAIL=? and nome =? ";
 
-        return usuario;
-    }
-/**
- * Obter usuario com email e senha fornecidos.
- * 
- * @param email
- * @param senha
- * @return Usuario
- * @throws Exception
- */
-    public Usuario getUsuarioESenha(String email, String senha) throws Exception
-    {
-        boolean retorno = false;
-        Usuario usuario = new Usuario();
+			BD.COMANDO.prepareStatement(sql);
 
-        try
-        {
-            String sql;
+			BD.COMANDO.setDouble(1, saldo);
+			BD.COMANDO.setString(2, email);
+			BD.COMANDO.setString(3, nome);
 
-            sql = "SELECT email, nome, senha, saldo, data " +
-                  "FROM USUARIOS " +
-                  "WHERE EMAIL = ? AND SENHA = ?";
+			BD.COMANDO.executeUpdate();
+			BD.COMANDO.commit();
+		} catch (SQLException erro) {
+			throw new Exception("Erro ao atualizar dados de usuario.");
+		}
+	}
 
-            BD.COMANDO.prepareStatement (sql);
+	/**
+	 * Obtem um usuario do Banco pelo email
+	 * 
+	 * @param email
+	 * @return Usuario
+	 * @throws Exception
+	 */
+	public Usuario getUsuario(String email) throws Exception {
+		Usuario usuario = null;
 
-            BD.COMANDO.setString (1, email);
-            BD.COMANDO.setString (2, senha);
+		try {
+			String sql;
 
-            MeuResultSet resultado = (MeuResultSet)BD.COMANDO.executeQuery ();
+			sql = "SELECT * " + "FROM USUARIOS " + "WHERE EMAIL = ?";
 
-            retorno = resultado.first(); 
-            if (retorno) {            	
-            	usuario.setEmail(resultado.getString(1));
-            	usuario.setNome(resultado.getString(2));
-            	usuario.setSenha(resultado.getString(3));    
-            	usuario.setData(resultado.getDate(5));  
-            	usuario.setSaldo(resultado.getDouble(4));
-            }else
-            	return null;
-            return usuario;
+			BD.COMANDO.prepareStatement(sql);
 
-        }
-        catch (SQLException erro)
-        {
-        	erro.printStackTrace();
-            throw new Exception ("Erro ao procurar usuario.");
-        }
+			BD.COMANDO.setString(1, email);
 
-       
-    }
+			MeuResultSet resultado = (MeuResultSet) BD.COMANDO.executeQuery();
+
+			if (!resultado.first())
+				throw new Exception("Nao cadastrado.");
+
+			usuario = new Usuario(resultado.getString("EMAIL"), resultado.getString("NOME"),
+					resultado.getString("SENHA"));
+		} catch (SQLException erro) {
+			throw new Exception("Erro ao procurar usuario.");
+		}
+
+		return usuario;
+	}
+
+	/**
+	 * Obter usuario com email e senha fornecidos.
+	 * 
+	 * @param email
+	 * @param senha
+	 * @return Usuario
+	 * @throws Exception
+	 */
+	public Usuario getUsuarioESenha(String email, String senha) throws Exception {
+		boolean retorno = false;
+		Usuario usuario = new Usuario();
+
+		try {
+			String sql;
+
+			sql = "SELECT email, nome, senha, saldo, data " + "FROM USUARIOS " + "WHERE EMAIL = ? AND SENHA = ?";
+
+			BD.COMANDO.prepareStatement(sql);
+
+			BD.COMANDO.setString(1, email);
+			BD.COMANDO.setString(2, senha);
+
+			MeuResultSet resultado = (MeuResultSet) BD.COMANDO.executeQuery();
+
+			retorno = resultado.first();
+			if (retorno) {
+				usuario.setEmail(resultado.getString(1));
+				usuario.setNome(resultado.getString(2));
+				usuario.setSenha(resultado.getString(3));
+				usuario.setData(resultado.getDate(5));
+				usuario.setSaldo(resultado.getDouble(4));
+			} else
+				return null;
+			return usuario;
+
+		} catch (SQLException erro) {
+			erro.printStackTrace();
+			throw new Exception("Erro ao procurar usuario.");
+		}
+
+	}
+
+	
+
 }
