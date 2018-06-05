@@ -5,7 +5,7 @@ import java.net.Socket;
 
 import Service.GerenciadorClientes;
 
-public class Programa
+public class Servidor
 {
     /**
      * Metodo Principal que recebe a conexão do cliente e o direciona ao Gerenciador de Cliente.
