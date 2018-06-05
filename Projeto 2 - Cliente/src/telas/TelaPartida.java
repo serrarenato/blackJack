@@ -427,6 +427,10 @@ public class TelaPartida extends javax.swing.JFrame {
 			//thread.interrupt();
 			continuar = false;
 			thread = null;
+		}else {
+			btnSair.setEnabled(true);
+			btnComprarCarta.setEnabled(false);
+			btnParar.setEnabled(false);
 		}
 		
 	}

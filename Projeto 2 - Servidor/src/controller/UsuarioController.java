@@ -25,6 +25,8 @@ public class UsuarioController {
 	PartidaService partidaService;
 	private final String DIVISOR = ":";
 	private static Map<String, PartidaService> listaPartidas = new HashMap<>();
+	// private TEMPO_GANHAR_MAIS_CREDITO = 1200000; 20 min.
+	private final int TEMPO_GANHAR_MAIS_CREDITO = 20000; // 20 segundos.
 
 	/**
 	 * Enviar Lista de Partidas
@@ -80,7 +82,7 @@ public class UsuarioController {
 
 			Map<String, Partida> partidas = PartidaService.listarPartidas();
 
-			if (partidas.get(partida).getStatus() != "jogando") {
+			if (partidas.get(partida).getStatus() != "jogando" || usuario.getSaldo() <= 0) {
 				return new Mensagem("ERR", "");
 			}
 			PartidaService.setarUsuarioNaPartida(partida, usuario);
@@ -359,6 +361,8 @@ public class UsuarioController {
 							usuarioPartida.setSaldo(usuarioPartida.getSaldo() + usuarioPartida.getAposta());
 							mensagem.setMensagem(usuarioPartida.getSaldo().toString());
 						}
+						if (usuarioPartida.getSaldo() <= 0d)
+							this.inserirCreditosUsuario(usuarioPartida);
 					} else if (totalMaior == usuarioPartida.getTotal()) {
 						mensagem.setProtocolo("WIN");
 						usuarioPartida.setSaldo(usuarioPartida.getSaldo() + pp.getJogada().getTotal());
@@ -366,6 +370,12 @@ public class UsuarioController {
 
 					} else {
 						mensagem.setProtocolo("EOW");
+						if (totalMaior == 0) {
+							usuarioPartida.setSaldo(usuarioPartida.getSaldo() + usuarioPartida.getAposta());
+							mensagem.setMensagem(usuarioPartida.getSaldo().toString());					
+						}
+						if (usuarioPartida.getSaldo() <= 0d)
+							this.inserirCreditosUsuario(usuarioPartida);
 					}
 					GerenciadorClientes gerenciadorClientes = listUsuarioGerenciador.get(usuarioPartida.getNome());
 					gerenciadorClientes.enviaDados(mensagem);
@@ -415,12 +425,35 @@ public class UsuarioController {
 			Partida partida = partidas.get(nomePartida);
 			partida.getListUsuarios().remove(usuario);
 
-			//Envia mensagem aos outros usuarios informando que o usuario saiu.
-			
+			// Envia mensagem aos outros usuarios informando que o usuario saiu.
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
+	}
+	/**
+	 * Inseri os creditos quando o usuario chega a 0.
+	 * 
+	 * @param usuario
+	 */
+	private void inserirCreditosUsuario(Usuario usuario) {
+		new Thread() {
+			@Override
+			public void run() {
+				try {
+					System.out.println("Inicio do contador");
+					Thread.sleep(TEMPO_GANHAR_MAIS_CREDITO);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+
+				System.out.println("Inserindo novo credito de 200 para o cliente: "
+						+ usuario.getNome());
+				usuario.setSaldo(200d);
+			}
+		}.start();
 	}
 
 }

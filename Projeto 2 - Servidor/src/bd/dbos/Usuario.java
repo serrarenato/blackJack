@@ -134,7 +134,7 @@ public class Usuario implements Serializable {
 	}
 
 	/**
-	 * Setar saldo do user
+	 * Setar saldo do user, iniciar a thread para inserir mais fichas e gravar no banco.
 	 * 
 	 * @param saldo
 	 */
@@ -142,7 +142,7 @@ public class Usuario implements Serializable {
 		this.saldo = saldo;
 		try {
 			dao.alterarDinheiro(this.nome, this.email, this.saldo);
-			System.out.println("Inserindo novo saldo para o cliente: "+ this.email + " " + this.saldo);
+			System.out.println("Inserindo novo saldo para o cliente: " + this.email + " " + this.saldo);			
 		} catch (Exception e) {
 			System.out.println("problemas ao inserir saldo no banco");
 			e.printStackTrace();
