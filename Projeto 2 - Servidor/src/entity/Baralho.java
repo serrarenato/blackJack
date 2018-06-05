@@ -4,7 +4,7 @@ import java.util.List;
 /**
  * Classe que contem o Baralho da Jogada.
  * 
- * @author renato
+ * @author Felipe
  *
  */
 public class Baralho {

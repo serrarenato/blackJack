@@ -15,7 +15,7 @@ import exception.PartidaException;
 /**
  * Classe responsável por Gerenciar as Partidas
  * 
- * @author renato
+ * @author Felipe
  *
  */
 public class PartidaService {

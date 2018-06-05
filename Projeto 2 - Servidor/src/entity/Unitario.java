@@ -6,7 +6,7 @@ import java.util.List;
 /**
  * Classe com Detalhes de Cada Jogada em uma Partida
  * 
- * @author renato
+ * @author Felipe
  *
  */
 

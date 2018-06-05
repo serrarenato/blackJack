@@ -3,7 +3,7 @@ package entity;
 /**
  * Esta classe é a carta propriamente dita no jogo com Naipe e Numero.
  * 
- * @author renato
+ * @author Felipe
  *
  */
 public class Carta {

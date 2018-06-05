@@ -2,7 +2,7 @@ package entity;
 /**
  * Enum com Naipes das Cartas
  * 
- * @author renato
+ * @author Felipe
  *
  */
 public enum Naipe {

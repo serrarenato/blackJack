@@ -2,7 +2,7 @@ package exception;
 /**
  * Classe de Exception para erro ao criar partida.
  * 
- * @author renato
+ * @author Felipe
  *
  */
 public class PartidaCriarException extends Exception {

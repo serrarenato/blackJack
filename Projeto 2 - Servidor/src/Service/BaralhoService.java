@@ -11,7 +11,7 @@ import entity.Numero;
 /**
  * Classe responsável por gerenciar o Baralho do Jogo.
  * 
- * @author renato
+ * @author Felipe
  *
  */
 public class BaralhoService {

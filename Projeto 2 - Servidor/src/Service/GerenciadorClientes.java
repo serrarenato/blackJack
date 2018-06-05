@@ -16,7 +16,7 @@ import entity.Mensagem;
  * Classe responsável pelo Gerenciamento de Clientes(envio e recebimento de
  * mensagens.
  * 
- * @author renato
+ * @author Felipe
  *
  */
 public class GerenciadorClientes extends Thread {

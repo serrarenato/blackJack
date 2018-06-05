@@ -5,7 +5,7 @@ import java.io.Serializable;
 /**
  * Classe de mensagem, utilizada para troca de mensagem entre cliente e servidor
  * 
- * @author renato
+ * @author Felipe
  *
  */
 public class Mensagem implements Serializable {

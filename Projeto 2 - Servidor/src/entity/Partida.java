@@ -7,7 +7,7 @@ import bd.dbos.Usuario;
 /**
  * Classe que contem cada Partida do jogo
  * 
- * @author renato
+ * @author Felipe
  *
  */
 

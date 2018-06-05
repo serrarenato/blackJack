@@ -2,7 +2,7 @@ package entity;
 
 /**
  * Numero das Cartas
- * @author renato
+ * @author Felipe
  *
  */
 public enum Numero {

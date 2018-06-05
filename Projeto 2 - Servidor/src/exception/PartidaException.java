@@ -2,7 +2,7 @@ package exception;
 /**
  * Classe generica para exceptions de Partida
  * 
- * @author renato
+ * @author Felipe
  *
  */
 public class PartidaException extends Exception {

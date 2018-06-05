@@ -6,7 +6,7 @@ import java.util.Map;
 /**
  * Classe que corresponde a Jogada(Rodadas em uma partida);
  * 
- * @author renato
+ * @author Felipe
  *
  */
 public class Jogada {

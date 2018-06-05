@@ -16,7 +16,7 @@ import exception.PartidaException;
  * Classe utilizada para gerenciar todos os serviços que o Cliente precisa
  * quando chama via Socket
  * 
- * @author renato
+ * @author Felipe
  *
  */
 public class UsuarioController {
