@@ -135,12 +135,12 @@ public class UsuarioDAO {
 	/*
 	 * Alterar dinheiro do usuario
 	 */
-	public void alterarDinheiro(String nome, String email, Double saldo) throws Exception {
+	public void alterarDinheiro(String nome, String email, Double saldo) throws Exception, SQLException {
 		if (email == null)
 			throw new Exception("Usuario nao fornecido.");
 
 		if (!cadastrado(email))
-			throw new Exception("Nao cadastrado.");
+			return;
 
 		try {
 			String sql;
@@ -156,7 +156,7 @@ public class UsuarioDAO {
 			BD.COMANDO.executeUpdate();
 			BD.COMANDO.commit();
 		} catch (SQLException erro) {
-			throw new Exception("Erro ao atualizar dados de usuario.");
+			throw new SQLException("Erro ao atualizar dados de usuario.");
 		}
 	}
 
