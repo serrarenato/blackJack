@@ -11,8 +11,10 @@ import bd.daos.UsuarioDAO;
 import bd.dbos.Usuario;
 import controller.UsuarioController;
 import entity.Mensagem;
+
 /**
- * Classe responsável pelo Gerenciamento de Clientes(envio e recebimento de mensagens.
+ * Classe responsável pelo Gerenciamento de Clientes(envio e recebimento de
+ * mensagens.
  * 
  * @author renato
  *
@@ -59,9 +61,10 @@ public class GerenciadorClientes extends Thread {
 		System.exit(0);
 
 	}
-/**
- * habilita a Entrada de dados via socket e chama o metodo comandos.
- */
+
+	/**
+	 * habilita a Entrada de dados via socket e chama o metodo comandos.
+	 */
 	private void processaConexao() {
 
 		Mensagem mensagem;
@@ -82,11 +85,13 @@ public class GerenciadorClientes extends Thread {
 		}
 
 	}
-/**
- * Metodo que analisa pelo protocolo enviado pelo cliente via Socket, o que deve ser feito.(Cadastro/Log/Cartas...)  
- * 
- * @param mensagem
- */
+
+	/**
+	 * Metodo que analisa pelo protocolo enviado pelo cliente via Socket, o que deve
+	 * ser feito.(Cadastro/Log/Cartas...)
+	 * 
+	 * @param mensagem
+	 */
 	private void comandos(Mensagem mensagem) {
 
 		UsuarioDAO dao = new UsuarioDAO();
@@ -213,6 +218,10 @@ public class GerenciadorClientes extends Thread {
 			} else if (mensagem.getProtocolo().equals("EOC")) {
 				usuarioService.parar(usuario);
 				usuarioService.verificaVencedor(usuario, listUsuarioGerenciador);
+
+			} else if (mensagem.getProtocolo().equals("SAI")) {
+				usuarioService.removeUsuarioPartida(usuario);				
+				this.listUsuarioGerenciador.remove(this.usuario.getNome());
 			}
 		} catch (Exception w) {
 			System.out.println("Erro no recebimento de comandos");
@@ -220,11 +229,12 @@ public class GerenciadorClientes extends Thread {
 		}
 
 	}
-/**
- * Metodo responsável por enviar as mensagens aos clientes via Socket. 
- * 
- * @param message
- */
+
+	/**
+	 * Metodo responsável por enviar as mensagens aos clientes via Socket.
+	 * 
+	 * @param message
+	 */
 	public void enviaDados(Mensagem message) {
 
 		try {
@@ -239,10 +249,11 @@ public class GerenciadorClientes extends Thread {
 			e.printStackTrace();
 		}
 	}
-/**
- * Método responsavel por fechar a conexão com o cliente.
- * 
- */
+
+	/**
+	 * Método responsavel por fechar a conexão com o cliente.
+	 * 
+	 */
 	private void closeConnection() {
 		System.out.println("Terminando Conexao");
 
@@ -254,7 +265,7 @@ public class GerenciadorClientes extends Thread {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public Usuario getUsuario() {
 		return usuario;
 	}

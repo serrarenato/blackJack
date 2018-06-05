@@ -77,6 +77,7 @@ public class PartidaService {
 			throw new PartidaException("Partida nao Existe");
 		return partidas.get(nome).getListUsuarios();
 	}
+	
 /**
  * Metodo responsável por inserir as apostas dos jogadores em cada Jogada da Partida.
  * 

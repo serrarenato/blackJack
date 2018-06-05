@@ -418,7 +418,9 @@ public class TelaPartida extends javax.swing.JFrame {
 	private void reininicar() {
 		if (new Double (lblQtdMoedas.getText())>0) {
 			btnApostar.setEnabled(true);
+			btnSair.setEnabled(true);
 			btnComprarCarta.setEnabled(false);
+			btnParar.setEnabled(false);
 			setMensagemListaELimpa("Faça sua aposta.");
 			btnParar.setEnabled(true);			
 			numerosCartas = new ArrayList<>();;
@@ -435,6 +437,7 @@ public class TelaPartida extends javax.swing.JFrame {
 	private void aposta() {
 		try {
 			btnApostar.setEnabled(false);
+			btnSair.setEnabled(false);
 			ClienteSocket clienteSocket = ClienteSocket.getClienteSocket();
 			if (txtValorApostar.getText().isEmpty()) {
 				JOptionPane.showMessageDialog(null, "Valor digitar um valor de aposta valido!");
@@ -450,9 +453,11 @@ public class TelaPartida extends javax.swing.JFrame {
 				continuar=true;
 				lerParticipantes(thread);
 				btnComprarCarta.setEnabled(true);
+				btnParar.setEnabled(true);
 			} else {
 				JOptionPane.showMessageDialog(null, "Valor invalido da aposta!");
 				btnApostar.setEnabled(true);
+				btnSair.setEnabled(true);
 			}
 
 		} catch (Exception erro) {
@@ -607,6 +612,8 @@ public class TelaPartida extends javax.swing.JFrame {
 		ClienteSocket clienteSocket = ClienteSocket.getClienteSocket();
 		Mensagem mensagem = new Mensagem("SAI", "");
 		clienteSocket.enviaDados(mensagem);
+		// fechar sistema
+			System.exit(0);
 	}
 		
 }

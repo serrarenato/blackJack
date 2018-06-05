@@ -155,6 +155,7 @@ public class UsuarioController {
 				partidas.get(partida).setNumeroBaralhos(2);
 			else
 				partidas.get(partida).setNumeroBaralhos(1);
+			partidas.get(partida).setStatus("iniciada");
 
 		} catch (PartidaException e) {
 			e.printStackTrace();
@@ -282,7 +283,7 @@ public class UsuarioController {
 	public Mensagem comprarCarta(Usuario usuario, Map<String, GerenciadorClientes> listUsuarioGerenciador) {
 		Mensagem mensagem = new Mensagem();
 		mensagem.setProtocolo("CAR");
-		Carta carta = partidaService.getUmaCarta(usuario);		
+		Carta carta = partidaService.getUmaCarta(usuario);
 		mensagem.setMensagem(carta.getNumero() + DIVISOR + carta.getNaipe());
 		return mensagem;
 	}
@@ -353,13 +354,12 @@ public class UsuarioController {
 					Mensagem mensagem = new Mensagem();
 					if (usuarioPartida.getEstourou()) {
 						mensagem.setProtocolo("EOW");
-						//todos Perderam?
-						if (totalMaior==0) {
-							usuarioPartida.setSaldo(usuarioPartida.getSaldo() + usuarioPartida.getAposta() );
+						// todos Perderam?
+						if (totalMaior == 0) {
+							usuarioPartida.setSaldo(usuarioPartida.getSaldo() + usuarioPartida.getAposta());
 							mensagem.setMensagem(usuarioPartida.getSaldo().toString());
 						}
-					}
-					else if (totalMaior == usuarioPartida.getTotal()) {
+					} else if (totalMaior == usuarioPartida.getTotal()) {
 						mensagem.setProtocolo("WIN");
 						usuarioPartida.setSaldo(usuarioPartida.getSaldo() + pp.getJogada().getTotal());
 						mensagem.setMensagem(usuarioPartida.getSaldo().toString());
@@ -388,7 +388,7 @@ public class UsuarioController {
 	 * @param partidaAtual
 	 */
 	public void reiniciarPartida(List<Usuario> usuarios, String partidaAtual) {
-		Partida pp =  partidaService.listarPartidas().get(partidaAtual);
+		Partida pp = partidaService.listarPartidas().get(partidaAtual);
 		for (Usuario usuarioPartida : usuarios) {
 			usuarioPartida.setAposta(0d);
 			usuarioPartida.getCartasMao().clear();
@@ -398,6 +398,29 @@ public class UsuarioController {
 			partidaService.inicioPartida(partidaAtual);
 
 		}
+	}
+
+	/**
+	 * Remove o usuario da Partida
+	 * 
+	 * @param usuario
+	 */
+	public void removeUsuarioPartida(Usuario usuario) {
+		try {
+
+			// get dados partida
+			String nomePartida = usuario.getPartidaAtual();
+			List<Usuario> usuarios = partidaService.getUsuariosNaPartida(nomePartida);
+			Map<String, Partida> partidas = partidaService.listarPartidas();
+			Partida partida = partidas.get(nomePartida);
+			partida.getListUsuarios().remove(usuario);
+
+			//Envia mensagem aos outros usuarios informando que o usuario saiu.
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
 	}
 
 }
