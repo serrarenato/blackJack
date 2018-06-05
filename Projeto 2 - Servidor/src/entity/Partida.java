@@ -1,9 +1,15 @@
 package entity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import bd.dbos.Usuario;
-
+/**
+ * Classe que contem cada Partida do jogo
+ * 
+ * @author Felipe
+ *
+ */
 
 public class Partida {
 	final String INICIADA =  "iniciada";
@@ -31,6 +37,8 @@ public class Partida {
 		this.numeroBaralhos=1;
 		this.status=NAO_INICIADA;
 		this.numeroJogada=1;
+		this.listUsuarios = new ArrayList<>();
+		this.jogada = new Jogada();
 	}
 
 	public int getNumeroJogada() {
@@ -121,6 +129,14 @@ public class Partida {
 			return false;
 		return true;
 	}
+
+	@Override
+	public String toString() {
+		return "Partida [INICIADA=" + INICIADA + ", NAO_INICIADA=" + NAO_INICIADA + ", numeroBaralhos=" + numeroBaralhos
+				+ ", listUsuarios=" + listUsuarios + ", jogada=" + jogada + ", numeroJogada=" + numeroJogada + ", nome="
+				+ nome + ", status=" + status + "]";
+	}
+	
 
 
 

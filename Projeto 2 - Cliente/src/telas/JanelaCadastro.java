@@ -5,10 +5,12 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 import bd.dbos.Usuario;
+import entity.Mensagem;
+import transmissor.ClienteSocket;
 import transmissor.Solicitacao;
 
 /**
- *Janela de cadastro, junto as suas configurações e difinições do uso de cada botão.
+ *Janela de cadastro, junto as suas configuraï¿½ï¿½es e difiniï¿½ï¿½es do uso de cada botï¿½o.
  * @author Felipe
  */
 public class JanelaCadastro extends javax.swing.JPanel {
@@ -19,6 +21,7 @@ public class JanelaCadastro extends javax.swing.JPanel {
     
     // ATRIBUTOS DE JANELA CADASTRO
     private JFrame janelaNova; // ou 'fecha'
+    private final String DIVISOR = ":";
     
     // CONSTRUTOR
     public JanelaCadastro(JFrame janelaNova) {
@@ -68,11 +71,11 @@ public class JanelaCadastro extends javax.swing.JPanel {
 
         txtSenhaCadastro.setText("Senha:");
 
-        txtConfirma.setText("Confirmação:");
+        txtConfirma.setText("Confirmaï¿½ï¿½o:");
 
         txtSenha.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtSenhaActionPerformed(evt);
+          
             }
         });
 
@@ -136,7 +139,11 @@ public class JanelaCadastro extends javax.swing.JPanel {
                 .addGap(19, 19, 19))
         );
     }// </editor-fold>//GEN-END:initComponents
-
+/**
+ * Metodo utilizado pelo botao cancelar cadastro
+ * 
+ * @param evt
+ */
     private void btnCancelaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelaActionPerformed
         txtConfirmaSenha.setText("");
         txtEmail.setText("");
@@ -153,9 +160,11 @@ public class JanelaCadastro extends javax.swing.JPanel {
         this.janelaNova.dispose();
     }//GEN-LAST:event_btnCancelaActionPerformed
 
-    private void txtSenhaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSenhaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtSenhaActionPerformed
+/**
+ * Metodo utilizado para cadastrar o cliente
+ * 
+ * @param evt
+ */
 
     private void btnOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOKActionPerformed
         // TODO add your handling code here:
@@ -165,13 +174,20 @@ public class JanelaCadastro extends javax.swing.JPanel {
 			if (txtEmail.getText().isEmpty() || txtNome.getText().isEmpty() || txtSenha.getText().isEmpty() || txtConfirmaSenha.getText().isEmpty()) {
 				JOptionPane.showMessageDialog(null, "Erro! Espacos em branco, digite em todos os campos!");
 			} else {
+				ClienteSocket clienteSocket = ClienteSocket.getClienteSocket();
 				// verifica se o campo senha eh igual ao campo de confirmacao
 				if (txtSenha.getText().equals(txtConfirmaSenha.getText())) {
-					Usuario usuario = new Usuario(txtNome.getText(), txtEmail.getText(), txtSenha.getText(), "CAD");
-					Solicitacao solicitacao = new Solicitacao(usuario);
-
-						if (solicitacao.Enviar(usuario).equals("SUC")) {
-							JOptionPane.showMessageDialog(null, "Usuário Cadastrado com Sucesso!");
+					//Usuario usuario = new Usuario(txtNome.getText(), txtEmail.getText(), txtSenha.getText(), "CAD");
+					//Solicitacao solicitacao = new Solicitacao(usuario);
+					Mensagem mensagem = new Mensagem("CAD",txtNome.getText()+DIVISOR+txtEmail.getText()+DIVISOR+txtSenha.getText());
+					clienteSocket.setMessagem(null);
+					clienteSocket.enviaDados(mensagem);
+				
+					//clienteSocket.waitMessagem();
+					Mensagem retorno = clienteSocket.getInput();
+					
+						if (retorno.getProtocolo().equals("SUC")) {
+							JOptionPane.showMessageDialog(null, "Usuï¿½rio Cadastrado com Sucesso!");
 							
 				            JFrame janela = new JFrame("Login");
 				            JanelaLogin login = new JanelaLogin(janela);
@@ -188,7 +204,7 @@ public class JanelaCadastro extends javax.swing.JPanel {
 				} 
 				else
 				{
-					JOptionPane.showMessageDialog(null, "Erro! As senhas digitadas não coincidem!");
+					JOptionPane.showMessageDialog(null, "Erro! As senhas digitadas nï¿½o coincidem!");
 				}
 			}
 		} catch (Exception erro) {

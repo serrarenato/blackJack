@@ -13,6 +13,8 @@ import javax.swing.GroupLayout;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
 import bd.dbos.Usuario;
+import entity.Mensagem;
+import transmissor.ClienteSocket;
 import transmissor.Solicitacao;
 
 import java.awt.Button;
@@ -23,6 +25,7 @@ import javax.swing.JTextField;
 import javax.swing.JLabel;
 
 /**
+ * Classe que armazena a tela de Escolher Partida
  *
  * @author melin
  */
@@ -84,7 +87,6 @@ public class TelaEscolhePartida extends javax.swing.JPanel {
 		lblPartidasEmAndamento.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
 		lblPartidasEmAndamento.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 		lblPartidasEmAndamento.setText("Partidas em Andamento");
-	
 
 		lblSala.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
 		lblSala.setText("Sala");
@@ -96,64 +98,52 @@ public class TelaEscolhePartida extends javax.swing.JPanel {
 		btnEntrarPartida.setName(""); // NOI18N
 
 		btnCriarPartida.setLabel("Criar Partida");
-		
+
 		txtPartida = new JTextField();
 		txtPartida.setName("txtPartida");
-		
+
 		JLabel lblNomePartida = new JLabel("Nome Partida:");
 
 		javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-		layout.setHorizontalGroup(
-			layout.createParallelGroup(Alignment.TRAILING)
-				.addGroup(layout.createSequentialGroup()
-					.addGroup(layout.createParallelGroup(Alignment.LEADING)
-						.addGroup(layout.createSequentialGroup()
-							.addGap(93)
-							.addComponent(btnEntrarPartida, GroupLayout.PREFERRED_SIZE, 190, GroupLayout.PREFERRED_SIZE)
-							.addGap(18)
-							.addComponent(btnCriarPartida, GroupLayout.PREFERRED_SIZE, 192, GroupLayout.PREFERRED_SIZE)
-							.addPreferredGap(ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
-							.addComponent(bntListarPartida, GroupLayout.PREFERRED_SIZE, 192, GroupLayout.PREFERRED_SIZE))
-						.addGroup(Alignment.TRAILING, layout.createSequentialGroup()
-							.addGap(22)
-							.addComponent(lblSala, GroupLayout.PREFERRED_SIZE, 347, GroupLayout.PREFERRED_SIZE)
-							.addGap(18)
-							.addComponent(lblStatus, GroupLayout.DEFAULT_SIZE, 316, Short.MAX_VALUE))
-						.addGroup(Alignment.TRAILING, layout.createSequentialGroup()
-							.addContainerGap()
-							.addGroup(layout.createParallelGroup(Alignment.LEADING)
-								.addComponent(ListaSalas, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-								.addComponent(lblPartidasEmAndamento, GroupLayout.DEFAULT_SIZE, 691, Short.MAX_VALUE))))
-					.addContainerGap())
-				.addGroup(layout.createSequentialGroup()
-					.addContainerGap(165, Short.MAX_VALUE)
-					.addComponent(lblNomePartida)
-					.addGap(35)
-					.addComponent(txtPartida, GroupLayout.PREFERRED_SIZE, 334, GroupLayout.PREFERRED_SIZE)
-					.addGap(111))
-		);
-		layout.setVerticalGroup(
-			layout.createParallelGroup(Alignment.LEADING)
-				.addGroup(layout.createSequentialGroup()
-					.addContainerGap()
-					.addComponent(lblPartidasEmAndamento, GroupLayout.PREFERRED_SIZE, 51, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addGroup(layout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblSala)
-						.addComponent(lblStatus))
-					.addGap(19)
-					.addComponent(ListaSalas, GroupLayout.PREFERRED_SIZE, 218, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(layout.createParallelGroup(Alignment.LEADING, false)
+		layout.setHorizontalGroup(layout.createParallelGroup(Alignment.TRAILING).addGroup(layout.createSequentialGroup()
+				.addGroup(layout.createParallelGroup(Alignment.LEADING).addGroup(layout.createSequentialGroup()
+						.addGap(93)
+						.addComponent(btnEntrarPartida, GroupLayout.PREFERRED_SIZE, 190, GroupLayout.PREFERRED_SIZE)
+						.addGap(18)
+						.addComponent(btnCriarPartida, GroupLayout.PREFERRED_SIZE, 192, GroupLayout.PREFERRED_SIZE)
+						.addPreferredGap(ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
+						.addComponent(bntListarPartida, GroupLayout.PREFERRED_SIZE, 192, GroupLayout.PREFERRED_SIZE))
+						.addGroup(Alignment.TRAILING, layout.createSequentialGroup().addGap(22)
+								.addComponent(lblSala, GroupLayout.PREFERRED_SIZE, 347, GroupLayout.PREFERRED_SIZE)
+								.addGap(18).addComponent(lblStatus, GroupLayout.DEFAULT_SIZE, 316, Short.MAX_VALUE))
+						.addGroup(Alignment.TRAILING,
+								layout.createSequentialGroup().addContainerGap()
+										.addGroup(layout.createParallelGroup(Alignment.LEADING)
+												.addComponent(ListaSalas, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE,
+														GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+												.addComponent(lblPartidasEmAndamento, GroupLayout.DEFAULT_SIZE, 691,
+														Short.MAX_VALUE))))
+				.addContainerGap())
+				.addGroup(layout.createSequentialGroup().addContainerGap(165, Short.MAX_VALUE)
+						.addComponent(lblNomePartida).addGap(35)
+						.addComponent(txtPartida, GroupLayout.PREFERRED_SIZE, 334, GroupLayout.PREFERRED_SIZE)
+						.addGap(111)));
+		layout.setVerticalGroup(layout.createParallelGroup(Alignment.LEADING).addGroup(layout.createSequentialGroup()
+				.addContainerGap()
+				.addComponent(lblPartidasEmAndamento, GroupLayout.PREFERRED_SIZE, 51, GroupLayout.PREFERRED_SIZE)
+				.addPreferredGap(ComponentPlacement.UNRELATED)
+				.addGroup(layout.createParallelGroup(Alignment.BASELINE).addComponent(lblSala).addComponent(lblStatus))
+				.addGap(19).addComponent(ListaSalas, GroupLayout.PREFERRED_SIZE, 218, GroupLayout.PREFERRED_SIZE)
+				.addPreferredGap(ComponentPlacement.RELATED)
+				.addGroup(layout.createParallelGroup(Alignment.LEADING, false)
 						.addComponent(bntListarPartida, 0, 0, Short.MAX_VALUE)
 						.addComponent(btnCriarPartida, 0, 0, Short.MAX_VALUE)
 						.addComponent(btnEntrarPartida, GroupLayout.DEFAULT_SIZE, 61, Short.MAX_VALUE))
-					.addGap(27)
-					.addGroup(layout.createParallelGroup(Alignment.BASELINE)
+				.addGap(27)
+				.addGroup(layout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(txtPartida, GroupLayout.PREFERRED_SIZE, 27, GroupLayout.PREFERRED_SIZE)
 						.addComponent(lblNomePartida))
-					.addContainerGap(32, Short.MAX_VALUE))
-		);
+				.addContainerGap(32, Short.MAX_VALUE)));
 		this.setLayout(layout);
 
 		lblPartidasEmAndamento.getAccessibleContext().setAccessibleName("lblPartidasemAndamento");
@@ -219,27 +209,34 @@ public class TelaEscolhePartida extends javax.swing.JPanel {
 	private java.awt.Button bntListarPartida;
 	private JTextField txtPartida;
 
+/**
+ * Metodo para listar as partidas disponiveis
+ * 
+ * @param evt
+ */
 	private void btnListarPartidas(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnOKActionPerformed
 		// TODO add your handling code here:
 
 		try {
 
 			// verifica se o campo senha eh igual ao campo de confirmacao
+			ClienteSocket clienteSocket = ClienteSocket.getClienteSocket();
+			Mensagem mensagem = new Mensagem("LST", "");
+			clienteSocket.enviaDados(mensagem);
 
-			Usuario usuario = new Usuario("a", "a", "a", "LST");
-			Solicitacao solicitacao = new Solicitacao(usuario);
-			String resposta = solicitacao.Enviar(usuario);
-			System.out.println(resposta);
-			String[] retornos=resposta.split(":");
+			Mensagem retorno = clienteSocket.getInput();
+
+			System.out.println(retorno);
+			String[] retornos = retorno.getMensagem().split(":");
 			ListaSalas.clear();
-			if (!resposta.equals("EOF")) {	
+			if (!retorno.getProtocolo().equals("EOF")) {
 				for (String string : retornos) {
-					if (string.equals("PAR")||string.equals("EOF"))
+					if (string.equals("PAR") || string.equals("EOF"))
 						continue;
 					ListaSalas.add(string);
 					System.out.println(string);
 				}
-				
+
 			} else {
 				JOptionPane.showMessageDialog(null, "Não há partidas");
 			}
@@ -248,6 +245,11 @@ public class TelaEscolhePartida extends javax.swing.JPanel {
 			System.err.println(erro);
 		}
 	}
+/**
+ * Metodo para criar uma partida
+ * 
+ * @param evt
+ */
 	private void btnCriarPartida(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnOKActionPerformed
 		// TODO add your handling code here:
 
@@ -258,11 +260,15 @@ public class TelaEscolhePartida extends javax.swing.JPanel {
 				JOptionPane.showMessageDialog(null, "Digite um nome para partida");
 				return;
 			}
-			Usuario usuario = new Usuario(txtPartida.getText(), "a", "a", "CRI");
-			Solicitacao solicitacao = new Solicitacao(usuario);
-			String resposta = solicitacao.Enviar(usuario);
-			System.out.println(resposta);
-			if (resposta.equals("SUC")) {
+
+			ClienteSocket clienteSocket = ClienteSocket.getClienteSocket();
+			Mensagem mensagem = new Mensagem("CRI", txtPartida.getText());
+			clienteSocket.enviaDados(mensagem);
+
+			Mensagem retorno = clienteSocket.getInput();
+
+			System.out.println(retorno);
+			if (retorno.getProtocolo().equals("SUC")) {
 				JOptionPane.showMessageDialog(null, "Partidas Criada");
 			} else {
 				JOptionPane.showMessageDialog(null, "Erro ao criar partida");
@@ -272,22 +278,41 @@ public class TelaEscolhePartida extends javax.swing.JPanel {
 			System.err.println(erro);
 		}
 	}
+/**
+ * Metodo para entrar em uma partida
+ * 
+ * @param evt
+ */
 	private void btnEntrarPartida(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnOKActionPerformed
 		// TODO add your handling code here:
 
 		try {
 
 			// verifica se o campo senha eh igual ao campo de confirmacao
-			if (ListaSalas.getSelectedItem().isEmpty()) {
+			try {
+				if (ListaSalas.getSelectedItem().isEmpty()) {
+					JOptionPane.showMessageDialog(null, "Selecione uma partida");
+					return;
+				}
+			} catch (Exception e) {
 				JOptionPane.showMessageDialog(null, "Selecione uma partida");
 				return;
 			}
-			Usuario usuario = new Usuario(ListaSalas.getSelectedItem(), "a", "a", "ENT");
-			Solicitacao solicitacao = new Solicitacao(usuario);
-			String resposta = solicitacao.Enviar(usuario);
-			System.out.println(resposta);
-			if (resposta.equals("SUC")) {
-				JOptionPane.showMessageDialog(null, "Entrou na partida");
+
+			ClienteSocket clienteSocket = ClienteSocket.getClienteSocket();
+			String[] nome = ListaSalas.getSelectedItem().split(" ");
+			Mensagem mensagem = new Mensagem("ENT", nome[0]);
+			clienteSocket.enviaDados(mensagem);
+
+			Mensagem retorno = clienteSocket.getInput();
+
+			System.out.println(retorno);
+			if (retorno.getProtocolo().equals("SUC")) {
+				JFrame newFrame = new TelaPrePartida(retorno.getMensagem());
+				newFrame.setVisible(true);
+
+				this.escolherPartida.dispose(); // Fechando a view antiga (janela de Login)
+
 			} else {
 				JOptionPane.showMessageDialog(null, "Erro nao foi possivel entrar na partida");
 			}

@@ -1,62 +1,208 @@
 package bd.dbos;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
-import javax.swing.JPasswordField;
-import javax.swing.JTextField;
-
+import bd.daos.UsuarioDAO;
+import entity.Carta;
+import entity.Numero;
 
 /**
- * Classe da entidade Usuario para controlar dados pessoais para cadastro e login.
+ * Classe da entidade Usuario para controlar dados pessoais.
+ * 
  * @author Felipe
  *
  */
-public class Usuario implements Serializable
-{
-    
-    private String email;
-    private String nome;
-    private String senha;
-    private String msg;
+public class Usuario implements Serializable {
 
-    /**
-     * Construtor da entidade Usuario para LOGIN.
-     * @param email
-     * @param senha
-     * @param msg para dizer o protocolo de solicitação
-     * @throws Exception
-     */
-    
-    public Usuario(String email, String senha, String msg) throws Exception {
-    	
-    	if (email.isEmpty() || senha.isEmpty() || msg.isEmpty())
-    		throw new Exception("Erro! Construtor com parâmetro(s) nulo(s)!");
-    	
-        this.email = email;
-        this.senha = senha;
-        this.msg = msg;
-        
-    }
-    
-    /**
-     * Construtor da entidade Usuario para CADASTRAR.
-     * @param nome
-     * @param email
-     * @param senha
-     * @param msg para dizer o protocolo de solicitação
-     * @throws Exception
-     */
-    public Usuario(String nome, String email, String senha, String msg) throws Exception {
-        
-    	if (nome.isEmpty() || email.isEmpty() || senha.isEmpty() || msg.isEmpty())
-    		throw new Exception("Erro! Construtor com parâmetro(s) nulo(s)!");
-    	
-    	this.nome = nome;
-        this.email = email;
-        this.senha = senha;
-        this.msg = msg;
-        
-    }
+	private String email;
+	private String nome;
+	private String senha;
+	private String msg;
+	private Double saldo;
+	private Date data;
+	private Double aposta = 0d;
+	private List<Carta> cartasMao = new ArrayList<>();
+	private Boolean parar = false;
+	private Boolean estourou = false;
+	UsuarioDAO dao = new UsuarioDAO();
+
+	/**
+	 * Verifica se os pontos do Usuario estouraram
+	 * 
+	 * @return true/false
+	 */
+	public Boolean getEstourou() {
+		return estourou;
+	}
+
+	/**
+	 * Seta se os pontos estouraram
+	 * 
+	 * @param Boolean
+	 *            - estourou
+	 */
+	public void setEstourou(Boolean estourou) {
+		this.estourou = estourou;
+	}
+
+	/**
+	 * Verifica se o usuario parou de comprar cartas.
+	 * 
+	 * @return true/false
+	 */
+	public Boolean getParar() {
+		return parar;
+	}
+
+	/**
+	 * Seta se o user Parou de comprar Cartas
+	 * 
+	 * @param parar
+	 */
+	public void setParar(Boolean parar) {
+		this.parar = parar;
+	}
+
+	/**
+	 * Obtem cartas da mao do user
+	 * 
+	 * @return List<Carta>
+	 */
+	public List<Carta> getCartasMao() {
+		return cartasMao;
+	}
+
+	/**
+	 * Setar cartas da mao do user
+	 * 
+	 * @param cartasMao
+	 */
+	public void setCartasMao(List<Carta> cartasMao) {
+		this.cartasMao = cartasMao;
+	}
+
+	/**
+	 * Obtem aposta do user
+	 * 
+	 * @return Double
+	 */
+	public Double getAposta() {
+		return aposta;
+	}
+
+	/**
+	 * Seta aposta do user
+	 * 
+	 * @param Double
+	 *            aposta
+	 */
+	public void setAposta(Double aposta) {
+		this.aposta = aposta;
+	}
+
+	private String PartidaAtual;
+
+	/**
+	 * Partida atual que o user esta
+	 * 
+	 * @param String
+	 * 
+	 */
+	public String getPartidaAtual() {
+		return PartidaAtual;
+	}
+
+	/**
+	 * Setar partida para o user
+	 * 
+	 * @param partidaAtual
+	 */
+	public void setPartidaAtual(String partidaAtual) {
+		PartidaAtual = partidaAtual;
+	}
+
+	/**
+	 * Obter saldo do user
+	 * 
+	 * @return Double
+	 */
+	public Double getSaldo() {
+		return saldo;
+	}
+
+	/**
+	 * Setar saldo do user, iniciar a thread para inserir mais fichas e gravar no banco.
+	 * 
+	 * @param saldo
+	 */
+	public void setSaldo(Double saldo) {
+		this.saldo = saldo;
+		try {
+			dao.alterarDinheiro(this.nome, this.email, this.saldo);
+			System.out.println("Inserindo novo saldo para o cliente: " + this.email + " " + this.saldo);			
+		} catch (Exception e) {
+			System.out.println("problemas ao inserir saldo no banco");
+			e.printStackTrace();
+		}
+	}
+
+	public Date getData() {
+		return data;
+	}
+
+	public void setData(Date data) {
+		this.data = data;
+	}
+
+	/**
+	 * Construtor da entidade Usuario para LOGIN.
+	 * 
+	 * @param email
+	 * @param senha
+	 * @param msg
+	 *            para dizer o protocolo de solicitaï¿½ï¿½o
+	 * @throws Exception
+	 */
+
+	public Usuario(String email, String senha, String msg) throws Exception {
+
+		if (email.isEmpty() || senha.isEmpty() || msg.isEmpty())
+			throw new Exception("Erro! Construtor com parï¿½metro(s) nulo(s)!");
+
+		this.email = email;
+		this.senha = senha;
+		this.msg = msg;
+
+	}
+
+	/**
+	 * Construtor da entidade Usuario para CADASTRAR.
+	 * 
+	 * @param nome
+	 * @param email
+	 * @param senha
+	 * @param msg
+	 *            para dizer o protocolo de solicitaï¿½ï¿½o
+	 * @throws Exception
+	 */
+	public Usuario(String nome, String email, String senha, String msg) throws Exception {
+
+		if (nome.isEmpty() || email.isEmpty() || senha.isEmpty())
+			throw new Exception("Erro! Construtor com parï¿½metro(s) nulo(s)!");
+
+		this.nome = nome;
+		this.email = email;
+		this.senha = senha;
+		this.msg = msg;
+
+	}
+
+	public Usuario() {
+		// TODO Auto-generated constructor stub
+	}
 
 	@Override
 	public int hashCode() {
@@ -107,39 +253,87 @@ public class Usuario implements Serializable
 				+ hashCode() + ", getClass()=" + getClass() + ", toString()=" + super.toString() + "]";
 	}
 
-	public String getMsg() {
-		return msg;
-	}
-	
-	public void setMsg(String msg) {
-		this.msg = msg;
-	}
-
+	/**
+	 * Get email do user
+	 * 
+	 * @return String
+	 */
 	public String getEmail() {
 		return email;
 	}
-	
+
+	/**
+	 * setar email do user
+	 * 
+	 * @param email
+	 */
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	
+
+	/**
+	 * get nome do user
+	 * 
+	 * @return String
+	 */
 	public String getNome() {
 		return nome;
 	}
-	
+
+	/**
+	 * Setar nome do user
+	 * 
+	 * @param nome
+	 */
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-	
+
+	/**
+	 * Get senha do user
+	 * 
+	 * @return String
+	 */
 	public String getSenha() {
 		return senha;
 	}
-	
+
+	/**
+	 * Setar senha do user
+	 * 
+	 * @param String
+	 *            senha
+	 */
 	public void setSenha(String senha) {
 		this.senha = senha;
 	}
 
-	
-    
-   
+	/**
+	 * Get total de cartas(pontos) na mao do user
+	 * 
+	 * @return
+	 */
+	public Integer getTotal() {
+		Integer total = 0;
+		boolean temCartaEspecial = false;
+
+		for (Carta carta : cartasMao) {
+			Numero numero = carta.getNumero();
+			if (numero.equals(Numero.REI) || numero.equals(Numero.DAMA) || numero.equals(Numero.VALETE)) {
+				total += 10;
+				temCartaEspecial = true;
+			} else if (numero.equals(Numero.AS)) {
+				if (temCartaEspecial)
+					total += 11;
+				else
+					total += 1;
+			} else {
+
+				total += numero.getValue();
+			}
+
+		}
+		return total;
+	}
+
 }

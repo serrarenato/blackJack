@@ -8,8 +8,8 @@ package telas;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
-import bd.dbos.Usuario;
-import transmissor.Solicitacao;
+import entity.Mensagem;
+import transmissor.ClienteSocket;
 
 /**
  * Janela de Login, onde reliza a validação com o banco de dados dos itens nele
@@ -23,6 +23,7 @@ public class JanelaLogin extends javax.swing.JPanel {
 	 * Creates new form JanelaLogin
 	 */
 	JFrame fecha;
+	private final String DIVISOR = ":";
 
 	public JanelaLogin(JFrame fecha) {
 		this.fecha = fecha;
@@ -111,7 +112,11 @@ public class JanelaLogin extends javax.swing.JPanel {
 
 		btnCancelar.getAccessibleContext().setAccessibleName("btnCancelar");
 	}// </editor-fold>//GEN-END:initComponents
-
+/**
+ * Metodo que chama a tela de Cadastrar Usuario
+ * 
+ * @param evt
+ */
 	private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnCadastrarActionPerformed
 		JFrame janelacadastro = new JFrame("Cadastro");
 		JanelaCadastro cadastro = new JanelaCadastro(janelacadastro);
@@ -123,12 +128,20 @@ public class JanelaLogin extends javax.swing.JPanel {
 		this.fecha.dispose(); // Fechando a view antiga (janela de Login)
 
 	}// GEN-LAST:event_btnCadastrarActionPerformed
-
+/**
+ * Metodo utilizado para Cancelar o Login
+ * 
+ * @param evt
+ */
 	private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnCancelarActionPerformed
 		txtEmail.setText("");
 		txtSenha.setText("");
 	}// GEN-LAST:event_btnCancelarActionPerformed
-
+/**
+ * Metodo utilizado para realizar o login
+ * 
+ * @param evt
+ */
 	@SuppressWarnings("deprecation")
 	private void btnEntrarActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnEntrarActionPerformed
 		try {
@@ -136,12 +149,19 @@ public class JanelaLogin extends javax.swing.JPanel {
 			if (txtEmail.getText().isEmpty() || txtSenha.getText().isEmpty()) {
 				JOptionPane.showMessageDialog(null, "Erro! Espacos em branco, digite em todos os campos!");
 			} else {
-				Usuario usuario = new Usuario(txtEmail.getText(), txtSenha.getText(), "LOG");
-				Solicitacao solicitacao = new Solicitacao(usuario);
+				ClienteSocket clienteSocket = ClienteSocket.getClienteSocket();
+				Mensagem mensagem = new Mensagem("LOG", txtEmail.getText() + DIVISOR + txtSenha.getText());
+				clienteSocket.enviaDados(mensagem);
 
-				if (solicitacao.Enviar(usuario).equals("SUC")) {
+			
+				
+				//clienteSocket.waitMessagem();
+				Mensagem retorno = clienteSocket.getInput();
+				
+
+				if (retorno.getProtocolo().equals("SUC")) {
 					JOptionPane.showMessageDialog(null, "Login com sucesso!");
-					
+
 					JFrame janelaEscolherPartida = new JFrame("EscolherPartida");
 					TelaEscolhePartida escolherPartida = new TelaEscolhePartida(janelaEscolherPartida);
 
@@ -149,22 +169,12 @@ public class JanelaLogin extends javax.swing.JPanel {
 					janelaEscolherPartida.pack();
 					janelaEscolherPartida.setLocationRelativeTo(escolherPartida);
 					janelaEscolherPartida.setVisible(true);
-					
-					JFrame janelacadastro = new JFrame("Cadastro");
-					JanelaCadastro cadastro = new JanelaCadastro(janelacadastro);
 
-					janelacadastro.add(cadastro);
-					janelacadastro.pack();
-					janelacadastro.setLocationRelativeTo(cadastro);
-					janelacadastro.setVisible(true);
 					this.fecha.dispose(); // Fechando a view antiga (janela de Login)
-					
-					
-					
-					
-					this.fecha.dispose(); // Fechando a view antiga (janela de Login)
+
+				
 				} else {
-					JOptionPane.showMessageDialog(null, "Erro! E-mail ou senha incorreto(s)!");
+					JOptionPane.showMessageDialog(null, retorno.getMensagem());
 				}
 			}
 
