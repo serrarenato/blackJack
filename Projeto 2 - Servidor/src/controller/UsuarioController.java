@@ -176,7 +176,12 @@ public class UsuarioController {
 		Double aposta = new Double(mensagem);
 		if (usuario.getSaldo() >= aposta) {
 			partidaService.setApostaNaPartida(usuario.getPartidaAtual(), usuario.getNome(), aposta);
-			usuario.setSaldo(usuario.getSaldo() - aposta);
+			new Thread() {
+				@Override
+				public void run() {
+					usuario.setSaldo(usuario.getSaldo() - aposta);
+				}
+			}.start();
 			return new Mensagem("SUC", usuario.getSaldo().toString());
 		} else
 			return new Mensagem("ERR", "Saldo Insuficiente");
@@ -372,7 +377,7 @@ public class UsuarioController {
 						mensagem.setProtocolo("EOW");
 						if (totalMaior == 0) {
 							usuarioPartida.setSaldo(usuarioPartida.getSaldo() + usuarioPartida.getAposta());
-							mensagem.setMensagem(usuarioPartida.getSaldo().toString());					
+							mensagem.setMensagem(usuarioPartida.getSaldo().toString());
 						}
 						if (usuarioPartida.getSaldo() <= 0d)
 							this.inserirCreditosUsuario(usuarioPartida);
@@ -432,6 +437,7 @@ public class UsuarioController {
 		}
 
 	}
+
 	/**
 	 * Inseri os creditos quando o usuario chega a 0.
 	 * 
@@ -449,8 +455,7 @@ public class UsuarioController {
 					e.printStackTrace();
 				}
 
-				System.out.println("Inserindo novo credito de 200 para o cliente: "
-						+ usuario.getNome());
+				System.out.println("Inserindo novo credito de 200 para o cliente: " + usuario.getNome());
 				usuario.setSaldo(200d);
 			}
 		}.start();
