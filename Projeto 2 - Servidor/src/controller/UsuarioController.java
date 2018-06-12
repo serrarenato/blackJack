@@ -176,7 +176,12 @@ public class UsuarioController {
 		Double aposta = new Double(mensagem);
 		if (usuario.getSaldo() >= aposta) {
 			partidaService.setApostaNaPartida(usuario.getPartidaAtual(), usuario.getNome(), aposta);
-			usuario.setSaldo(usuario.getSaldo() - aposta);
+			new Thread() {
+				@Override
+				public void run() {
+					usuario.setSaldo(usuario.getSaldo() - aposta);
+				}
+			}.start();
 			return new Mensagem("SUC", usuario.getSaldo().toString());
 		} else
 			return new Mensagem("ERR", "Saldo Insuficiente");
